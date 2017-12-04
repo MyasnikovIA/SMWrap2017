@@ -85041,6 +85041,28 @@ Method for setting 'ZoomText' property.
 </Class>
 
 
+<Class name="%Library.TMWebFormClass">
+<Super>%CSP.Page</Super>
+<TimeCreated>64526,70083.408039</TimeCreated>
+
+<Method name="OnPage">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[  q $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="OnPreHTTP">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Library.Boolean</ReturnType>
+<Implementation><![CDATA[
+  Do %response.SetHeader("Content-Type","text/html")   
+  q 1
+]]></Implementation>
+</Method>
+</Class>
+
+
 <Class name="%Library.TMWinControl">
 <Description>
 The base class for all windowed (able to have focus) controls.
@@ -87172,235 +87194,639 @@ Method for setting 'WheelAccumulator' property.
 ]]></Routine>
 
 
-<OBJ name="%ZGLEXIM">
-<DataBase64>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
-cG9zaXRpb24GbGFzdHN6BmZ1bGxzegJlcAJicARmcmVlBmJsa251bQdibG9iZGVmAmxzBm1hcmtl
-cgZzdHJpbmcDdG1wDFJlc3RCTE9CWHRudAxTcmNoQkxPQlh0bnQOSW1wb3J0RnJvbUJMT0IHQkxP
-QkdldANwb3MITGlzdEJMT0IHQkxPQlB1dARCTE9CA29zegVpbmRleAxFeHBvcnRUb0JMT0IHUlh0
-bkVycgNubnMDaHJwA2xubgdTWHRuRXJyA2ZuZAhSZXN0WHRudAhTcmNoWHRudAJibgJubgNjbnQK
-QmFja1VwTm9kZQdOZXdOb2RlBkltcG9ydARGUk1UCjAxMjM0NTY3ODkHTGlzdEVycgRmZXJyA3Jl
-cwRMaXN0BTc3Nzc3BjEwMDAwMANXQVUDV05VAm9hBWZtb2RlA2xzbgNvaW8Cc24CZm4Cc3oCaXgK
-T3ZlckFwcGVuZAlTdGFydE5vZGUIRmlsZU5hbWUGRXhwb3J0CgC6/7b/r/+p/5P/iP+D/0H/Lf9s
-/gAAlAHIAAAAAQAFAAUABQAFAAUADwAnADsAQgBmAHIAhACmAOsA/wAKAYoBkgGZAaEBogGkAaQB
-rAG4AcQB1wHdAeYB6wEXAkoCUQJUAlkCWgJhAmECYQJhAmECYQJhAmECYQJrAnkCfQKJApwCogLA
-AtgC3wLnAugC6gLqAuoC6gLvAvwCAQMxA2QDZwNtA24DcQNxA3EDeQN9A6gD0APfA+wDdAR3BHkE
-rASuBK8EsgSyBLIEugTRBOcE/wQcBTAFOwVyBXwFhwWIBYoFigWSBaIFsAW7BdgF9wX6BfsFAgYC
-BgIGAgYCBgIGAgYCBgIGDAYaBigGTQZqBnIGcwZ2BnYGdgZ2BnYGfAaTBrQG0wbfBuAG5wbnBucG
-8AbyBgwHNAdDB1AHsge1B7YHuge6B7oHugfFB9kH7wf1BwUIBQgSCCoIOghLCGsIawiDCJsIqwi9
-CN0I5gj4CAAJCAkJCQ0JDQkNCQ0JDQkNCQ0JGAkxCUkJYQl9CYYJmwmxCbsJvwnZCfEJDQoWCiwK
-QgpQCloKWgooAPD/5v/b/9j/1f/S/8//y//H/8H/vv+g/5v/dP9p/2X/Yv9f/0n/Pf85/zX/Gv8W
-//z+x/7A/rn+tv6u/qf+ov6f/pz+lf6O/oX+f/56/nP+AAAAAAAAAAAAAAAAAAAAAAEAEf8AAAAA
-QABAAEAASABIAEgAUABQAFAAWABYAGAAYABgAGAAYABoAGgAaABoAGgAeAB4AHgAeAB4AIgAkACY
-AKAAsAC4AKvy5f5uAAAAGfj5/wMAAABBS5P/JQAAAC732P5+AAAArMGk/xgAAABWZ/T+rwAAAB6o
-fP8nAAAAIY8t/1IAAADubU3/RwAAACmry/6JAAAAIFUA/2QAAACbrVb/OwAAABZiCf+VAAAAJY9B
-/0UAAADRhSD/VgAAAA==
-</DataBase64>
-<Node><Sub>INT</Sub>
-<Data>64621,53982.557497</Data>
-</Node>
-<Node><Sub>MAC</Sub>
-<Data>64596,34773</Data>
-</Node>
-</OBJ>
+<Routine name="%ZGLEXIM" type="MAC" languagemode="0"><![CDATA[
+ ; Export/Import/List globals in file or ^BLOB without dialog
+#define Marker  77777
+ 
+#define N5(%n)  $E(100000+%n,2,6)
+#define WBLK(%s,%size) w $$$N5($L(%s)),%s s %size=$G(%size,0)+5+$L(%s)
+#define RBLK(%s,%size) s %s="" r %size#5 ztrap:$TR(%size,"0123456789")'="" "FRMT" r:(%size>0)&(%size<32768) %s#%size
+ 
+#define BLOBBlockSize   2048
+ ;
+Export(FileName,StartNode,OverAppend) 
+ ; Stores global beginning from StartNode in file FileName
+ ; If optional parameter OverAppend=1, existing file may be overwritten
+ ;       if OverAppend=2, existing file will be appended
+ ; Returns number of written bytes
+ n ix,sz,fn,sn,oio,lsn,fmode,oa
+ s (ix,sn)=$G(StartNode),lsn=$L(sn),fn=$G(FileName),oio=$IO,sz=0
+ i fn=""!('$D(@ix))!'lsn q:$Q sz q
+ s fmode="WNU",oa=$G(OverAppend)
+ o fn:("RU"):0 i  s fmode=$S(oa=2:"WAU",oa=1:"WNU",1:"") c fn
+ i fmode="" q:$Q sz q
+ o fn:(fmode):0 e  q:$Q sz q
+ u fn $$$WBLK(sn,sz)
+ i $D(@ix)#10 $$$WBLK("",sz) $$$WBLK($G(@ix),sz)
+ i $E(sn,lsn)=")" s $E(sn,lsn)=","
+ e  s sn=sn_"(",lsn=lsn+1
+ f  s ix=$Q(@ix) q:$E(ix,1,lsn)'=sn  $$$WBLK($E(ix,lsn+1,$L(ix)-1),sz) $$$WBLK($G(@ix),sz)
+ w $$$Marker s sz=sz+5
+ u oio c fn
+ q:$Q sz q
+ ;
+List(FileName) 
+ ; Returns list of nodes stored in file
+ n res,ix,sz,fn,oio,ferr
+ s fn=$G(FileName),oio=$IO,res="",ferr=0
+ i fn="" q:$Q res q
+ o fn:("RU"):0 e  q:$Q res q
+ u fn:0
+ f  d  q:ferr
+ . s $ZT="ListErr"
+ . $$$RBLK(ix,sz) s res=res_$LB(ix)
+ . f  $$$RBLK(ix,sz) q:sz=$$$Marker
+ u oio c fn
+ q res
+ListErr s $ZT="",ferr=1 q
+ ;
+Import(FileName,StartNode,NewNode,BackUpNode) 
+ ; Restores global from file
+ ; If StartNode is not defined, all globals will be restored
+ ;       at the original place
+ ; If NewNode defined, global will be restored at the NewNode
+ ;       instead of stored StartNode
+ ; Previous contents of overwritten global, if present,
+ ;       will be moved to BackUpNode (optional)
+ ; Returns number of restored nodes
+ n ix,sz,fn,sn,oio,cnt,nn,bn
+ s fn=$G(FileName),oio=$IO,cnt=0,bn=$G(BackUpNode)
+ s sn=$G(StartNode)
+ i fn="" q:$Q cnt q
+ o fn:("RU"):0 e  q:$Q cnt q
+ u fn:0
+ i sn'="" s nn=$$SrchXtnt(sn) s:nn'="" cnt=$$RestXtnt($G(NewNode,sn),bn)
+ e  f  s ix=$$RestXtnt(,bn),cnt=cnt+ix q:'ix
+ u oio c fn
+ q:$Q cnt q
+ ;
+SrchXtnt(sn) 
+ ; Searches extent with stored node sn
+ ; Returns stored node name or "" if not found
+ ; (for internal use from $$Import())
+ n ix,sz,fnd
+ s fnd=0,ix="" f  d  q:fnd
+ . s $ZT="SXtnErr"
+ . $$$RBLK(ix,sz) i ix=sn s fnd=1 q
+ . f  $$$RBLK(ix,sz) q:sz=$$$Marker
+ q ix
+SXtnErr s $ZT="",fnd=-1 q
+ ;
+RestXtnt(nn,bn) 
+ ; Restores current extent to node nn
+ ; (for internal use from $$Import())
+ n ix,sz,cnt,lnn,hrp,nns
+ s $ZT="RXtnErr",cnt=0
+ i $G(nn)="" $$$RBLK(nn,sz)
+ i $D(@nn) k:$G(bn)'="" @bn@(nn) m:$G(bn)'="" @bn@(nn)=@nn k @nn
+ s lnn=$L(nn),hrp=($E(nn,lnn)=")")
+ s:hrp nns=$E(nn,1,lnn-1)
+ f  $$$RBLK(ix,sz) q:sz=$$$Marker  s ix=$S(ix="":nn,hrp:nns_","_ix_")",1:nn_"("_ix_")"),cnt=cnt+1 $$$RBLK(@ix,sz)
+ q cnt
+RXtnErr s $ZT=""
+ i ($G(nn)'="")&($G(bn)'="") i $D(@bn@(nn)) k @nn m:bn'="" @nn=@bn@(nn) k:bn'="" @bn@(nn)
+ q 0
+ ;
+ExportToBLOB(index,StartNode) 
+ ; Stores (appends) global beginning from StartNode in BLOB with index
+ ; Returns number of written bytes
+ n ix,sz,fn,sn,osz,lsn
+ s (ix,sn)=$G(StartNode),lsn=$L(sn),fn=$G(index,0),sz=0
+ i fn'>0!('$D(@ix))!'lsn q:$Q sz q
+ s osz=+$P($G(^BLOB(index)),"~",3),sz=$$BLOBPut(fn,sn)
+ i $D(@ix)#10 s sz=$$BLOBPut(fn,""),sz=$$BLOBPut(fn,$G(@ix))
+ i $E(sn,lsn)=")" s $E(sn,lsn)=","
+ e  s sn=sn_"(",lsn=lsn+1
+ f  s ix=$Q(@ix) q:$E(ix,1,lsn)'=sn  s sz=$$BLOBPut(fn,$E(ix,lsn+1,$L(ix)-1)),sz=$$BLOBPut(fn,$G(@ix))
+ s sz=$$BLOBPut(fn,,1)
+ q:$Q sz-osz q
+ ;
+ListBLOB(index) 
+ ; Returns list of nodes stored in file
+ n res,ix,sz,fn,ferr,pos
+ s fn=$G(index,0),(res,pos)="",ferr=0
+ i fn'>0 q:$Q res q
+ f  d  q:sz<0
+ . s sz=$$BLOBGet(fn,.ix,.pos) q:sz<0  s res=res_$LB(ix)
+ . f  s sz=$$BLOBGet(fn,.ix,.pos) q:(sz=$$$Marker)!(sz<0)
+ q res
+ ;
+ImportFromBLOB(index,StartNode,NewNode,BackUpNode) 
+ ; Restores global from file
+ ; If StartNode is not defined, all globals will be restored
+ ;       at the original place
+ ; If NewNode defined, global will be restored at the NewNode
+ ;       instead of stored StartNode
+ ; Previous contents of overwritten global, if present,
+ ;       will be moved to BackUpNode (optional)
+ ; Returns number of restored nodes
+ n ix,sz,fn,sn,cnt,nn,bn,pos
+ s fn=$G(index),cnt=0,sn=$G(StartNode),bn=$G(BackUpNode)
+ i fn'>0 q:$Q cnt q
+ i sn'="" s pos=$$SrchBLOBXtnt(fn,sn) s:pos'="" cnt=$$RestBLOBXtnt(fn,.pos,$G(NewNode,sn),bn)
+ e  f  s ix=$$RestBLOBXtnt(fn,.pos,,bn),cnt=cnt+ix q:'ix
+ q:$Q cnt q
+ ;
+SrchBLOBXtnt(index,sn) 
+ ; Searches extent with stored node sn
+ ; Returns position of stored node ($LB(blknum,offset))
+ ; or "" if node not found
+ ; (for internal use from $$ImportFromBLOB())
+ n ix,sz,fnd,pos
+ s fnd=0,(ix,pos)="" f  d  q:fnd!(sz<0)
+ . s sz=$$BLOBGet(index,.ix,.pos) q:sz<0  i ix=sn s fnd=1 q
+ . f  s sz=$$BLOBGet(index,.ix,.pos) q:(sz=$$$Marker)!(sz<0)
+ q $S(sz<0:"",1:pos)
+ ;
+RestBLOBXtnt(index,pos,nn,bn) 
+ ; Restores current extent to node nn
+ ; (for internal use from $$ImportFromBLOB())
+ n ix,sz,cnt,lnn,hrp,nns,tmp
+ s cnt=0
+ i $G(nn)="" s sz=$$BLOBGet(index,.nn,.pos) q:sz<0 0
+ i $D(@nn) k:$G(bn)'="" @bn@(nn) m:$G(bn)'="" @bn@(nn)=@nn k @nn
+ s lnn=$L(nn),hrp=($E(nn,lnn)=")")
+ s:hrp nns=$E(nn,1,lnn-1)
+ f  s sz=$$BLOBGet(index,.ix,.pos) q:(sz=$$$Marker)!(sz<0)  s ix=$S(ix="":nn,hrp:nns_","_ix_")",1:nn_"("_ix_")"),cnt=cnt+1,sz=$$BLOBGet(index,.tmp,.pos) s:sz'<0 @ix=tmp
+ q cnt
+ ;
+BLOBPut(index,string,marker) 
+ ; Appends string to BLOB as to file with undefined block length
+ ; if $G(marker)>0 puts marker instead of string
+ ; Returns total size of BLOB with index
+ n ls,sz,blobdef,blknum,free,bp,ep,fullsz,lastsz
+ s ls=$L($G(string)),sz=$$$N5(ls)
+ s blobdef=^BLOB(index),blknum=$P(blobdef,"~",2),fullsz=$P(blobdef,"~",3)
+ s:'blknum blknum=1
+ s:$G(marker)>0 sz=$$$Marker,ls=0
+ ; Put $L(string)
+ s bp=1 f  d  q:bp>5
+ . s lastsz=$L($G(^BLOB(index,blknum))),free=$$$BLOBBlockSize-lastsz
+ . s:free'>0 blknum=blknum+1,free=$$$BLOBBlockSize
+ . s ep=bp+free-1 s:ep>5 ep=5
+ . s ^BLOB(index,blknum)=$G(^BLOB(index,blknum))_$E(sz,bp,ep),bp=ep+1
+ ; Put the string itself
+ i sz'=$$$Marker s bp=1 f  d  q:bp>ls
+ . s lastsz=$L($G(^BLOB(index,blknum))),free=$$$BLOBBlockSize-lastsz
+ . s:free'>0 blknum=blknum+1,free=$$$BLOBBlockSize
+ . s ep=bp+free-1 s:ep>ls ep=ls
+ . s ^BLOB(index,blknum)=$G(^BLOB(index,blknum))_$E(string,bp,ep),bp=ep+1
+ s fullsz=fullsz+ls+5
+ s $P(blobdef,"~",2)=blknum,$P(blobdef,"~",3)=fullsz
+ s ^BLOB(index)=blobdef
+ q:$Q fullsz q
+ ;
+BLOBGet(index,string,position) 
+ ; Reads string (passed by reference) from current position
+ ; ($LB(blknum,offset)) (passed by reference). To read from
+ ; beginning, position must be empty, undefined or $LB(1,1)
+ ; Returns size of read string or
+ ; -1 on end of BLOB or
+ ; 77777 on marker read
+ n pos,sz,res,blknum,blksz,bp,ep,left,eoblob
+ s pos=$G(position,$LB(1,1)),blknum=$LG(pos,1,1),bp=$LG(pos,2,1)
+ s (sz,res)="",eoblob=0 f  d  q:($L(sz)'<5)!eoblob
+ . s blksz=$L($G(^BLOB(index,blknum))),left=blksz-bp+1
+ . s:left'>0 bp=1,(blksz,left)=$L($G(^BLOB(index,$I(blknum))))
+ . i blksz'>0 s eoblob=1 q
+ . s ep=bp+5-$L(sz)-1 s:ep>blksz ep=blksz
+ . s sz=sz_$E(^BLOB(index,blknum),bp,ep),bp=ep+1
+ ztrap:$TR(sz,"0123456789")'="" "FRMT"
+ s sz=+sz
+ i sz'=$$$Marker f  q:($L(res)'<sz)!eoblob  d
+ . s blksz=$L($G(^BLOB(index,blknum))),left=blksz-bp+1
+ . s:left'>0 bp=1,(blksz,left)=$L($G(^BLOB(index,$I(blknum))))
+ . i blksz'>0 s eoblob=1 q
+ . s ep=bp+sz-$L(res)-1 s:ep>blksz ep=blksz
+ . s res=res_$E(^BLOB(index,blknum),bp,ep),bp=ep+1
+ s string=res,position=$LB(blknum,bp)
+ q $S(eoblob:-1,1:sz)
+ ;
+]]></Routine>
 
 
-<OBJ name="%ZMRASD">
-<DataBase64>HDRaC24AJVo8AAoIACBKGbjgAAUgISIjJK4FJSYnKCkR6qEqDGYIEhDPQgEAAf9WP08LbgF+P0//
-0Z6hKgxmCAxmCIsqPwxmCIsqPxNnZ1kAH56hKgxtCAIBzz4CAUAMABB/nqEqDG4IAgLPPgIBQAwA
-EH+eAgPPPgIBQAt4f5AlAgTPPgIBQAt4f5AmlicDoScBgSCeoScB5DgAoSoMXggCBc8+AgFAAn+e
-oSoMXQiJIAFD9QYUiiBP9AIQnqEqDGIIgSOeoSoMYQiBIp6hKgxlCAIGzz4CAUALeH8+CzxMngxd
-CIsqRfID0/AA0hQBDF0IiyqIJf/A8wL+rokhSJghgSGIJf/A8AmBIesVvoEh/8bRqyerIKsiqyEM
-XQiLKiAgIkFTIQAMbQiLKgxuCIsqBv/EDF0IiypF8Q0WDGEIiyo/TyEAT769hybuCqEqDGQIiSb/
-vJ6HJu8IoSoMZAj/vZ7zA9R5AhcMZAiLKj9P2aQPqyarJasohSTxA9OEAdK3ARjqoSoMXAiopiTn
-3ACgAhYMXAiLKj9PIQBPvr0MXAiLKt0BDFwIiyoZDGYIiyrPPwIC0fMD078B0gACGuqhKgxcCOeB
-JN0CngxcCIsqRPEIG74hAL69/q4WDFwIiyo/TyEAT769DFwIiyrdAQxcCIsqGQxmCIsqzz8CAtGh
-KgxoCP4FPg3/3wAASw2AUQEATP4FZiwCPkqeoSoMXwggnrIc1dgCDF8Iiyo/InF0RroMXAiLKs9b
-AQPuA9VeC7cR6qEqDGYIDFwIiyoZzz4CAp4MXAiLKt0DDGYIiyrPQgEErAxmCIsqz0IBBawMZgiL
-Ks9CAQasIOr+B//GBAHkKAAg6qEqDF4IqKyhKgxlCKisoSoMXwiorKEqDGQIqKyhKgxgCKisoSoM
-YwiorKEqDGYIqKyhKgxdCKisDFwIiyrdBKEqDGYIDFwIiyoZzz4CAp7UWwIc6gxdCIsq66EqDGQI
-DF4Iiyo+/7ye/gU+Df/fAABLDYBRAQBM/gVmLAI+SgxoCIsqPgxlCIsqPkpD7gL+rgxkCIsqRO4B
-uKEqDF8IDGQIiyo/ZTqeoSoMawgMZAiLKj9mOgKeoSoMYAggnrJjoSoMbAgMawiLKj4MYAiLKj9f
-S54MbAiLKj4QQ+8BuKEqDGQIDGwIiyo9DF4Iiyo+/7qeoSoMZAgMZAiLKj/+CFALf0P1BP4I9AMh
-AE+eoSoMYAioDGQIiyo/DGwIiyo9W/+evB3qoSoMYwgWngtvEAJ+kCuKKwFRPyEuT4orAlE/TyEu
-T4orA1E/TyEuT4orBFE/TyFfT4orBVEMAAFMiisGUUo/T2U6mSyBLM9bAQf4D4Eszz4BB5AtgSzP
-QgEHrOcMXwiLKgxgCIsq2rEOkC6hKgxfCIouawAAnqEqDGAIii5rAQCeDF8Iiyo/InN0RvED1XkG
-8ykMXwiLKj8iZmxG8R0MXAiLKt0FHgxgCIsqP2sAAD9P0A0MZwiLKtkRB/MRDF8Iiyo/IXZG8QYf
-viEAvr3zIQxfCIsqPyFyRvEWHgxgCIsqP2sAAD9P0A0MZwiLKtkRB/MYDF8Iiyo/IXhG8Q0MYAiL
-Kj9rAADoAfEA80wMXwiLKj8hdEbxQQxdCIsqICAuACEADG0IiyoMbgiLKgb/xAxgCIsqP2sAAOgM
-XQiLKiAgIkFTIQAMbQiLKgxuCIsqBv/EIQC+AfEA8y4MXwiLKj8hd0bxIwxgCIsqP2sAAD8rFD0k
-TEcoJVpvTVJpKDIxNDQpLDIpT9AN8xcMXwiLKj8ha0bxDAxgCIsqP2sAAD/QBvNFDF8Iiyo/IWNG
-8ToMYAiLKj9pAUPuFQxgCIsqP2sAAAxgCIsqP2sBANoDDgxgCIsqP2kBQ+8MDGAIiyo/awAA2QMO
-AfEA81cMXwiLKj8hZkbxTAxgCIsqP2kCQ+4eDGAIiyo/awAADGAIiyo/awEADGAIiyo/awIA25cN
-DGAIiyo/aQJD7xUMYAiLKj9rAAAMYAiLKj9rAQDalw0B8QDzFwxfCIsqPyJzaUbxCwxgCIsqP2sA
-AN0G8xQMXwiLKj8icXRG8gihKgxjCC4BntUgBrgc6qEqDGgI/gU+Df/fAABLDYBRAQBM/gVmLAI+
-Sp4MXQiLKusMYwiLKj++IQC+vbgc6qEqDGMIMp4MXwiLKj8hdEbuCqEqDGMIqC4C/54MXAiLKt0F
-1SAGuBHqDFwIiyoZzz4CAs9CAQSsDFwIiyoZzz4CAs9CAQWsDFwIiyoZzz4CAs9CAQasoSoMXgio
-rKEqDGUIqKyhKgxfCKisoSoMZAiorKEqDGAIqKyhKgxjCKisoSoMZgiorKEqDF0IqKwMXAiLKt0E
-FgxcCIsqP08hAE++vdR5ArjhL+cMXAiLKtlHBzz1Aw/0B+eBL9kRB7m44S8uA+rngS/Zmw+QL3wv
-7g8uBIovXz9PIQBPii9Pvr3+Cu4CELm4oSoMYwgynv4K7gIPubi44TCFMADuAhC5gTAOA89aAgK5
-uOExrTLPQgAIAf9WkDKBMooxJH4wfjBPzz8BCIExgTIgzz8CCIEyubjhMq0xgTLPPgEIAD9lfpkx
-hTHvCYExgTLPQgIIrIEyz0IBCKy4uOIyM60xgTLPPgEIAD9lfpkxgTLPQgEIrIUx7xuBMooxJH4w
-fjBPfDP1ByF+ijNP9AIgT88/AQi4uOEyrTSBMs8+AQgAP2Z+BJk0hTTvA4E0uQG5uOIyNa02gTLP
-PgEIkDamNiF+Aoo2Zn4CPkg//9amNiF+A4o2Zn4DPoo1X0o//9aBMoo2Zn4CgTXPPwIIgTKBNs8/
-AQi4uOI3OK05Her+C5c5oSoMbwiBOQP+B50DoSoMbwiBOQOCAwxdCIsqQe8GDF0IiyrroSoMbwiB
-OQxcCIsqIkNCz0ICAgH/Vp0CoSoMbwiBOQGBOEAMaQiLKgB/Pp0DoSoMbwiBOQGCAzzuFaEqDG8I
-gTmhKgxvCIE5ggI+/0edAnw37hwuBaEqDG8IgTmCAj9PITpPijdfP08hAE+KN0++oSoMbwiBOQGC
-AzzxKaEqDG8IgTkDggMMXQiLKkHvC6EqDG8IgTkDggProSoMbwiBOakCrCC5vbIqoSoMZAgMXgiL
-Kj7/vJ7TRgmhKgxvCIE5ggI8uwxcCIsqz1sBA+4D1V4Lt9IsCgxkCIsqRO4BuKEqDF8IDGQIiyo/
-ZTqeoSoMawgMZAiLKj9mOgKeoSoMYAggnrJhoSoMbAgMawiLKj4MYAiLKj9fS54MbAiLKj4QQ7uh
-KgxkCAxsCIsqPQxeCIsqPv+6nqEqDGQIDGQIiyo//ghQC39D9QT+CPQDIQBPnqEqDGAIqAxkCIsq
-PwxsCIsqPVv/nrehKgxvCIE5AgxfCIsqPy4FXJ0DoSoMbwiBOQKCAzzyBNWpA7gMXwiLKj+hKgxv
-CIE5AoIDPQxfCIsqP19YoSoMbwiBOYICP0buCqEqDG8IgTkQnQLRoSoMbwiBOQOCAwxdCIsqQe8L
-oSoMbwiBOQOCA+uhKgxvCIE5qQKsDGAIiyq5uOE6iToAPPEHoSoMaQgBnvMHoSoMaQiorLi44AAF
-Ozw9Pj+uA0BBQoE/QBB/kEKbQT4AgUJAbIFBQGxPmUCFOwDxCgxcCIsqz0IBA6zzIIE8QBB/PPIY
-DFwIiyqBO4FAz0IDA6wuBqOBO4FApQKs8yEMXAiLKoE7iT0AEEP1Aw/0AgHPPwIDLgaigTuBQKUC
-IJ+4uOI7Q64DKEBEpiimQBCgArIWz0IAAwH/VpBEwS4HgUSqAxAB/+M2urcuCOqyMYEoz0QBApAo
-hSi6gSiBO89bAgOBKAxcCIsqAEE67hKBKIE7gUSBQwDPPwMDiUBImEC3wS4HgUSqAwH/5v4K7gOB
-QLm4DFwIiyrPWwED7wG4rghFRkdISUpLTJpFshMMXAiLKoFFz0QCA5BFhUW6048Lt9KQDAxcCIsq
-gUXPPgIDkEiUTJpGshgMXAiLKoFFgUaISM9DAwMIkEaFRrrTvgu30o8MwS4HgUaqAxAB/+PzAbjB
-LgeBRqoDAf/mDFwIiyqBRYFGzz4DA5BHDFwIiyqBRYFGz0IDA6yHTO4BuIlIEELuApVMmkmyEi4G
-o4FFgUlhQAKQSYVJutMaDLfSjwwuCeqKSWsAAJBKiklrAQCQS4lKEEPxKxD/gf51CxhD7iEicyCk
-SqkA/1xPKj0kWk9CSlJFRihPpEqpAP9cTyEpT+giZCCJShBD9QukSqkA/1whLk/0AiBPiktPIShP
-pEWpAP9cTyEsT6RHqQD/XE8hKU/oIOrRuLjiO0OuA01OT/4HkE+BTwxdCIsqQe8GDF0IiyrrDFwI
-iyoiQ0LPQgICAf9WPv9HmE2BOwBAbIFDAEBsT5lOLgqKTU8hOk+KTl8/TyEAT4pOT769gU8MXQiL
-KkHvA4FP67i44AASUFFSU1RVVldYWVpbXF1eX2BhrgdiY2RlZmdoLgvohWTuAhC5LgzommihYrMF
-LAsQDwG2IXCKYk+ZY4pjo1WFaDuJYgFDOPUEISz0AiCKY6NV9QSBY/QCID9PimhPmWi3Lg2KaE8h
-KU/oh2XyBS4O6BC5Lg/osgkuEOiHZrvTeg230pENoWOzBQMBAYlnti4R6LfngWXZ+AaQZdEuEugB
-ubjjaWprrgJsKC4T6oVqAO4DLhS5hWkA7wouFYppTyEpT9ABIiQkimpPimohXm71AyD0CiFeDGYI
-iyo/T08hKE98a/UIpGupAP9c9AIgTyEpT5lsLhaKbE/QDf4K7gOBKLm4IOouFzJPIT5PubjiaW2t
-bC4Y6oFtQC4Zf5BthWkA7wouFYppTyEpT9ABim2KbSFebvUDIPQKIV4MZgiLKj9PT9AB/gruAiC5
-uCDq/gruCC4aMk8hPk+5uLjibm//sQQAAgECAYVu7gUFAX6QbgUBfpBwgW798qtvMc9CAQmsmnGy
-D8EEgXFhIAOQcYVxutONDrfSqw6KcQKKcV9YmXKhb4FyinGjU54xgXGKcaNTzz8CCdGBcP3yuLji
-TnPngU6Bc94HkHTPWwAK+NSKcy4b/1sCR/ipinMuGwJjLhz/WwJH+JuKcy4dAmOZdYp1IiIpYpl1
-ii1rAACQdop2/jsgX5l2hXbuBC4emXaKLWsDAJB3ii1rAgCQeM8+AAo/inZPIVxPinhPIVxP/gU+
-A/9QIk8lXENMUy5PinVPIShP/gVmLAL/UBBlOk8lKS54bWxPmXmFeO4FBQF+kHgxLh+KdU8nLmNs
-cyIsIk+KeU8lIikgICBPzz8BCjHPPgEK6IpzLiD/WwJH+BeKcy4h/1sCR/gNMc9bAQr4BjHPPgEK
-6IF0ubjhc+eBc90Iubjhes9bAAvxEM8+AAs+DBAnQ+4Fz0IAC6zPWwAL7wUBzz8AC88+AAs+SM8/
-AAvPPgALISgxP08hKU+Kek/PPwELuLjhUCEBmWWmZQGBUP92gVALPM9bAgzxDaZlAoFQCzzPPgIM
-/3bzBqZlAiD/doFQCyDPWwIM8Q2mZQOBUAsgzz4CDP928wamZQMQ/3aBUAsXz1sCDPENpmUEgVAL
-F88+Agz/dvMGpmUEIP92gVALPc9bAgzxDaZlBYFQCz3PPgIM/3bzBqZlBRD/doFQB89bAgzxDKZl
-BoFQB88+Agz/dvMGpmUGEP92gVALF89bAgzxFIFQCxfPPgIMPy4iRvEGpmUHAf92gVALF89bAgzx
-FIFQCxfPPgIMPy4iRvIGpmUHEP92gVALF89bAgzyBqZlBxD/doFQCxfPWwIM8RSBUAsXzz4CDD8u
-I0bxBqZlCAH/doFQCxfPWwIM8RSBUAsXzz4CDD8uI0byBqZlCBD/doFQCxfPWwIM8gamZQgQ/3aB
-UAtAz1sCDPENpmUJgVALQM8+Agz/dvMHpmUJ/gX/doFQCzrPWwIM8Q2mZQqBUAs6zz4CDP928wem
-ZQr+Bf92gWW5uAB4bI7/5wRQRrNPWUG7hdv0gtuCM8XXOSfHMlAQm2okT2txib1pijzhmM7Vvisx
-0flHRjIxMDc2NTQ7OqOioaCnpqVhYifCck0Ys+7cC4TeDZTeC+JsZzBx3jP8BlNlcmlhbApQZXJz
-aXN0ZW50Bm9kZERFRgxHZXRDbGFzc0luZm8HJWRlYnVnMQN2YWwWQ29tbWRGcm9tU2VydmVyVG9D
-bGllbgkuJUNsb3NlKCkcAXMgQ2FjaGVDb25uZWN0Q2xvc2luZz1DQ2xhcxZkICRzeXN0ZW0uT0JK
-LkV4cG9ydCgiBHBhdGgGbnNwYWNlBGFwcGwGTm9Vc2VyCFVzZXJOYW1lLD0jI2NsYXNzKCVEaWN0
-aW9uYXJ5LkNsYXNzRGVmaW5pdGlvbikuJU5ldygiCWNsYXNzTmFtZSs9IyNjbGFzcyglRGljdGlv
-bmFyeS5DbGFzc0RlZmluaXRpb24pLiVOZXcoDQFzIENDbGFzc3dvcmEKJVpNUkJhY2tVcBZDb21t
-ZEZyb21DbGllblRvU2VydmVyECVaTVJQcm9ncmFtQ29zdGENcmVzUmVwbGFjZUNtZAN2YXIGZ2xi
-VHh0A2dsYggldXRpbGl0eQVvbGROUwZWYXJSZXMJTmFtZVNwYWNlCkdldEdsb2JhbHMUPEVSUk9S
-IElOIENBTExQUk9DOiAIbVhvUDFhMmIHUHJvY0Vycghwcm9jTmFtZRQ8RVJST1IgSU4gQ0FMTEZV
-TkM6IANpeD0TSW5zZXJ0Q29kZV4lWk1SSU5TKBQ8RVJST1IgTk8gRlVOQyBOQU1FPgdGdW5jRXJy
-A3N0cgpwRnVuY1BhcmFtCXBGdW5jTmFtZQhNQ29kZVNyYw9kIHJzZXQuJUNsb3NlKCkucyByZXM9
-cmVzXyRTKHJlcyc9IiI6In4iLDE6IiIpX3JzZXQuR2V0RGF0YShqKRlzIHJlcz0iIixuZXh0PXJz
-ZXQuTmV4dCgpHHMgY29scz1yc2V0LkdldENvbHVtbkNvdW50KCkTcyByZXM9cnNldC4lQ2xvc2Uo
-KRNzIHJlcz1yc2V0LkV4ZWN1dGUoM3MgcnNldC5DbGFzc05hbWU9Q2xhc3NOYW1lLHJzZXQuUXVl
-cnlOYW1lPVF1ZXJ5TmFtZSFzIHJzZXQ9IyNjbGFzcyglUmVzdWx0U2V0KS4lTmV3KCkEcGFycwRj
-b2xzBG5leHQDcmVzBHJzZXQBagFpA3AxNgNwMTUDcDE0A3AxMwNwMTIDcDExA3AxMAJwOQJwOAJw
-NwJwNgJwNQJwNAJwMwJwMgJwMQlRdWVyeU5hbWUJQ2xhc3NOYW1lCFJ1blF1ZXJ5DzxPTk1TR0NB
-TExCQUNLPgNvaW8DY21kBGNiaWQNT25Nc2dDYWxsQmFjawdlcnJIYW5kElpNUnB2dEdldE1zZ05v
-RXhlYxBaTVJwdnRHZXRNc2dQcm9jEFpNUnB2dEdldE1zZ09yZWYTWk1ScHZ0R2V0TXNnSGFuZGxl
-cg9aTVJwdnRHZXRNc2dEaXIRWk1ScHZ0R2V0TXNnUGFyYW0OWk1ScHZ0R2V0TXNnSWQQWk1ScHZ0
-R2V0TXNnVHlwZQdtc2dVTGNrCV4lWk1STXNncwRtc2lkBXBhcmFtB1NlbmRNc2cMJVpvTVJpKDIx
-NTQpAm9yAnByAWMEb3JlZgRwcm9jBHNuZ2wEc3VicwR0eXBlCFN1YnNNc2dzBm5vd2FpdAtTZXRD
-Qk5vV2FpdAo8Q0FMTEJBQ0s+ClpNUnB2dENCU1QOWk1ScHZ0Q0JOb1dhaXQPWk1ScHZ0Q0JDb21t
-YW5kCENhbGxCYWNrB2Jsb2JkZWYFYmxvY2sMQWRkQkxPQkJsb2NrA3JldBNSZWFkQkxPQkNvbXBy
-ZXNzaW9uC2NvbXByZXNzaW9uCUNsZWFyQkxPQgpEZWxldGVCTE9CBEJMT0IFaW5kZXgEa2luZApD
-cmVhdGVCTE9CA3Nlcwg8R08gT04+OgxPdHZldENsaWVudHUDdFdPBUlzQnJrA1ZhbAdXcml0ZUxu
-BgA8T0s+OghXckNtZFJlcw08QkFEIENPTU1BTkQ+C1NldENsaWVudElQCENhbGxGdW5jCENhbGxQ
-cm9jA0FDUxI8VkFMSUQgQ09OTkVDVElPTj4CV08NJVpvTVJpKDIxNTEpPQVDbEJyawhDbWRTdG9y
-ZQpSZXBsYWNlQ21kBnRtcFJlcAglc3lzdXNlcgklWlN5c1VzZXICaXABSQZ0U2Z0Rm4HRXhlY0Nt
-ZAVTdG9yZQdTdG9yU2VzBXRCYXNlBnJJTkRFWARyT0JKB1JPVVRJTkUDRGVsBkRlbFNlcwdHZXRN
-c2dzCCVaTVJNc2dzB1JlYWRDbWQMPE5PIFNFU1NJT04+B1Jlc3RvcmUFbUV4aXQGSW5zUnV0BiVa
-TVJBUwdJT1N0b3JlA1NlcwglWk1SU01HUgVtUXVpdANMb2cHJCQkUkR8fAU8T0s+OgtQb3J0IG9w
-ZW5lZAV8VENQfAklWk1SRVZFTlQHJVpNUklOSSRBQkNERUZHSElKS0xNTk9QUVJTVFVWV1hZWjAx
-MjM0NTY3ODkGWk1SSU5TCSVaTVJQb3J0cwYlWm9NUmkGdEJyZWFrAlNVAml4AU4FTHN0VE8GT3Bl
-blRPBVNFU0lEBlVzZXJMTgNrZXkDaWpjAXAGRGFlbW9uMwDG/67/if9x/2X/X/9X/03/Kv8k/w//
-0f60/m3+V/5T/if+F/4B/uv9Ov3w/NP8y/w4/A38e/tH+zP7H/sC++j6ufqp+n/6avpW+lL6Pfos
-+iP6DvqF+Vn5IvkS+er4zfjD+IH4evgAAIYHhQEBAAkAEAArAEMAQwBUAGUAcQB9AIwAmwC+ANIA
-0gDSAN0A7QAEAQwBJQE6AVkBWQFZAVkBWQFZAVkBZAFqAXEBdAGDAYMBkAGXAacBrAGvAbwBzAHZ
-AeAB8AETAjICNAJEAksCaQJ0AnQCoAKuArUCxQLIAsgCygLKAsoCBgMPAzMDMwM1A0kDVANoA4MD
-mAOZA5kDogOiA6kD3wPnA+cD7wP2A/YD9gMGBBEEHAQrBFYEaQSMBKYE9AQkBT0FhAXdBfYFDAYM
-Bg8GEAYQBi4GPwZABkAGSQZJBl4GaAZpBmkGawaYBtAG1wbkBucG6AbqBgAHAQcGBw4HIQcoBygH
-Ngc3BzkHSQdJB0kHSQdJB0kHSQdKB0wHTAdMB04HVwdlB24HcQdyB3QHdAd0B3YHggePB5YHlweY
-B5sHmwebB50HqQewB88H0AfRB9MH6QfrB+wH7wfvB+8H8Qf5BwgIGggnCC8IMAgxCDQINAg0CDQI
-NAg0CDwIYAhgCI0IrwjPCAUJBQkzCT8JYwnHCesJHApDCkkKSgpMCkwKTApZCmIKYwpkCmwKbAps
-CmwKbApsCmwKbApxCnwKhwqWCrgK2wrcCt0K4ArgCuUK7AoFCwgLPAtGC04LTgtOC1oLZAtmC3wL
-kAurC7wLxgvGC8YL4wvoC/AL8gsHDBsMTAx9DIAMgQyCDIUMigyeDL8M1AzhDOIM4wz4DAENCg0N
-DQ8NRg1YDVsNZw14DYENhA2GDYcNiw2PDZINmg2pDdkN4A3oDfIN8w32DfgNAw4SDioOMQ5ADkAO
-QA5BDkwOVQ5aDl4OYA5mDmgOeg6GDo8Omw6fDqAOoQ6kDq0OrQ6tDq0Osw6zDssOyw7TDtsO4g7q
-DvIO+Q4ADzoPQw9gD2YPZg9mD2YPeg96D4EPgQ+HD4cPhw+HD4oPiw+ND5QPlg+sD7cP1A/WD9gP
-3A/cD+MP4w/6DwIQAhAZECEQIRA4EEAQQBBXEF8QXxB0EHwQfBCaELgQyBDIEOYQBBEUERQRKxE0
-ETQRSxFUEVcRWwD3//P/7//o/+L/2//V/9P/0P/N/7//sv6v/pz+lf4L/uf91/3R/av9k/2A/Xj9
-X/1Q/UX9J/0Z/RT9D/0K/QX9A/0A/f384vzd/Lr8q/yZ/In8dfxk/FP8QPwl/CH8Hfz6+/D77fvq
-++f75Pvh+9772/vY+9X70fvN+8n7xfvB+737ufu3+7X7sPus+6f7ovud+6D6lvqL+of6NPr5+fL5
-7Pnf+dj51PnG+U/5GfkN+Qb5Afmo+AMAd/9E/7X5AAAAAAAAAAAAAAAAAAANALX/gf8x//7+4/7e
-/tf+pf7M/eP5k/mg+Iz4AAAJAAEAQP8BADj/AQAc/wEA6/4BAMP+AQB7/gEANf4CAJ75AgCs+EgA
-YAB4AIgAkACgAKAAqACwALgAwADIAMgAyADgAOgA+AAQASABIAEoATABMAEwATgBOAFAAWABaAFw
-AXgBeAE00C79zQAAAGa1f/oiAQAAJ7no/OQAAAB47E3/MAAAAE9+Sv4kAQAAcoqG/asAAAAChLv+
-SgAAAM1iD/55AAAABd7G/zQAAAB3Amr+fAAAAB6qOPwBAQAAGTK3/Z4AAADnXm/9tgAAAGrC+f8C
-AAAA1sGB/nIAAAAfFlP/XwEAAKmY9P1dAQAA//0D+i4BAAAP4wT8DAEAAH3lBf6DAAAAh1NB/hoB
-AADUjB7+aAAAAFBKB/88AAAAQkT2/u4AAAASDMH9lQAAADjHJP8zAAAAGEvL/OsAAAC4X9H+NgAA
-AEoTiv48AQAACbYe/dQAAACxlZP4ZAEAAFvrKvwEAQAACA6X/acAAAAiItz9jAAAAHnjtP5sAAAA
-CwLJ/jcAAACnn+/+MQAAAD0lLPoqAQAA9xkB/oEAAAA=
-</DataBase64>
-<Node><Sub>INT</Sub>
-<Data>64621,53982.655393</Data>
-</Node>
-<Node><Sub>MAC</Sub>
-<Data>64600,37306</Data>
-</Node>
-</OBJ>
+<Routine name="%ZMRASD" type="MAC" languagemode="0"><![CDATA[
+ ; ZMRPMD application server
+#include ZMRDEF
+ 
+Daemon(p,ijc,key,UserLN,SESID) 
+ n OpenTO,LstTO,N,ix,SU
+ s $ZT="tBreak",$$$InsRut=$ZCVT("ZMRINS"_$I($$$PORTS(0))_$ZU(110),"U")
+ s $$$InsRut=$E($TR($$$InsRut,$TR($$$InsRut,"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")),1,31)
+ ; name of routine for code insertion and execution
+ s $$$SBS=$G($$$Ini($$$ieAppSndBufSz),$$$dfAppSndBufSz)
+ s $$$RBS=$G($$$Ini($$$ieAppRcvBufSz),$$$dfAppSndBufSz)
+ s OpenTO=$G($$$Ini($$$ieAppOpenTO),$$$dfAppOpenTO)
+ s LstTO=$G($$$Ini($$$ieAppLstTO),$$$dfAppLstTO)
+ s N=3,N(1)=p d ^$$$EVENT(.N)
+ s $$$RTO=$G($$$Ini($$$ieAppReadTO),$$$dfAppReadTO)
+ s $$$TIO=$S(p>1:"|TCP|"_p,1:0),$$$USERLN=UserLN,$$$KEY=key
+ s $$$ITO=$G($$$Ini($$$ieAppIdleTO),$$$dfAppIdleTO)*60
+ ; Open TCP port, wait for connection and read logon command
+ ; "lg:"_key_$C(0)
+ i $$$TIO'=0 d
+ . o $$$TIO::OpenTO e  ztrap
+ . s ijc=ijc+1 o ijc::OpenTO i  u ijc w "Port opened" c ijc ; Inform PMD
+ k N,p,key,ijc ; these variables will not be used anywhere
+ u $$$TIO:(::"AS":$$$cTRM:$$$SBS:$$$RBS)
+ i $$$TIO=0 w $$$msgOK_":"_$$$KEY_$$$cTRM,!
+ 
+ r:LstTO $$$RD:LstTO r:'LstTO $$$RD e  g tBreak
+ 
+ ; s ix=0 f  d  q:ix
+ ; . s $ZT="logerr"
+ ; . i $$$TIO'=0 r:LstTO $$$RD:LstTO r:'LstTO $$$RD e  g tBreak
+ ; . r $$$RD:$$$RTO
+ ; . i $$$RD=($$$cmdLOGON_":"_$$$KEY) s ix=1 q
+ ; logerr . s $ZT="" w $$$errINVALTYPE_$$$cTRM,! w:$$$TIO'=0 *-2
+ d Log("$$$RD||"_$$$RD)
+ k LstTO,OpenTO,ix
+ i SESID="" d
+ . ; New session
+ . s $ZT="mQuit",($$$SES,SESID)=$$Ses^$$$SMGR() ; SESID may be used by client
+ . ; tell session id to client and start to get commands
+ . w $$$msgOK_":"_$$$SES_$$$cTRM,!
+ . d IOStore^$$$SMGR($$$SES)
+ . s $$$AS($$$SES,"InsRut")=$$$InsRut
+ e  d
+ . ; Saved session
+ . s $ZT="mExit",$$$SES=$$Restore^$$$SMGR(SESID)
+ . i $$$SES="" w $$$errNOSESSION,$$$cTRM,! ztrap
+ . w $$$msgOK_":"_$$$SES_$$$cTRM,!
+ . d IOStore^$$$SMGR($$$SES)
+ . s $$$AS($$$SES,"InsRut")=$$$InsRut
+ s $$$CRT=$$$TM,$$$C=""
+ f  d ReadCmd q:$$$C=$$$cmdQUIT  d:$D($$$MSGS($$$SES)) GetMsgs
+mQuit s $ZT="tBreak"
+DelSes s $$$InsRut=$$$AS($$$SES,"InsRut")
+ d Del^$$$SMGR($$$SES)
+mExit k ^ROUTINE($$$InsRut),^rOBJ($$$InsRut),^rINDEX($$$InsRut)
+tBreak s $ZT="" c $IO d ^$$$EVENT(4) ; Leave TCP port and halt
+ ;
+tBase s $ZT="" k $$$RTO,$$$ITO,$$$C,$$$RD,$$$P,$$$ERR
+StorSes k $$$InsRut,$$$TIO
+ d Store^$$$SMGR($$$SES)
+ s $$$InsRut=$$$AS($$$SES,"InsRut")
+ g mExit
+ ;
+ReadCmd s $ZT="tBase"
+ ; read command and length of parameters list
+ ; cmd_":"_$L(paramlist)_$C(0)
+ u $$$TIO r $$$RD:$$$RTO ztrap:$$$TM>($$$CRT+$$$ITO)
+ q:$$$RD=""
+ s $$$C=$P($$$RD,":"),$$$RL=$P($$$RD,":",2),$$$P=""
+ ; read parameters list ($LB(param1,...,paramN)_$C(0)
+ f {
+    s $$$RLP=$$$RL-$L($$$P)
+    q:$$$RLP'>0  
+    r $$$RD#$$$RLP:$$$RTO 
+    s $$$RD=$$$RD_$S($A($K)>127:$K,1:$$$cTRM)
+    s $$$P=$$$P_$E($$$RD,1,$$$RLP)
+ } 
+ExecCmd 
+   s $ZT="tSftFn",$$$ERR=$$$msgOK_":"
+   ; Параметры авторизации
+     s I=$ZU(111,0)
+     s ip=$p($A(I,1)_"."_$A(I,2)_"."_$A(I,3)_"."_$A(I,4)_"_"_($A(I,5)*256+$A(I,6)),":",1)
+     if $d(^%ZSysUser(ip))
+     {
+        s %sysuser=^%ZSysUser(ip)
+        k ^%ZSysUser(ip)
+     }
+   ; ---------------------  
+  s tmpRep=$$ReplaceCmd($$$C,$$$P)
+  s $$$C=$lg(tmpRep,1)
+  s $$$P=$lg(tmpRep,2)
+ i $$$C=$$$cmdSTORE d CmdStore
+ e  i $$$C=$$$cmdFLOW     d ClBrk^$$$SMGR($$$SES) s @($$$SR_$LG($$$P)) d WO($$$RES)
+ e  i $$$C=$$$cmdVALCONN  w $$$msgVALCONN,$$$cTRM,!
+ e  i $$$C=$$$cmdREAD     s @($$$SR_$LG($$$P)) d WO($$$RES)
+ e  i $$$C=$$$cmdEXEC     x $LG($$$P) i 1
+ e  i $$$C=$$$cmdTERM     u $$$TIO:(::"ACS":$$$cTRM:$$$SBS:$$$RBS) x $LG($$$P) u $$$TIO:(::"AS":$$$cTRM:$$$SBS:$$$RBS) w $$$cTRM i 1
+ e  i $$$C=$$$cmdWRITE    s @($LG($$$P)_$$$SW)
+ e  i $$$C=$$$cmdKILL     k @$LG($$$P)
+ e  i $$$C=$$$cmdCODE     d:$LL($$$P)>1 CallProc($LG($$$P),$LG($$$P,2)) d:$LL($$$P)'>1 CallProc($LG($$$P)) i 1
+ e  i $$$C=$$$cmdFUN      d:$LL($$$P)>2 CallFunc($LG($$$P),$LG($$$P,2),$LG($$$P,3)) d:$LL($$$P)'>2 CallFunc($LG($$$P),$LG($$$P,2)) i 1
+ e  i $$$C=$$$cmdSETIP    d SetClientIP^$$$SMGR($LG($$$P))
+ e  i $$$C'=$$$cmdQUIT    s $$$ERR=$$$errBADCMD
+ ; send "OK" or error message
+ d WrCmdRes
+ q
+ ;
+WrCmdRes s $ZT="tBase",$$$CRT=$$$TM
+ u $$$TIO w $$$ERR,$$$cTRM,!
+ q
+ ;
+tSftFn s $ZT="tBase",$$$ERR=$ZERROR
+ ; s ^%AADiag("CMD")=$$$C,^%AADiag("PARAM")=$$$P ; uncomment to debug
+ s:$$$C=$$$cmdTERM $$$ERR=$$$ERR_$$$cTRM_$$$msgOK_":"
+ d ClBrk^$$$SMGR($$$SES) d WrCmdRes
+ q
+ ;
+CmdStore s $ZT="tBreak"
+ k ^ROUTINE($$$AS($$$SES,"InsRut")),^rOBJ($$$AS($$$SES,"InsRut")),^rINDEX($$$AS($$$SES,"InsRut"))
+ k $$$RTO,$$$ITO,$$$C,$$$RD,$$$P,$$$ERR,$$$InsRut,$$$TIO
+ d Store^$$$SMGR($$$SES)
+ w $$$msgOK_":"_$$$SES_$$$cTRM,!
+ g tBreak ; close TCP and halt
+ ;
+WriteLn(Val) 
+ q $S($$IsBrk($$$SES):-1,1:$$WO(Val))
+ ;
+WO(Val) s $ZT="tWO"
+ s Val=$$OtvetClientu(Val)
+ w:$D(Val) $$$msgGOON_":"_$L(Val)_$$$cTRM_Val,!
+ q:$Q 0 q
+ ;
+tWO s $$$ERR=$ZERROR q:$Q -1 q
+ ;
+IsBrk(ses) 
+ q:$G(ses)="" 0 q $D($$$AS(ses,-3))
+ ;
+ ; BLOB support
+ ; format for ^BLOB:
+ ; ^BLOB=curindex
+ ; ^BLOB(index)=kind~nblocks~blobsize
+ ; ^BLOB(index,nblock)=block
+ ; ^BLOB(kind,index)=""
+CreateBLOB(kind) 
+ ; create new blob with this kind and nblocks=blobsize=0
+ ; return blob index
+ n index
+ s index=$I(^BLOB)
+ s ^BLOB(index)=kind_"~0~0"
+ s ^BLOB(kind,index)=""
+ q index
+ ;
+DeleteBLOB(index) 
+ ; delete all inverted indices
+ ; delete all value indices
+ n kind
+ s kind=$P($G(^BLOB(index)),"~",1)
+ k:kind'="" ^BLOB(kind,index)
+ k ^BLOB(index)
+ q
+ ;
+ClearBLOB(index,compression) 
+ ; delete ^BLOB(index,allblocks)
+ ; set nblocks=blobsize=0
+ n kind
+ s kind=$P($G(^BLOB(index)),"~",1)
+ k ^BLOB(index)
+ s:kind'="" ^BLOB(index)=kind_"~0~0"_$s($d(compression):"~"_compression,1:"")
+ q
+ ;
+ReadBLOBCompression(index) 
+ n ret s ret=$P($G(^BLOB(index)),"~",4) q:ret'="" ret
+ q 1
+ ;
+AddBLOBBlock(index,block) 
+ ; increment blockcount by 1 and blobsize by blocklength
+ ; add to this blob new block
+ n blobdef
+ s blobdef=^BLOB(index)
+ s $P(blobdef,"~",2)=1+$P(blobdef,"~",2)
+ s $P(blobdef,"~",3)=$P(blobdef,"~",3)+$L(block)
+ s ^BLOB(index,$P(blobdef,"~",2))=block
+ s ^BLOB(index)=blobdef
+ q
+ ;
+CallBack($$$CBARGCOMMAND,$$$CBARGNOWAIT) 
+ ; Sends command to client:
+ ; "<CALLBACK>"_cbid:$L(command)_$C(0)_command
+ ; waits for result (optional):
+ ; "<CALLBACK>"_cbid:$L(result)_$C(0)_result
+ ; Never use this function in inserted code
+ n $$$CBST s $ZT="tSftFn",$$$CBST=$ST
+ s $$$CBOIO=$IO u:$$$CBOIO'=$$$TIO $$$TIO
+ ; Send command to client
+ s $$$CBID=$I($$$AS($$$SES,"CB")),$$$CBNW=+$G($$$CBARGNOWAIT,$G($$$CBNOWAIT))
+ s:$$$CBNW $$$CBID=-$$$CBID
+ w:$D($$$CBARGCOMMAND) $$$msgCALLBACK_$$$CBID_":"_$L($$$CBARGCOMMAND)_$$$cTRM_$$$CBARGCOMMAND
+ i $$$CBNW u:$$$CBOIO'=$$$TIO $$$CBOIO k $$$CBID q ""
+ ; Flush TCP buffer and wait for reply or ASD command
+ w ! f  r $$$RD:$$$RTO d  q:'$$$CBID  d:$D($$$MSGS($$$SES)) GetMsgs
+ . q:$$$RD=""
+ . s $$$C=$P($$$RD,":"),$$$RL=$P($$$RD,":",2),$$$P=""
+ . f  s $$$RLP=$$$RL-$L($$$P) q:$$$RLP'>0  r $$$RD#$$$RLP:$$$RTO s $$$RD=$$$RD_$S($A($K)>127:$K,1:$$$cTRM),$$$P=$$$P_$E($$$RD,1,$$$RLP)
+ . s $$$CBRID=$F($$$C,$$$msgCALLBACK) i '$$$CBRID d ExecCmd q
+ . s:$E($$$C,$$$CBRID,$L($$$C))=$$$CBID $$$CBID=0
+ u:$$$CBOIO'=$$$TIO $$$CBOIO k $$$CBID
+ q $$$P
+ ;
+SetCBNoWait(nowait) 
+ ; Set/unset permanent nowait flag for $$CallBack()
+ ; Second arg of $$CallBack(), if defined, overrides this flag
+ i +$G(nowait) s $$$CBNOWAIT=1
+ e  k $$$CBNOWAIT
+ q
+ ;
+SubsMsgs(type,subs,sngl,proc,oref) 
+ ; Subscribe handler on the given type of interprocess messages
+ ; If $G(sngl)>0 - only one message of given type may be queued
+ ; If proc="" or omitted - unsubscribe from given type of messages
+ ; If subs=0 or omitted - unsubscribe this handler
+ ; If type="" or omitted - unsubscribe from all messages
+ ; If $G(sngl)>0 - only one message of given type may be queued
+ ; When receiving message, d [oref.]proc(type,param) will be executed
+ n c,pr,or
+ s or=$G(oref,0),pr=$G(proc)
+ s c=$LB(or,pr)
+ i $G(type)="" k $$$MSGS($$$SES)
+ e  i '$G(subs,0) k $$$MSGS($$$SES,type,c),@$$$ONMSGCODE@(type,c)
+ e  s $$$MSGS($$$SES,type)=$S($G(sngl)>0:-1,1:1),@$$$ONMSGCODE@(type,c)=""
+ q
+ ;
+SendMsg(type,param) 
+ ; Send interprocess messages to all subscribers
+ n ix,c,msid
+ s (ix,c)=0
+ f  s msid=$I($$$MSGS) l +$$$MSGS(msid):0 q:$T
+ s $ZT="msgULck"
+ f  s ix=$O($$$AS(ix)) q:ix=""  s:$D($$$MSGS(ix,type))&(ix'=$G($$$SES)) $$$MSGS(ix,type,msid)=$G(param),c=c+1
+msgULck l -$$$MSGS(msid) ; lock will be actually removed after end of transaction
+ q:$Q c q
+ ;
+GetMsgs ; Handle received interprocess messages
+ q:'$D($$$MSGS($$$SES))
+ n $$$MSGTYPE,$$$MSGID,$$$MSGPARAM,$$$MSGDIR,$$$MSGHANDLER,$$$MSGOREF,$$$MSGPROC,$$$MSGNOEXEC
+ s $$$MSGTYPE=""
+ f  s $$$MSGTYPE=$O($$$MSGS($$$SES,$$$MSGTYPE)) q:$$$MSGTYPE=""  d
+ . s $$$MSGDIR=$$$MSGS($$$SES,$$$MSGTYPE),$$$MSGNOEXEC=0,$$$MSGID=""
+ . f  s $$$MSGID=$O($$$MSGS($$$SES,$$$MSGTYPE,$$$MSGID),$$$MSGDIR) q:$$$MSGID=""  d
+ . . l +$$$MSGS($$$MSGID):0 e  q
+ . . l -$$$MSGS($$$MSGID)
+ . . ; we do not set lock, we just test the presence of lock,
+ . . ; which may mean that transaction not commited yet
+ . . s $$$MSGPARAM=$$$MSGS($$$SES,$$$MSGTYPE,$$$MSGID) k $$$MSGS($$$SES,$$$MSGTYPE,$$$MSGID)
+ . . q:$$$MSGNOEXEC  ; handle only last message if sngl>0
+ . . s:$$$MSGDIR<0 $$$MSGNOEXEC=1
+ . . s $$$MSGHANDLER=""
+ . . f  s $$$MSGHANDLER=$O(@$$$ONMSGCODE@($$$MSGTYPE,$$$MSGHANDLER)) q:$$$MSGHANDLER=""  d
+ . . . s $ZT="errHand",$$$MSGOREF=$LG($$$MSGHANDLER),$$$MSGPROC=$LG($$$MSGHANDLER,2)
+ . . . i $$$MSGOREF>0 x:$$$IsCache5 "s "_$NA($$$MSGOREF)_"=$ZOBJREF("_$NA($$$MSGOREF)_")"
+ . . . x "d "_$S($$$MSGOREF>0:$NA($$$MSGOREF)_".",1:"")_$$$MSGPROC_"("_$NA($$$MSGTYPE)_","_$NA($$$MSGPARAM)_")"
+errHand . . . s $ZT=""
+ q
+ ;
+OnMsgCallBack(type,param) 
+ n cbid,cmd,oio
+ s oio=$IO u:oio'=$$$TIO $$$TIO
+ s cbid=-$I($$$AS($$$SES,"CB")),cmd=$LB($G(type),$G(param))
+ w $$$msgONMSGCBACK_cbid_":"_$L(cmd)_$$$cTRM_cmd,!
+ u:oio'=$$$TIO oio
+ q
+ ;
+RunQuery(ClassName,QueryName,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16) 
+ n i,j,rset,res,next,cols,pars
+ x "s rset=##class(%ResultSet).%New()" q:rset="" 0
+ x "s rset.ClassName=ClassName,rset.QueryName=QueryName"
+ s pars=""
+ f i=16:-1:1 s j="p"_i,pars=$S(($D(@j)!(pars'=""))&(i>1):",",1:"")_$S($D(@j):j,1:"")_pars
+ x "s res=rset.Execute("_pars_")" i 'res x "s res=rset.%Close()" q 0
+ x "s cols=rset.GetColumnCount()"
+ f  x "s res="""",next=rset.Next()" q:'next  d
+ .    f j=1:1:cols x "s res=res_$S(res'="""":""~"",1:"""")_rset.GetData(j)"
+ .    s res=$$WriteLn(res)
+ x "d rset.%Close()"
+ q 1
+ ;
+CallFunc(MCodeSrc,pFuncName,pFuncParam) 
+ n str,ix
+ s $ZT="FuncErr"
+ q:$G(pFuncName)="" "<ERROR NO FUNC NAME>"
+ d:$G(MCodeSrc)'="" @("InsertCode^"_$$$INSCODE_"("_MCodeSrc_")")
+ s str="$$"_pFuncName_$S(pFuncName["^":"",1:"^"_$$$InsRut)_"("_$S($D(pFuncParam):$NA(pFuncParam),1:"")_")"
+ s @("ix="_str)
+ q:$Q ix q
+FuncErr s $ZT="" q "<ERROR IN CALLFUNC: "_$ZERROR_">"
+ ;
+CallProc(MCodeSrc,procName) 
+ n str
+ s $ZT="ProcErr",procName=$G(procName,"mXoP1a2b")
+ d:$G(MCodeSrc)'="" @("InsertCode^"_$$$INSCODE_"("_MCodeSrc_")")
+ d @(procName_$S(procName["^":"",1:"^"_$$$InsRut))
+ q:$Q "" q
+ProcErr s $ZT="" q:$Q "<ERROR IN CALLPROC: "_$ZERROR_">" q
+ ;
+ ;
+ ; Получаем корневой список глобалов 
+GetGlobals(NameSpace="",VarRes="")
+    s:NameSpace="" NameSpace=$zu(5)
+    s oldNS=$zu(5)
+    zn NameSpace
+    k VarRes 
+    k ^%utility($j)
+    s glb=""
+    f  s glb= $O(^$G(glb))  q:glb=""   d
+    .  s glbTxt=$e(glb,2,$l(glb)) 
+    .  s VarRes(glbTxt)=$d(@glb)
+    .  s ^%utility($j,glb)=$d(@glb)
+    zn oldNS
+    q 
+    
+ ; функция перехватывает чтения входящих команд от клиента
+ReplaceCmd(cmd,var)
+   s resReplaceCmd=$$CommdFromClienToServer^%ZMRProgramCosta(cmd,var) 
+   ; -----------------------------------------------------------------  
+   ; ^%debug(5)="(3244) Запрос=cmd:x###var===N"_$c(1)_"s CClassworanskMain=##class(%Dictionary.ClassDefinition).%New(""wor.nskMain"")"
+   ; BackUp file
+    if $d(^%ZMRBackUp)
+    { 
+       if $l(var,$c(1)_"s CClasswora")=2,$l($p(var,$c(1)_"s CClasswora",2),"=##class(%Dictionary.ClassDefinition).%New(")=2
+       {
+           s className=$p(var,"=##class(%Dictionary.ClassDefinition).%New(""",2) 
+           s className=$p(className,""")",1) 
+           s UserName=$lg(%sysuser,1)
+           s UserName=$REPLACE(UserName," ","_")
+           s:UserName="" UserName="NoUser"
+           s appl=$lg(%sysuser,4)
+           s nspace=$lg(%sysuser,3)
+           s path= ^%ZMRBackUp_UserName_"\"_nspace_"\"_$zd(+$h,3)_"\CLS."_className_"("_$p($zt($p($h,",",2)),":",1)_").xml"
+           s:nspace="" nspace=$zu(5)
+           s ^%ZMRBackUp($job)="d $system.OBJ.Export("""_className_".cls"","""_path_""")   "
+           x ^%ZMRBackUp($job)
+           ; d Save^%ZMRBackUp(className,%sysuser)
+       }
+        ; ^%debug(152)="(756) Запрос=cmd:x###var===4"_$c(1)_"s CacheConnectClosing=CClassworanskSqlRow.%Close()"
+       if $l(var,$c(1)_"s CacheConnectClosing=CClas")=2,$l(var,".%Close()")=2
+       {
+            if $d(^%ZMRBackUp($job))
+            {
+               x ^%ZMRBackUp($job)
+            } 
+       }
+    }
+   q resReplaceCmd
+  
+  
+ ; функция перехватывает ответ клиенту
+OtvetClientu(var)
+  q $$CommdFromServerToClien^%ZMRProgramCosta(var) 
+
+Log(val)
+  if $d(^%debug1) k:^%debug1>10000 ^%debug1
+  s:'$d(^%debug1) ^%debug1=1
+  s ^%debug1=^%debug1+1,^%debug1(^%debug1)="("_$j_")"_val
+  q 
+    
+GetClassInfo(ClassName)
+   s res=$LB()
+   ; |     (ColIndex(1)) = "Name"
+   s $LI(res,1)=ClassName
+   ; |     (ColIndex(2)) = "Super"
+   if $d(^oddDEF(ClassName,60)) s $LI(res,2)=^oddDEF(ClassName,60)
+   e                             s $LI(res,2)=""
+   ; |     (ColIndex(3)) = "Hidden"
+   if $d(^oddDEF(ClassName,32)) s $LI(res,3)=^oddDEF(ClassName,32)
+   e                             s $LI(res,3)=0
+   ; |     (ColIndex(4)) = "Datatype" 
+   if $d(^oddDEF(ClassName,23)) s $LI(res,4)=^oddDEF(ClassName,23)
+   e                             s $LI(res,4)=""
+   ; |     (ColIndex(5)) = "System" 
+   if $d(^oddDEF(ClassName,61)) s $LI(res,5)=^oddDEF(ClassName,61)
+   e                             s $LI(res,5)=0
+   ; |     (ColIndex(6)) = "Final"   
+   if $d(^oddDEF(ClassName,7)) s $LI(res,6)=^oddDEF(ClassName,7)
+   e                             s $LI(res,6)=0
+   ; |     (ColIndex(7)) = "Persistent"  
+   if $d(^oddDEF(ClassName,23)),^oddDEF(ClassName,23)="Persistent" s $li(res,7)=1
+   if $d(^oddDEF(ClassName,23)),^oddDEF(ClassName,23)'="Persistent" s $li(res,7)=0
+   if '$d(^oddDEF(ClassName,23)) s $li(res,7)=0
+   ; |     (ColIndex(8)) = "Serial"     
+   if $d(^oddDEF(ClassName,23)),^oddDEF(ClassName,23)="Serial" s $li(res,8)=1
+   if $d(^oddDEF(ClassName,23)),^oddDEF(ClassName,23)'="Serial" s $li(res,8)=0
+   if '$d(^oddDEF(ClassName,23)) s $li(res,8)=0
+   ; |     (ColIndex(9)) = "TimeChanged"
+   if $d(^oddDEF(ClassName,64)) s $LI(res,9)=^oddDEF(ClassName,64)
+   e                             s $LI(res,9)=$h
+   ; |     (ColIndex(10)) = "SqlTableName"   
+   if $d(^oddDEF(ClassName,58)) s $LI(res,10)=^oddDEF(ClassName,58)
+   e                             s $LI(res,10)=$h
+   q res   
+]]></Routine>
+
+
+<Routine name="%ZMRAUTH" type="INT" languagemode="0" generated="1"><![CDATA[
+ ; ZMRPMD simple (or sample) user authentification routines
+ ; Write your own if you wish!
+ ; Use the following command to start ZMRPMD with this package:
+ ; d START^%ZMRPMD(60,"CHKUSR^%ZMRAUTH")
+ ;
+ ;   
+ ; -----------------------------------
+   ; q 1 - Авторизация успешна
+   ; q 0 - Авторизация НЕ успешна
+ ; -----------------------------------
+CHKUSR(user,pass,nspace,appl) 
+   s I=$ZU(111,0)
+   s ip=$p($A(I,1)_"."_$A(I,2)_"."_$A(I,3)_"."_$A(I,4)_"_"_($A(I,5)*256+$A(I,6)),":",1)
+   s HashPwd=""
+   if pass'="" F ix489=1:1:7  S HashPwd=HashPwd_$ZCRC(pass,ix489)
+   s ^%ZSysUser(ip)=$LB(user,HashPwd,nspace,appl,ip,$p($h,",",1),$p($h,",",2))
+   q 1
+   q $$AuthorTest^%ZMRProgramAuthor(user,pass,nspace,appl)
+]]></Routine>
 
 
 <Routine name="%ZMRAUTH" type="MAC" languagemode="0"><![CDATA[
@@ -87426,88 +87852,118 @@ CHKUSR(user,pass,nspace,appl)
 ]]></Routine>
 
 
-<OBJ name="%ZMRAUTH">
-<DataBase64>8WY6gm4AJVo5AAoIACAMAbjgAAQgISIjC28QAn6QJIokAVE/IS5PiiQCUT9PIS5PiiQDUT9PIS5P
-iiQEUT9PIV9PiiQFUQwAAUyKJAZRSj9PZTqZJZomhSHyE6EnswQKAQEHtoohiCcQ/n8/kSa3gSWB
-IEBsgSZAbE+BIkBsT4EjQGxPgSVAbE/+BWUsbE/+BWYsAmxPzz8BAAG554EggSGBIoEjBOQpALm4
-AAAvEN5xQbtdEQpBdXRob3JUZXN0ESVaTVJQcm9ncmFtQXV0aG9yCSVaU3lzVXNlcgVpeDQ4OQdI
-YXNoUHdkAmlwAUkEYXBwbAZuc3BhY2UEcGFzcwR1c2VyBkNIS1VTUgAAAABXABIAAAAAAAAAAAAA
-AAAAAAAAAAAAAQAIAA8ARQBHAF8AigCMAJoACAD0/+//6P/j/+H/3v/W/9D/AQC0/wAAAAAAAAAA
-AAAAAAAAAQDG/wAAAQAAAKn/QABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABA
-AEAAQABAAEAAQABAAEAASABIAEgASABIALeB+f8LAAAA
-</DataBase64>
-<Node><Sub>INT</Sub>
-<Data>64621,53982.638313</Data>
-</Node>
-<Node><Sub>MAC</Sub>
-<Data>64600,37306</Data>
-</Node>
-</OBJ>
+<Routine name="%ZMREVENT" type="MAC" languagemode="0"><![CDATA[
+#include ZMRDEF
+ 
+ZMREVENT(ServID) 
+ ; ZMRPMD events handlers
+ q:'$D(ServID)
+ ; ServID - index variable with information about event
+ ; ServID=1 - ZMRPMD started
+ i ServID=1 k $$$DBINF d GarbColl s $$$PORTS(0)=0
+ ; ServID=2 - ZMRPMD halted
+ e  i ServID=2 s $ET="" d GarbColl
+ ; ServID=3 - JOB started
+ ; ServID(1) - TCP port used by JOB
+ e  i ServID=3 d
+ . h:('$D($$$PORTS))!$D($$$PORTS(-1))  ; shutdown in progress, no new jobs
+ . d MarkPort(ServID(1))
+ ; ServID=4 - JOB finished
+ e  i ServID=4 d FreePort() s $ET="" h
+ ; ServID>4 - reserved for extensions
+ q:$Q "" q
+ ;
+GarbColl 
+ n i,ix,iy,ns,c,nn,host,l,nethard
+ k $$$PORTS,$$$AS,$$$MSGS
+ ; remove our ZMRINS* routines from all namespaces
+ s l=$L("ZMRINS"),host=$ZCVT($ZU(110),"U")
+ s host=$TR(host,$TR(host,"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"))
+ s ns=$ZU(5),nethard=$ZU(68,27)
+ f i=1:1:$ZU(90,0) s ns($ZU(90,2,0,i))=""
+ s i="" f  s i=$O(ns(i)) q:i=""  d
+ . s $ZT="GColErr"
+ . d $ZU(68,27,0) zn i s ix="ZMRINS"
+ . f  s ix=$O(^rOBJ(ix)) q:$E(ix,1,l)'="ZMRINS"  d
+ . . s iy=l,nn=0 f  s c=$E(ix,$I(iy)) q:c'=+c  s nn=nn+1
+ . . k:$E(ix,l+1+nn,$L(ix))=$E(host,1,25-nn) ^ROUTINE(ix),^rOBJ(ix),^rINDEX(ix)
+GColErr . s $ZT="" zn ns d $ZU(68,27,nethard)
+ q
+ ;
+MarkPort(port) 
+ ; Mark port as listened by $J
+ s:port>1 $$$PORTS(port)=+$J q
+ ;
+FreePort(port) 
+ ; Mark port as unused since now
+ i '$D(port) n port s port=0 f  s port=$O($$$PORTS(port)) q:port=""  q:$$$PORTS(port)=+$J
+ s:port>1 $$$PORTS(port)=-$$$TM
+ q
+ ;
+StDebInf(msg) 
+ ; Store debugging information in $$$DBINF
+ n ix,str,l,a,c s l=$L(msg),str=$ZTIMESTAMP_": "
+ f ix=1:1:l d
+ . s c=$E(msg,ix,ix),a=$A(c) s:(a<32)!((a>126)&(a<192)) c="<$C("_a_")>"
+ . s str=str_c
+ s $$$DBINF($I($$$DBINF))=str
+ q
+ ;
+ShDebInf 
+ ; Show debugging information collected by StDebInf
+ n ix,c,sp q:($D($$$DBINF)'=11)  s nix=1,sp=24 ; screen_portion
+ f  d  q:(nix>$$$DBINF)
+ . s c=1 f ix=nix:1:$$$DBINF d  q:c=0
+ . . w $$$DBINF(ix),!
+ . . i ix#sp=0 r "--More?--",*c w *8," ",! s c=$C(c)
+ . . i c="b" s nix=ix-sp-sp+1,c=0 s:nix<1 nix=1 ; back page
+ . . e  i c="q" s nix=$$$DBINF+1,c=0 ; quit
+ . s:c'=0 nix=$$$DBINF+1
+ q
+ 
+]]></Routine>
 
 
-<OBJ name="%ZMREVENT">
-<DataBase64>qvSqNW4AJVo6AAoIACDIA+EgfCDvAbiBIAFB8Q7PQgAArNVzABAQzz8BAfMMgSACQfEGIP6E1XMA
-8wmBIANB8QPTRwDSXADPWwABD89bAQE67wL/3IwgAdlqAdHzDoEgBEHxCNh8ASD+hP/c/gruAiC5
-uK4JISIjJCUmJygpz0IAAazPQgACrM9CAAOsligGC24Bfj//0ZkniieKJxFnZ5knBQF+kCQLRAsb
-An6QKaEhswkMAQELWhACfj62oSQLWgIQgSEEfiCet5ohsg+hJIEhYQABkCGFIbrT4QC30mgBEuoL
-RAsbEAP/2YEh/fITmSKyE4Eiz0QBBJAiiiKIKFsTRrvTCwG30lgBmyMolCayFooipiMB/1Y9V5kl
-gSWJJUG7iSZImCa3iiKJKEiJJko9iiJfWIonCxmJJks9W0buFYEiz0IBBayBIs9CAQSsgSLPQgEG
-rNEg6oEk/fILRAsbgSkD/9nRuLjhKokqAUPuCIEqMT7PPwEBuLjhKnwq8hutKpQqshWBKs9EAQGQ
-KoUquoEqzz4BATE+Qbq3iSoBQ+4egSr+BT4N/98AAEsNgFEBAEz+BWYsAj5K/0fPPwEBuLjhK64F
-IiwoLSWKK1+XKP4eIjogT5ksoSKzBQMBAYkottPrAbfSGwKKK4giiCJYmSWKJVCXLYktCyBCiS0L
-fkOJLQvAQjg57goUii1PIik+T5kliiWRLNHPQgAAAf9WgSzPPwEAuK4DIiUuz1oAAAsLQe8BuJUv
-li4YsgzTTwKJL88+AAA+Q7q30tIClSWhIrMJBokvAc8+AAA+ttNpAoYlurfSxQKBIs8+AQA/vr2J
-IokuTkXxGyktLU1vcmU/LS2+/7+QJQj/uCEgvr2IJVKZJYolIWJG8RWJIokuS4kuS0iYL5QliS8B
-Qu4ClS/zEYolIXFG8QrPPgAAPkiYL5Ql0YYl7wjPPgAAPkiYL9G4uACQYbOygGudpGTTnKELaWuu
-A25peAJzcAhTaERlYkluZgQ8JEMoAWEDc3RyA21zZwhTdERlYkluZgRwb3J0BnJJTkRFWAdST1VU
-SU5FBHJPQkoGWk1SSU5TB0dDb2xFcnIkQUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVowMTIzNDU2
-Nzg5CCVaTVJNc2dzBiVaTVJBUwduZXRoYXJkAWwEaG9zdAJubgFjAm5zAml5Aml4AWkIRnJlZVBv
-cnQITWFya1BvcnQJJVpNUlBvcnRzCEdhcmJDb2xsCSVaTVJEYkluZgZTZXJ2SUQIWk1SRVZFTlQE
-AG3/Zf9e/y3/AADjAEEAAgACAAcABwAHABsAGwApACkAKQA0AEUATABMAFwAXABjAGMAYwBuAH0A
-fQCJAJIAnwC6AM4A0wDiAPgAGQFIAVgBWQFaAVwBXAFrAWwBbgFuAY4BsgGzAbQBtgG2AcoB2AEG
-AgsCGAIZAhkCGQIZAi0CPAJWAmIChQKhArUCwgLDAhAA8P+//7z/uf+2/7T/sf+s/6r/ov9F/zj/
-NP8y/yH/Hf8AAAAAAAAAAAAAAAAAAAAABwDm/9P/m/+S/1n/Uf9K/wAAAABAAEAAQABAAEAASABI
-AFAAUABQAFgAWABYAGAAaABoAGgAaABoAGgAcABwAHAAcABwAHAAcABwAHgAeAB4AHgAl7/d/xMA
-AACyhiT/NwAAABhpwf8oAAAAebtl/yEAAAA97ff/AQAAAMKGPP8uAAAAPwjK/yQAAAA=
-</DataBase64>
-<Node><Sub>INT</Sub>
-<Data>64621,53982.643868</Data>
-</Node>
-<Node><Sub>MAC</Sub>
-<Data>64596,34773</Data>
-</Node>
-</OBJ>
-
-
-<OBJ name="%ZMRINS">
-<DataBase64>or57I24AJVo7AAoIACAwA7jhIK4EISIjJBHqIQqZIiIlUs9bAQDxA9MuANIqAaEjpyMAAf9WEqQl
-DFwIqP9cTysRKTotMSwxOiQkV08oVmFsKSlPnqEjpyMAAf9WE56hJQx7CKhV8R2hI6cjAAH/VhSk
-JQx7CKj/XE8oXyRDKDAsMSlPnvMKoSOnIwAB/1YVnqEjpyMAAf9WFp6hI6cjAAH/VhekJQxjCKj/
-XE8rEj0kWkVSUk9SIHE6JFEgLTEgcU+eoSOnIwAB/1YYz0IAAf9cTykoc2VzLC0zKSlPnqEjpyMA
-Af9WGZ6hIbMJEAEBiiCKIv9btqEjpyMAAf9WiiCKIoghY563oSOnIwAB/1YangxmCIslPyQuSU5U
-T6EjoSQiU0ME5DkA0fMVDGYIiyXPQgEArBvoHAxmCIslP0/ouCDquLjhJucMXAiLJdmuATz1Aw/0
-B+eBJtlfAbm44SYd6qElDHsIqFXxHIomKwsPDwM8R08gT04+AU8MewiLJT9PIgABT77zDh6KJl8/
-TyEAT4omT769/gruAhC5uKElDGMIMp7+Cu4CD7m4uOEnhScA7gIQuYEnDgPPWgIBubgAKmH3em1Z
-9IIDc2VzCDxHTyBPTj46A3RXTwJXTwVJc0JyawNWYWwHV3JpdGVMbhZ6aSAiIHE6JFEgIiIgcSIg
-enNhdmUgMnppICIiOm1Yb1AxYTJiICBmIGk9MToxOiRMKHNyYyxjbCkgemkgJFAoc3JjLGNsLGkp
-B1JPVVRJTkUCJVIKIHE6JFEgIiIgcQhtWG9QMWEyYh9Jc0JyayhzZXMpIHE6JEcoc2VzKT0iIiAw
-IHEgJEQoBiVaTVJBUwZ0V08gcyAJIHE6JFEgMCBxISB3ICI8R08gT04+OiJfJEwoVmFsKV8kQygw
-KV9WYWwsISMgdyBWYWxfJEMoMTUsMTUsMylfIjxHTyBPTj4iXyRDKDEpXxNXTyhWYWwpIHMgJFpU
-PSJ0V08iGldyaXRlTG4oVmFsKSBxICRTKCQkSXNCcmsoBiVab01SaQRyT0JKBWljRXJyAWUBcgJj
-bAFpA3NyYwpJbnNlcnRDb2RlDgDi/7v/p/+D/2H/V/9Q/yn/IP8V/9f+wP6n/p7+AABmASMAAQAD
-AAkADwAbAEUATwB1AIEAiwCzAM8A2QD4AAIBGgExATIBNQE2ATgBTgFPAVEBUwF4AYgBjwGPAZ0B
-ngGgAbABsAGwAQgA8f/v/+z/6v/o/9b/tP6a/gEAEv8AAAAAAAAAAAAAAAAAAAIA3f9J/wAAAQAA
-AAr/QABAAEAASABYAFgAWABYAGAAYABgAGAAYABgAGgAaABoAGgAaABwAHAAcABwAHAAcABwAHAA
-cABwAHAAeAB4AM1iuP4VAAAAQP8g/yMAAAB3Aqv+GAAAAE939f8CAAAAfeWu/iAAAACmxOL/EwAA
-APcZp/4eAAAA
-</DataBase64>
-<Node><Sub>INT</Sub>
-<Data>64621,53982.648927</Data>
-</Node>
-<Node><Sub>MAC</Sub>
-<Data>64596,34773</Data>
-</Node>
-</OBJ>
+<Routine name="%ZMRINS" type="MAC" languagemode="0"><![CDATA[
+ ; ZMRPMD prototype of routine for code insertion
+#include ZMRDEF
+  
+InsertCode(src) 
+ n i,cl,r,e
+ s $ZT="icErr",cl=$$$LF
+ i $d(^rOBJ("%R")) d
+ . s r($I(r(0)))="WriteLn(Val) q $S($$IsBrk("_$NA($$$SES)_"):-1,1:$$WO(Val))"
+ . s r($I(r(0)))="WO(Val) s $ZT=""tWO"""
+ . i $D($$$FID) s r($I(r(0)))=" w Val_$C("_$$$aIVDLM_","_$$$aIVDLM_","_$$$aCMDDLM_")_"""_$$$msgGOON_"""_$C("_$$$aIDDLM_")_"_$NA($$$FID)_"_$C("_$$$aTRM_","_$$$aIDDLM_")"
+ . e  s r($I(r(0)))=" w """_$$$msgGOON_":""_$L(Val)_$C("_$$$aTRM_")_Val,!"
+ . s r($I(r(0)))=" q:$Q 0 q"
+ . s r($I(r(0)))="tWO s "_$NA($$$ERR)_"=$ZERROR q:$Q -1 q"
+ . s r($I(r(0)))="IsBrk(ses) q:$G(ses)="""" 0 q $D("_$NA($$$AS)_"(ses,-3))"
+ . s r($I(r(0)))="mXoP1a2b"
+ . f i=1:1:$L(src,cl) s r($I(r(0)))=$P(src,cl,i)
+ . s r($I(r(0)))=" q:$Q """" q"
+ . d ROUTINE^%R($$$InsRut_".INT",.r,.e,"SC") ; store and compile
+ e  k ^rOBJ($$$InsRut) x "zi """":mXoP1a2b  f i=1:1:$L(src,cl) zi $P(src,cl,i)","zi "" q:$Q """" q"" zsave "_$$$InsRut
+ q
+icErr s $ZT="" q
+ ; The following code copied to here from ZMRASD for best performance
+WriteLn(Val) 
+ q $S($$IsBrk($$$SES):-1,1:$$WO(Val))
+ ;
+WO(Val) 
+ s $ZT="tWO"
+ i $D($$$FID) w Val_$$$cIVDLM_$$$cIVDLM_$$$cCMDDLM_$$$msgGOON_$$$cIDDLM_$$$FID_$$$cTRM_$$$cIDDLM
+ e  w $$$msgGOON_":"_$L(Val)_$$$cTRM_Val,!
+ q:$Q 0 q
+ ;
+tWO s $$$ERR=$ZERROR q:$Q -1 q
+ ; This function copied from ZMRSMGR for the same reason
+IsBrk(ses) 
+ q:$G(ses)="" 0 q $D($$$AS(ses,-3))
+ ; End of imported code
+mXoP1a2b 
+ 
+]]></Routine>
 
 
 <Routine name="%ZMRMStudioHooks" type="MAC" languagemode="0"><![CDATA[
@@ -87559,193 +88015,470 @@ PostRead(var, Enum, CLS, SMOpenMode, SMMessage)
 ]]></Routine>
 
 
-<OBJ name="%ZMRMStudioHooks">
-<DataBase64>2GW+LG4AJVo9AAoIACCQAeAABSAhIiMkAjEB/8MCMQH/xCZaV1JJVEWkIKkA/i0C/i+9Eb69JlpX
-UklURaQgqQD+LQL+L70Rvr0mWldSSVRFpCGpAP4tAv4vvRG+vSZaV1JJVEWkIqkA/i0C/i+9Eb69
-JlpXUklURaQjqQD+LQL+L70Rvr0mWldSSVRFpCSpAP4tAv4vvRG+vQIxAf/H5xASAXGQJYElEBMB
-cpomsg8xgSbPRAIAkCaFJrrTwwC30uYAmycmMYEnz0QCAJAnhSfyA9PZANLlAIElATGBJs8+AgAB
-ctExz0IBAKyaJQG5uAAAAOKX5y7i0PKnBVdyaXRlC2luZGV4U1BPT0wyBVNQT09MCmluZGV4U1BP
-T0wDV1NOBE9wZW4PYzpcVGVtcFx2YXIudHh0BCVOZXcNJUxpYnJhcnkuRmlsZQRmaWxlFC0tLS0t
-LS0tLS0tLS0tLS0tLS0tCVNNTWVzc2FnZQpTTU9wZW5Nb2RlA0NMUwRFbnVtA3ZhcghQb3N0UmVh
-ZAMAwP+Y/4//AACUAC0ACAAIAAgACAAIAAgACAAIAAgACAAIAA0AEgAiACYANgA6AEoATgBeAGIA
-cgB2AIYAigCPAJYAnACeALAAvwDGANYA3ADeAOAA4ADgAOAA4ADgAOAA4ADgAOAACADz/+7/6v/f
-/9X/u/+E/3L/AAAAAAAAAQCt/wAAAAACAJP/bP8BAAAAqP8BAH7/AAAAAEAAQABAAEAAQABAAEAA
-QABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAASABIAEgASACufff/AQAA
-AA==
-</DataBase64>
-<Node><Sub>INT</Sub>
-<Data>64621,53982.652407</Data>
-</Node>
-<Node><Sub>MAC</Sub>
-<Data>64596,34773</Data>
-</Node>
-</OBJ>
+<Routine name="%ZMRPMD" type="MAC" languagemode="0"><![CDATA[
+ ; Permanent ZMRPMD daemon, start/stop/config programs
+#include ZMRDEF
+ 
+#define ALRDRUN         3
+#define JOBFAIL         4
+#define JOBOK           5
+#define HALTPROC        8
+ 
+#define CLRSCR $C(27)_"[2J"
+#define PARPOS 3
+#define LICVALPOS 30
+#define DEFPOS 50
+#define CURPOS 65
+#define LICMAXPOS 78
+ ;  d RUN^%ZMRPMD("E:\!5autoexport\myasnikovia\MakovaBackUp\")
+ ;  d RUN^%ZMRPMD("C:\BackUp\")
+ ;  d RUN^%ZMRPMD
+ ;  d CONFIG^%ZMRPMD
+ ;  RUN d START(60) q
+ ; 4240
+RUN(BackUpFile="") 
+ d HALT^%ZMRPMD  
+ h 5
+ w "   Доработка для Cache2015 02.09.2016 "_$c(13,10)
+ w "   Автор доработки, серверной части: Мясников Иван Александрович (Miacom@mail.ru)"_$c(13,10)
+ w "   Вы используете этот продукт на свой страх и риск."_$c(13,10)
+ w "   За все последствия автор доработки не несёт никакой ответственности. "_$c(13,10)
+ w "   Если вы так не считаете, то обязаны удалить данный сервер, и больше им не пользоваться"_$c(13,10)
+ w "   Продукт распространяется бесплатно. "_$c(13,10)
+ w $c(13,10)
+ w "   Запуск сервера в режиме разработчика(cоздается BackUp каждый час):"_$c(13,10)
+ w "              d RUN^%ZMRPMD(""C:\BackUp\"")"_$c(13,10)
+ w "   Запуск сервера в рабочем режиме:"_$c(13,10)
+ w "              d RUN^%ZMRPMD"_$c(13,10)
+ w "   Запуск режима конфигурации(в терминале) :"_$c(13,10)
+ w "              d CONFIG^%ZMRPMD"_$c(13,10)
+ w $c(13,10)
+ w $c(13,10)
+    k ^%ZMRBackUp
+    s:BackUpFile="" BackUpFile= $ZUTIL(168)_"BackUp\"
+    k ^%SysUser 
+    s ^%ZMRBackUp=BackUpFile
+    d START^%ZMRPMD(60,"CHKUSR^%ZMRAUTH") q
+    q
+ 
+CONFIG n inp,n1,n2,LastX,LastY,linnum,notnums
+ w $$$CLRSCR,/cup(1,1)
+ w ?$$$PARPOS,"Параметр:",?$$$DEFPOS,"По умолчанию:",?$$$CURPOS,"Текущий:",!
+ d DescParm($$$ieSrvPort,"TCP-порт для запросов к PMD",$$$dfSrvPort)
+ d DescParm($$$ieMaxAppPort,"Максимальное количество портов приложений",$$$dfMaxAppPort)
+ d DescParm($$$ieSrvOpenTO,"Тайм-аут для открытия TCP порта ЛПР (сек)",$$$dfSrvOpenTO)
+ d DescParm($$$ieSrvReadTO,"Тайм-аут для запроса ожидания ЛПР (сек)",$$$dfSrvReadTO)
+ d DescParm($$$ieSrvAuditTO,"Период неиспользованных переменных очистки (часы)",$$$dfSrvAuditTO)
+ d DescParm($$$ieSrvJobTO,"Тайм-аут для PMD попытке запустить ASD (сек)",$$$dfSrvJobTO)
+ d DescParm($$$ieTCPWaitTO,"Cистемный параметр TCP_close_wait_interval (сек)",$$$dfTCPWaitTO)
+ d DescParm($$$ieUseConcur,"Используйте режим параллельного сервера (0 - Нет / 1 - Да)",$$$dfUseConcur)
+ d DescParm($$$ieAppSndBufSz,"Размер буфера WRTDMN для передачи данных (B)",$$$dfAppSndBufSz)
+ d DescParm($$$ieAppRcvBufSz,"Размер буфера WRTDMN для приема данных (B)",$$$dfAppRcvBufSz)
+ d DescParm($$$ieAppOpenTO,"Тайм-аут для открытия TCP порта по ASD (сек)",$$$dfAppOpenTO)
+ d DescParm($$$ieAppLstTO,"Тайм-аут для соединения ожидания с помощью ASD (сек)",$$$dfAppLstTO)
+ d DescParm($$$ieAppReadTO,"Тайм-аут для чтения данных с помощью ASD (сек)",$$$dfAppReadTO)
+ d DescParm($$$ieAppIdleTO,"Время ожидания до начала сессии хранения (мин)",$$$dfAppIdleTO)
+ d DescParm($$$ieSesAuditTO,"Срок службы сохраненных локальных переменных (дней)",$$$dfSesAuditTO)
+ w "Введите номер параметра для редактирования или ""Q"" для сохранения и выхода:"
+ s LastX=$X,LastY=$Y
+ f  d  q:$E(inp,1)="q"
+ . r /cup(LastY+1,LastX+1),inp
+ . i $E(inp,1)'="q" s n1=inp\10,n2=inp#10 d EditParm(n1,n2)
+ . d ClearN(LastX,LastY,$L(inp))
+ q
+ ;
+DescParm(n1,n2,text,default,notnum) 
+ w n1_n2,?$$$PARPOS,text,?$$$DEFPOS,default
+ w:$D($$$Ini(n1,n2)) ?$$$CURPOS,$$$Ini(n1,n2)
+ s linnum(n1,n2)=$Y
+ s notnums(n1,n2)=''$G(notnum)
+ w ! q
+ ;
+EditParm(n1,n2) 
+ n val,maxlg s maxlg=$$$CURPOS-$$$DEFPOS-1
+ d:$D(linnum(n1,n2))
+ . r /cup(linnum(n1,n2)+1,$$$CURPOS+1),val#maxlg
+ . i val'="" d
+ . . s:'notnums(n1,n2) val=+val
+ . . s $$$Ini(n1,n2)=val
+ . e  k $$$Ini(n1,n2)
+ . d ClearN($$$CURPOS,$Y,maxlg)
+ . w /cup($Y+1,$$$CURPOS+1),$G($$$Ini(n1,n2))
+ q
+ ;
+ClearN(x,y,n) n val
+ w /cup(y+1,x+1) f val=1:1:n w " "
+ q
+ ;
+LICENSE n inp,n1,n2,LastX,LastY,linnum,notnums,prodname,i1
+ w "Product Name: " r prodname w !
+ i prodname="" w "Empty product name is not allowed",! q
+ w $$$CLRSCR,/cup(1,1)
+ w ?$$$PARPOS,"Parameter:",?$$$LICVALPOS,"Value:",!
+ w ?$$$PARPOS,"Product name:",?$$$LICVALPOS,prodname,!
+ d DescLicPar($$$ieLicCustomer,"Customer name",1)
+ d DescLicPar($$$ieLicNumber,"License number",1)
+ d DescLicPar($$$ieLicConnects,"Number of connections")
+ d DescLicPar($$$ieLicKey,"License key",1)
+ w "Enter parameter number to edit, ""k"" to delete, ""q"" to save and exit: "
+ s LastX=$X,LastY=$Y
+ f  d  q:(i1="q")!(i1="k")
+ . r /cup(LastY+1,LastX+1),inp s i1=$E(inp,1)
+ . i i1="q" q
+ . i i1="k" k $$$Ini($$$ieLicNode,prodname) q
+ . s n1=inp\10,n2=inp#10 d EdLicPar(n1,n2)
+ . d ClearN(LastX,LastY,$L(inp))
+ q
+ ;
+DescLicPar(n1,n2,text,notnum) 
+ w n1_n2,?$$$PARPOS,text
+ w:$D($$$Ini(n1,prodname)) ?$$$LICVALPOS,$LG($$$Ini(n1,prodname),n2)
+ s linnum(n1,n2)=$Y
+ s notnums(n1,n2)=''$G(notnum)
+ w ! q
+ ;
+EdLicPar(n1,n2) 
+ n val,maxlg s maxlg=$$$LICMAXPOS-$$$LICVALPOS-1
+ d:$D(linnum(n1,n2))
+ . r /cup(linnum(n1,n2)+1,$$$LICVALPOS+1),val#maxlg
+ . i val'="" d
+ . . s:'notnums(n1,n2) val=+val
+ . . s $LI($$$Ini(n1,prodname),n2)=val
+ . e  s $LI($$$Ini(n1,prodname),n2,n2)=$LB()
+ . d ClearN($$$LICVALPOS,$Y,maxlg)
+ . w /cup($Y+1,$$$LICVALPOS+1),$LG($$$Ini(n1,prodname),n2)
+ q
+ ;
+GetLicense(prodname) 
+ ; Returns license parameters as
+ ; $LB(Customer,LicenseNumber,MaxConnects,LicenseKey)
+ q $S($G(prodname)="":"",1:$G($$$Ini($$$ieLicNode,prodname)))
+ ;
+gs(w) q:w=$$$JOBOK "Сервер уже запущен."
+ q:w=$$$JOBFAIL "Невозможно запустить сервер."
+ q:w=$$$ALRDRUN $ZN_" Сервер запущен."
+ q:w=$$$HALTPROC "Остановка сервера MStudio!"
+ q ""
+ ;
+Version() q 2003091002
+  ;
+START(to,authprog) 
+ ; authprog - name of arbitrary function (without leading "$$")
+ ; with parameters (username,password,namespace)  returning 0
+ ; if access is to be denied, or 1 if access is to be granted
+ s $ZT="stErr"
+ n ix,port,j
+ d Log("1)"_$G($$$Ini($$$ieSrvPort),$$$dfSrvPort))
+ ; Are we already running?
+ s (ix,j)=0,port="|TCP|"_$G($$$Ini($$$ieSrvPort),$$$dfSrvPort)
+ d Log(port)
+ f  s ix=$O(^$J(ix)) q:ix=""  i $P($V(-1,ix),"^",3)[port s j=ix q
+ i j w $$gs($$$ALRDRUN),! q   ; stop if already running
+ d ^$$$EVENT(1) ; Perform startup actions
+ j Daemon($G(authprog)):():$G(to,10) ; start server
+ e  w $$gs($$$JOBFAIL),! q  ; cannot start job
+ w "MStudio 1999-2017 "_$c(13,10)
+ w $$gs($$$JOBOK),!
+ q
+ ;
+stErr s $ZT="" w "Unknown error while startup",! q
+ ;
+HALT n j,port,p,maxp
+ s j=0,$$$PORTS(-1)=+$J
+ s p=$G($$$Ini($$$ieSrvPort),$$$dfSrvPort)
+ s maxp=$G($$$Ini($$$ieMaxAppPort),$$$dfMaxAppPort)
+ f  s j=$O(^$J(j)) q:j=""  s port=+$P($P($V(-1,j),"^",3),"|",3) d:(port'<p)&(port'>maxp) $ZU(4,j)
+ w $$gs($$$HALTPROC),!
+ d ^$$$EVENT(2) ; Perform clean shutdown
+ q
+ ;
+Daemon(authprog) 
+ n tio,oto,rto,jto,ato,at,ijc,csm
+ s ato=$G($$$Ini($$$ieSrvAuditTO),$$$dfSrvAuditTO)*3600
+ s oto=$G($$$Ini($$$ieSrvOpenTO),$$$dfSrvOpenTO)
+ s rto=$G($$$Ini($$$ieSrvReadTO),$$$dfSrvReadTO)
+ s jto=$G($$$Ini($$$ieSrvJobTO),$$$dfSrvJobTO)
+ s csm=''$G($$$Ini($$$ieUseConcur),$$$dfUseConcur)
+ s p=$G($$$Ini($$$ieSrvPort),$$$dfSrvPort),tio="|TCP|"_p
+ s at=3,at(1)=p d ^$$$EVENT(.at)
+ s ijc=$$GetFreeJ() d:'ijc ^$$$EVENT(4) ; finish if no free IJC devices
+ d Log("tio: "_tio_" oto:"_oto_" rto:"_rto_" jto:"_jto_" ato:"_ato_" at:"_at_" ijc:"_ijc_" csm:"_csm )
+ o tio:(::"AS":$$$cTRM):oto e  d ^$$$EVENT(4) ; finish if cannot open TCP
+ s at=$$$TM u tio f  d ReadCmd
+ ; no normal termination provided
+ReadCmd
+ n c,d,ap,sesid,ix,key,oasd,csok
+ s $ZT="endcmd" r d ; dummy read - waiting for connection
+ ; read commands from TCP port, one per connection
+ ; only cmdCREATE, cmdOPEN and cmdBRKFLW have sense here:
+ ; "MR:cr:"_namespace_":"_$L(listparm)_$C(0)_$LB(username,password,application)
+ ; "MR:op:"_SessionID_$C(0)
+ ; "MR:bfl:"_SessionID_$C(0)
+ 
+ 
+  ////////////////////////// Старый вариант \\\\\\\\\\\\\\\\\\\\\\
+  ; s d="",(ap,oasd,csok)=0 r d#255:rto d ParseInp
+  ; i (d<3)!($G(d(1))'=$$$APPTYPE) w $$$errINVALTYPE,$$$cTRM,! ztrap  ; invalid input
+  ; i d(2)=$$$cmdBRKFLW d BrkFlw^$$$SMGR(d(3)) ; set flag to break group read
+  ;  ; start application server
+  ;  i d(2)=$$$cmdCREATE d CreatePP  d Log(key)   d StartASD
+  ;  ;   i d(2)=$$$cmdOPEN   d OpenPP   d StartASD
+  ;  ; start audit
+  ;  i ($$$TM-at)>ato s at=$$$TM j Audit^$$$SMGR:():jto
+  /////////////////////////////////////////////////////////////////
+ 
+  s d="",(ap,oasd,csok)=0
+  s isSMWrap=0
+  s isHTML=0
+  s isTerminal=0
+  s tmp=""
+  for   {
+    r ^||sym#1:rto 
+    s tmp=tmp_^||sym	
+    s ^%deb=tmp
+    if tmp="MR:cr"    s isSMWrap=1 q
+    if tmp="GET /"    s isHTML=1 q
+    if tmp="POST /"   s isHTML=1 q
+    if $l(tmp)>=$l("TERMINAL"),$l(tmp,"TERMINAL")=2 s isTerminal=1 q
+  }
+
+  if isTerminal=1 {
+	s tmp="",^||inData=""  
+	w "Terminal Connect ",$c(0),!
+	s %gl="^MSrv"
+	s ind=0
+    for   {
+       r ^||sym#1:rto 
+       continue:$l(^||sym)=0
+       if ^||sym=$c(10) {
+	      s ind=ind+1 
+          s ^%deb(ind)=^||inData
+          if ind=2 {
+	         TRY { 
+               s ^||UserName=$p(^||inData,":",1)
+               s ^||UserPass=$p(^||inData,":",2)
+               s ^||NameSpace=$p(^||inData,":",3)
+             } CATCH ErrorHandle {  
+               s ^||inData=""  u tio   w "Ошибка формата авт оризации","{{OK}}",!   q 
+             }
+             if $SYSTEM.Security.Login(^||UserName,^||UserPass)=0  s ^||inData=""   u tio    w "Ошибка авторизации","{{OK}}",!   q
+             e                                                     s ^||inData=""   u tio    w "Авторизация прошла успешно","{{OK}}",!   d $zu(5,^||NameSpace)   continue
+             continue
+          }
+          if ^||inData="cls" {
+             k @%gl@($job) 
+             s ^||inData=""
+             continue
+          }
+          if ^||inData="run" {
+	          if '$d(@%gl@($job))  w "{{OK}}",!  s ^||inData=""  continue
+              DO $SYSTEM.Process.NullSubscripts(0)
+              s ^||indBuff=""
+              s routine =##class(%Routine).%New("MSrvTMPFragment"_$JOB_"")
+              Do routine.WriteLine($c(13,10)_" ; d ^MSrvTMPFragment"_$JOB)
+              f   s ^||indBuff=$o(@%gl@($job,^||indBuff))   q:^||indBuff=""   d
+              .    Do routine.Write($c(13,10)_@%gl@($job,^||indBuff))
+              Do routine.WriteLine($c(13,10)_"  q ")
+              Do routine.Save() ;
+              k ^SPOOL($JOB)
+              O 2:($job) 
+              U 2:($job)
+              Do routine.Compile() ;
+              c 2:($job)  
+              k ^SPOOL($JOB)
+              Do routine.%Close()
+              u tio
+              TRY {
+                x " d ^MSrvTMPFragment"_$JOB 
+                c 2:($job)  
+                Do routine.Delete("MSrvTMPFragment"_$JOB_".MAC")
+              } CATCH ErrorHandle { 
+                u tio
+                w "Error:",$c(13,10)
+                w " NameSpace:"_$zu(5),$c(13,10)
+                w $ZTRAP,$c(13,10)
+                w $ESTACK,$c(13,10)
+                w $ECODE,$c(13,10)
+                w $ZERROR,$c(13,10)
+                zw ErrorHandle
+                Do routine.Delete("MSrvTMPFragment"_$JOB_".MAC")
+             }   
+             u tio  w "{{OK}}",!             
+	         s ^||inData=""
+             continue
+          }
+          if $l(^||inData,"run:")=2 {
+	         TRY {  u tio   x $p(^||inData,"run:",2)   w "{{OK}}",!  } CATCH ErrorHandle {  u tio  zw ErrorHandle   w "{{OK}}",!  }   
+	         s ^||inData=""
+	         continue
+          }
+          
+          if ^||inData="job" { 
+             u tio w $job,"{{OK}}",!  
+             s ^||inData=""    
+             continue
+          }
+          if ^||inData="ip" { 
+              if '$d(^||ip) {
+                 s ^||I=$ZU(111,0)
+                 s ^||ip=$A(^||I,1)_"."_$A(^||I,2)_"."_$A(^||I,3)_"."_$A(^||I,4)_":"_($A(^||I,5)*256+$A(^||I,6))
+              }
+             u tio   w ^||ip,"{{OK}}",!   
+             s ^||inData=""          
+             continue
+          }
+          if ^||inData="read" { 
+             if '$d(@%gl@($job))   w "{{OK}}",!  s ^||inData=""  continue
+             s ^||indBuff=""
+             u tio
+             f   s ^||indBuff=$o(@%gl@($job,^||indBuff))   q:^||indBuff=""   d
+             .     w @%gl@($job,^||indBuff),!
+             w "{{OK}}",!
+             s ^||inData=""             
+             continue
+          }
+          
+          if '$d(@%gl@($job))  s @%gl@($job)=0
+          s @%gl@($job)=@%gl@($job)+1
+          s @%gl@($job,@%gl@($job))=^||inData_$c(10)
+          ; u tio w 1,!
+          ; w ":"_ind_"|"_^||inData,!
+          s ^||inData="",^||sym=""
+          continue
+       }
+       s ^||inData=^||inData_^||sym	
+    }
+    u tio   w ^||ip,"{{OK}}",!   
+    k @%gl@($job) 
+    k ^||inData
+    w *-2
+    q  
+  }
 
 
-<OBJ name="%ZMRPMD">
-<DataBase64>GYROxG4AJVpAAAoIACASHLjhIP+xAgACAeUABf/dEb4SvhO+FL4Vvha+Ig0Kvhe+GL4Zvhq+G74c
-viINCr4iDQq+z0IAAKyFIO4QC6gBfj8nQmFja1VwXE+ZIM9CAAGsgSDPPwAACzwd3gG4uK4HISIj
-JCUmJx6+AQEf/7YCA78uAL4LMr8uAb4LQb8uAr69AQEuAwwgHATWcwEBAi4EDOccBNZzAQEDLgUL
-HgTWcwEBBC4GCgTWcwEBBS4HAQTWcwEBBi4ICgTWcwEBBy4JC/AE1nMBAQguCgEE1nMBAgEuCwwA
-EATWcwECAi4MDAAQBNZzAQIDLg0LeATWcwECBC4OC3gE1nMBAgUuDwIE1nMBAgYuEAt4BNZzAQMB
-LhEBBNZzAS4SvjSXJDWXJbIK0z0BiiFWIXFGurfScQGJJUiJJEgf/7YC/72QIYohViFxRvITiSEK
-TZgiiSEKTpgjgSKBI9q8AYEkgSWKIV/bOgLRuLjgAAUiIygpKooiiiNPvgO/iii+CzK/iim+gSKB
-I89bAgLuDQtBv4EigSPPPgICP76hJoEigSM1nQKhJ4EigSOHKgA3N50Cvbi44iIjrgIrLJYsDqEm
-gSKBI6kCVe4D09cB0jgCoSaBIoEjggI+SAtCH/+2Aogs/7uQK4Ur8gPT9wHSEQKhJ4EigSOCAjzv
-BIkrmCuBIoEjgSvPPwIC0fMJgSKBI89CAgKsC0E1gSzbOgI1SAtCH/+2AoEigSPPPgICAD++0bi4
-4y0uL60riS5IiS1IH/+2AqErswUDAQGJL7YhIL63uK4JISIjJCUmJzAxLhO+/72QML2FMPEFLhS+
-vbgevgEBH/+2AgO/LhW+Cx6/Lha+vQO/Lhe+Cx6/ijC+vQQBLhgBBNYgAwQCLhkBBNYgAwQDLhrb
-IAMEBC4bAQTWIAMuHL40lyQ1lyWyD9PVAooxIXFGijEha0Y5urfSHgOJJUiJJEgf/7YC/72QIYoh
-VpkxijEhcUbxAbiKMSFrRvEJBIEwz0ICAqy4iSEKTZgiiSEKTpgjgSKBI9pnA4EkgSWKIV/bOgLR
-uLjgAAQiIygqiiKKI0++A7+KKL6BIoEwz1sCAu4SCx6/gSKBMM8+AgI/iCNqAD++oSaBIoEjNZ0C
-oSeBIoEjhyoANzedAr24uOIiI64CKyyWLC+hJoEigSOpAlXuA9OCA9LyA6EmgSKBI4ICPkgLHx//
-tgKILP+7kCuFK/ID06ID0sADoSeBIoEjggI87wSJK5grgSKBMM9CAgKII4Er/3bR8xCBIoEwz0IC
-AogjiCMhAf93Cx41gSzbOgI1SAsfH/+2AoEigTDPPgICP4gjagA/vtG4uOEwhTAA9QMg9AkEgTDP
-PgICALm44TKBMgVB7gMuHbmBMgRB7gMuHrmBMgNB7hb+GCsQINHl8OLl8CDn4O/z+eXtLk+5gTII
-Qe4DLh+5ILm44AAADTq+ZHe5uOIzNC4g6q4DNTY3IjEpAQHPPgICQAwgHH8/T9nhD6Y1pjcQoAIu
-IQEBzz4CAkAMIBx/P0+ZNoE22eEPsh7BBYE1YSADkDWFNboPgTX/bT9mXgOKNm7xBJs3Nbi3hzfx
-CecD2QgEP769uAEB5CgBJkRhZW1vbhAwIIE0AAEBwSCBM0AKfz0B/8XzCecE2QgEP769uC4ivucF
-2QgEP769uCDqLiO+vbiuBDc2ODmUNw8xPs8/AQMBAc8+AgJADCAcf5A4AQLPPgICQAznHH+QObIu
-wQWBN2EgA5A3hTe6D4E3/20/Zl4DZnwDPpg2iTaJOEKJNok5QznvBgSBNwL/2bfnCNkIBD++vQIB
-5CgBuLjhNK4IOjs8PT4/QEEBBc8+AgJAAX8+DBAOTJg+AQPPPgICQAsef5A7AQTPPgICQAp/kDwB
-Bs8+AgJACn+QPQEIzz4CAkABfzw3N5dBAQHPPgICQAwgHH+QOC4hijhPmTqWPwOhPwGBOJ6hPwHk
-OAHn2DUPkECHQO8FBAHkKAEuJIo6TyUgb3RvOk+KO08lIHJ0bzpPijxPJSBqdG86T4o9TyUgYXRv
-Ok+KPk8kIGF0Ok+KP08lIGlqYzpPikBPJSBjc206T4pBT9nhD4E6ICAiQVMhAIg7BP/C8wUEAeQo
-Af4FPg3/3wAASw2AUQEATP4FZiwCPkqYP4E667ID1V4Gt64IQkNERTVGR0guJer/vZBDmkOmRKZH
-pkgQoAOUSZRKlEuaTLJLAYk8/7rPMQAAikzPMAAAP0+ZTIFMzz8ABIpMLiZG8QOVSbiKTC4nRvED
-lUq4ikwuKEbxA5VKuIpMXwhC8g2KTC4p/1sCR/EDlUu4vIFLAUH/+LwDmkwgzzEAAS4qviEAvr0u
-K5lNlE7/soUDAYk8/7rPMQAAzzAAAD9f7wT/93IDzzAAAD8hCkb/+FUDiU5ImE6BTs8wAAHPPwEE
-gU4CQfiAzzAAAT9lOs8xAALPMAABP2Y6As8xAAPPMAABP2Y6A88xAAT3GP18pk/9eCDPMQABgTrr
-Liy+Li2+vfcB5y4uLi/PMAACzzAAAwL/QEXxECDPMQABgTrrLjC+Li2+vbjzGyDPMQABgTrrLjG+
-Li2+vQXPMAAEAv/Z//fVAv/30QLPMAABPy4yRvgQik2jMaUBrCDPMQAB//e3As8wAAE/LjNG//gj
-AYpNozGlAVXyDS4tvr0gzzEAAf/3lQIuNC41EAH/QCDPMQAF5xAuNjE/TwFxkFCBUBAuNzE/TwFy
-shiKTaMxzzAABWFAAs8xAAXPMAAFRLrTIgi30jcIgVABIg0Kik2iMc8wAAWEAj9PAXLRgVAQLjgB
-coFQAhByMc9CAQWsAjEB/8MCMQH/xIFQAxByAjEB/8cxz0IBBayBUBD/DIE66y45MT9P6AIxAf/H
-gVAFLjYxP08kLk1BQ08BcvdY/XymT/14gTrrLjq+Ig0Kvi47BQF+P0++Ig0KvjO+Ig0Kvv4DP74i
-DQq+/gG+Ig0KvjK+Ig0KviZaV1JJVEWkT6kA/i0C/i+BUAUuNjE/TyQuTUFDTwFygTrrLi2+vSDP
-MQAB//eIAc8wAAE/Ljz/WwJH+DmBOuvPMAABPy48AmPoLi2+vfce/XymT/14gTrrJlpXUklURaRP
-qQD+LQL+Ly4tvr0gzzEAAf/3QgHPMAABPy49RvgTgTrrMT++Li2+vSDPMQAB//clAc8wAAE/Imlw
-Rvhrz1UABvlRC28QAn7PMQAHzzAABz8BUT8hLk/PMAAHPwJRP08hLk/PMAAHPwNRP08hLk/PMAAH
-PwRRP08hOk/PMAAHPwVRDAABTM8wAAc/BlFKP0/PMQAGgTrrzzAABj++Li2+vSDPMQAB967PMAAB
-Py4+RvhTik2jMaUBVfILLi2+vSDPMQAB95AgzzEABYE667IYik2jMc8wAAVhQALPMQAFzzAABUS6
-0wwKt9IaCopNojHPMAAFhAI/vr3RLi2+vSDPMQAB91GKTaMxpQFV8giKTaIxpQEQn4pNojGlAYpN
-ojGEAT5In4pNojGKTaIxhAGlAs8wAAE/IQpPnyDPMQABIM8xAAD3EM8wAAE/zzAAAD9PzzEAAbyB
-OuvPMAAGP74uLb69ik2jMaUBrM80AAGsDgL/uLiBSgFB+BcL/4k8/7qQQ4pMikNPmUMiT0u+vf6u
-uIFJAUH4lAv/iTz/upBDikyKQ0+ZQ9VWC4lDA0KNQwEAIk1SRjvxCS4/viEAvr3+ro1DAi5ARvEF
-jEMD3QKNQwIiY3JG8QvVkgyBRtnhD9U2Df4FPg3/3wAASw2AUQEATP4FZiwCPkqJP0uJPkPxK/4F
-Pg3/3wAASw2AUQEATP4FZiwCPkqYPyVBdWRpdBAwLkEQEMEgiD0B/8Ug6odI7wQOAv+4uK4CNVEu
-QuqKQ/9iAQEBLkNG8QPTbwvSoQuKQyIBAyIAAGiZQ6FDASJNUp6VNZVHoTWzBw4CAYpDYAC2oUOB
-NYpDiTVIPf9gAJ630fMD06kL0ikMoTWzBwwBAYpDYDq2oUOBNYpDiDX/YDqet41DAiJjckaMQwQA
-PhBDOO4D09kL0igMmkOyMYxDBD6KQ19LmFGJURBDu4hRiTz/upA1ijX+CFALf0P1BP4I9AMhAE+Z
-NYo1iFFbkUO3oTWzBg0BAYpDabahQ4k1A0qKQ4g1agCet9Eg6qFDIGECAT6YQ7i44UOuAjVSLkTq
-/geQUpU1hTTvMC5FijRPIigiT41DBABPIyIsIk+NQwUATyMiLCJPjUMDTyMiLCJPjUMGAE8iIilP
-6Ic17goLWgqMQwMDfpA1gVLrgTW5gVLrELkLNP9jmDWJNQsaQvUJiTULQUo9UvQIiTULR0o9UplG
-CzT/Y5g1iTULGkL1CYk1C0FKPVL0CIk1C0dKPVKRRqFDA41DA//RnppF56FDAdc2DDzuCOeBONlG
-DpBEuIxDA5BFoUMD54xDA90DnueBRd0EkDWhQwSKNWsAAJ6KNWsBQA9/PgwAIEo9/leZRoxDA0Xy
-COeBONlGDpBE8wcuRr4hAL69uK01h0fxA9NCDdKPDS5H6ufYdg888QUuSL69uIlEEEPxGiZEYWVt
-b24QMC5JgUSBQAIBwYxDA4g9Af/F8BeBQOuJPf+8kDWBOusuSopETyEAT769uC5Lvr3R8wPTlw3S
-RA4uR+rn2HYPPPEFLky+vbiJRBBD8VSJRAFD7iImRGFlbW9uEDAuTYFEgUCBRoxDBACBRQUBwYxD
-A4g9Af/FgUQBQe4mJkRhZW1vbhAwLk2BRBCBRoxDBACBRQUBwYxDAwSBOoE6iD0E/8XwPYFEAUHu
-ApVIgUQBQe4BuIFA64k9/7yQNYE66y5OikRPITpPikZPIQBPvr0uTopETyE6T4pGTyEAT9nhD7gu
-T7690bi44TiuBjc2UzlUVYdBh0c67gIBuZo3/gU+Df/fAABLDYBRAQBM/gVmLAI+SphTlFQBAs8+
-AgJADOccf5A5AQfPPgICQAvwf5BVsg/BBYE3YSADkDeFN7rTow630sgOD4E3/20/Zl4DZnwDPpg2
-iTaJOEKJNok5QznvCIE2gTfPPwED0aE2swYGiTgBiTm2h1S6090Ot9ImD4E2z1sBA/ELgTbPPgED
-kDfT8w7SIA+JNxBD8RXBBYE3qgP/p1XvCoE2iVP/R88/AQPzD4lTiVUFSok3S0PuA5tUNtHzA5tU
-NtGBVIlViVNLzz8BA4FUubjgAACuA1ZXVJRUoVazBx4L/g4CC+S2gVYQ/8DwF4lWSJhXgVcQ/8A2
-7gObVFaHVLqBVv/Gt4dU7gSBV//GgVS5uOAAAC5Q6gtvEAJ+P1kABC5RRu4CELmuBjVYWVRaUpVU
-BQF+kFr+B5BSBS5SAv/ZoTWzDRgBAeehWKFZAuQ5BT62iliINf9gOzyKWYg1/2A7LlNuOvEDlFS4
-twWBWgL/2YFS64FUuSDqELm44SvPWwAG8RDPPgAGPgwQJ0PuBc9CAAasz1sABu8FAc8/AAbPPgAG
-PkjPPwAGzz4ABiEoMT9PISlPiitPzz8BBri4AE1fwsGjojkwRi1s/IxwcWa0+n9MLbOcYnhxPxFW
-UJL/bChrbPuMjjlK3DhkABhLc22T+XzC06+f6KXdBiVkZWJ1ZwZTaW5nbGUFYXZhaWwGTE1GQ0xJ
-BCVTWVMDb25zBW5hbWVzBnZhbHVlcwR/AAABB2RuU1VlcnICb2QCaWQFdGNwdG8DcmVzAXQJPE5P
-IEpPQj4ACjxDT05ORUNUPjoHJVpNUkFTRA08Tk8gTElDRU5TRT4ACjxOTyBKT0I+AwAKPENPTk5F
-Q1Q+AwYlTVJBU0QOPE5PIExJQ0VOU0U+AwAGRGVueVNVBmVyckFTRAw8Tk8gU0VTU0lPTj4EVUlO
-RgJOUwZPcGVuUFAIR2V0RnJlZVAHcyBpeD0kJAdhdXRoZXJyA29pbwdWYWxpZE5TBQExMDEwB1Bh
-cnNFbmQCbHAIU3RhcnRBU0QIQ3JlYXRlUFAGQnJrRmx3CCVaTVJTTUdSA2JmbA48SU5WQUxJRCBU
-WVBFPghQYXJzZUlucARyZWFkAUkCaXADam9iBHJ1bjoLIE5hbWVTcGFjZToGRXJyb3I6BkRlbGV0
-ZRMgZCBeTVNydlRNUEZyYWdtZW50BiVDbG9zZQdDb21waWxlBVNQT09MBFNhdmUGDQogIHEgBVdy
-aXRlFw0KIDsgZCBeTVNydlRNUEZyYWdtZW50CVdyaXRlTGluZQ9NU3J2VE1QRnJhZ21lbnQEJU5l
-dxAlTGlicmFyeS5Sb3V0aW5lB3JvdXRpbmUHaW5kQnVmZg5OdWxsU3Vic2NyaXB0cwdQcm9jZXNz
-A3J1bgNjbHMawOLy7vDo5+D26P8g7/Du+OvgIPPx7+X47e4Szvjo4ergIODi8u7w6Ofg9ujoBUxv
-Z2luCFNlY3VyaXR5Bnt7T0t9fRvO+Ojh6uAg9O7w7ODy4CDg4vIg7vDo5+D26OgLRXJyb3JIYW5k
-bGUJTmFtZVNwYWNlCFVzZXJQYXNzCFVzZXJOYW1lA2luZAVeTVNydgMlZ2wRVGVybWluYWwgQ29u
-bmVjdCAGaW5EYXRhCFRFUk1JTkFMBlBPU1QgLwVHRVQgLwVNUjpjcgQlZGViA3N5bQN0bXAKaXNU
-ZXJtaW5hbAZpc0hUTUwIaXNTTVdyYXAGZW5kY21kBGNzb2sEb2FzZANrZXkFc2VzaWQCYXABZAFj
-B1JlYWRDbWQFdGlvOiAIR2V0RnJlZUoDY3NtA2lqYwJhdANhdG8DanRvA3J0bwNvdG8DdGlvBkRh
-ZW1vbgklWk1SUG9ydHMEbWF4cAFwG1Vua25vd24gZXJyb3Igd2hpbGUgc3RhcnR1cBRNU3R1ZGlv
-IDE5OTktMjAxNyANCgklWk1SRVZFTlQFfFRDUHwDTG9nAWoEcG9ydAJpeAVzdEVycghhdXRocHJv
-ZwJ0bwdWZXJzaW9uGs7x8uDt7uLq4CDx5fDi5fDgIE1TdHVkaW8hHM3l4u7n7O7m7e4g5+Dv8/Hy
-6PL8IPHl8OLl8C4T0eXw4uXwIPPm5SDn4O/z+eXtLgF3AmdzCkdldExpY2Vuc2UIRWRMaWNQYXJF
-RW50ZXIgcGFyYW1ldGVyIG51bWJlciB0byBlZGl0LCAiayIgdG8gZGVsZXRlLCAicSIgdG8gc2F2
-ZSBhbmQgZXhpdDogC0xpY2Vuc2Uga2V5FU51bWJlciBvZiBjb25uZWN0aW9ucw5MaWNlbnNlIG51
-bWJlcgpEZXNjTGljUGFyDUN1c3RvbWVyIG5hbWUNUHJvZHVjdCBuYW1lOgZWYWx1ZToKUGFyYW1l
-dGVyOiFFbXB0eSBwcm9kdWN0IG5hbWUgaXMgbm90IGFsbG93ZWQOUHJvZHVjdCBOYW1lOiACaTEI
-cHJvZG5hbWUHTElDRU5TRQFuAXkBeAVtYXhsZwN2YWwHJVpNUklOSQZub3RudW0HZGVmYXVsdAR0
-ZXh0BkNsZWFyTghFZGl0UGFybUvC4uXk6PLlIO3u7OXwIO/g8ODs5fLw4CDk6/8g8OXk4Ory6PDu
-4uDt6P8g6OvoICJRIiDk6/8g8e718ODt5e3o/yDoIOL79e7k4Doz0fDu6iDx6/Pm4fsg8e718ODt
-5e3t+/Ug6+7q4Ov87fv1IO/l8OXs5e3t+/UgKOTt5ekpLsLw5ez/IO7m6OTg7ej/IOTuIO3g9+Dr
-4CDx5fHx6Ogg9fDg7eXt6P8gKOzo7Sku0uDp7C3g8/Ig5Ov/IPfy5e3o/yDk4O3t+/Ug8SDv7uzu
-+fz+IEFTRCAo8eXqKTTS4OnsLeDz8iDk6/8g8e7l5Ojt5e3o/yDu5ujk4O3o/yDxIO/u7O75/P4g
-QVNEICjx5eopLNLg6ewt4PPyIOTr/yDu8urw+/Lo/yBUQ1Ag7+7w8uAg7+4gQVNEICjx5eopKtDg
-5+zl8CDh8/Tl8OAgV1JURE1OIOTr/yDv8Ojl7OAg5ODt7fv1IChCKSzQ4Ofs5fAg4fP05fDgIFdS
-VERNTiDk6/8g7+Xw5eTg9+gg5ODt7fv1IChCKTrI8e/u6/zn8+ny5SDw5ebo7CDv4PDg6+vl6/zt
-7uPuIPHl8OLl8OAgKDAgLSDN5fIgLyAxIC0gxOApMEPo8fLl7O376SDv4PDg7OXy8CBUQ1BfY2xv
-c2Vfd2FpdF9pbnRlcnZhbCAo8eXqKSzS4OnsLeDz8iDk6/8gUE1EIO/u7/vy6uUg5+Dv8/Hy6PL8
-IEFTRCAo8eXqKTHP5fDo7uQg7eXo8e/u6/zn7uLg7e379SDv5fDl7OXt7fv1IO736PHy6uggKPfg
-8fspJ9Lg6ewt4PPyIOTr/yDn4O/w7vHgIO7m6OTg7ej/IMvP0CAo8eXqKSnS4OnsLeDz8iDk6/8g
-7vLq8Pvy6P8gVENQIO/u8PLgIMvP0CAo8eXqKSnM4Orx6Ozg6/zt7uUg6u7r6Pfl8fLi7iDv7vDy
-7uIg7/Do6+7m5e3o6QhEZXNjUGFybRtUQ1At7+7w8iDk6/8g5+Dv8O7x7uIg6iBQTUQI0uXq8/no
-6ToNz+4g8+zu6/fg7ej+OgnP4PDg7OXy8DoDQ1VQBBtbMkoHbm90bnVtcwZsaW5udW0FTGFzdFkF
-TGFzdFgCbjICbjEDaW5wBkNPTkZJRw9DSEtVU1JeJVpNUkFVVEgFU1RBUlQIJVN5c1VzZXIKJVpN
-UkJhY2tVcCAgICAgICAgICAgICAgIGQgQ09ORklHXiVaTVJQTUQNCi4gICDH4O/z8eog8OXm6Ozg
-IOru7fTo4/Pw4Pbo6CjiIPLl8Ozo7eDr5SkgOg0KHSAgICAgICAgICAgICAgZCBSVU5eJVpNUlBN
-RA0KJSAgIMfg7/Px6iDx5fDi5fDgIOIg8ODh7vfl7CDw5ebo7OU6DQorICAgICAgICAgICAgICBk
-IFJVTl4lWk1SUE1EKCJDOlxCYWNrVXBcIikNCkcgICDH4O/z8eog8eXw4uXw4CDiIPDl5ujs5SDw
-4Ofw4OHu8vfo6uAoY+7n5ODl8vH/IEJhY2tVcCDq4Obk++kg9+DxKToNCikgICDP8O7k8+ryIPDg
-8e/w7vHy8ODt/+Xy8f8g4eXx7+vg8u3uLiANClsgICDF8evoIOL7IPLg6iDt5SDx9+jy4OXy5Swg
-8u4g7uH/5+Dt+yDz5ODr6PL8IOTg7e376SDx5fDi5fAsIOgg4e7r/PjlIOjsIO3lIO/u6/zn7uLg
-8vzx/w0KSiAgIMfgIOLx5SDv7vHr5eTx8uLo/yDg4vLu8CDk7vDg4e7y6ugg7eUg7eXxuPIg7ejq
-4Oru6SDu8uLl8vHy4uXt7e7x8uguIA0KNiAgIML7IOjx7+7r/Ofz5fLlIP3y7vIg7/Du5PPq8iDt
-4CDx4u7pIPHy8OD1IOgg8Ojx6i4NClMgICDA4vLu8CDk7vDg4e7y6ugsIPHl8OLl8O3u6SD34PHy
-6DogzP/x7ejq7uIgyOLg7SDA6+Xq8eDt5PDu4uj3IChNaWFjb21AbWFpbC5ydSkNCiggICDE7vDg
-4e7y6uAg5Ov/IENhY2hlMjAxNSAwMi4wOS4yMDE2IA0KBEhBTFQHJVpNUlBNRApCYWNrVXBGaWxl
-A1JVTmMAu/9n/zD/5f6J/l/+F/7r/cX9p/14/Vf9Lf38/Pj87vzg/Nf8u/yI/F78NvwE/Nf7pvtr
-+z77E/vm+rH6gvpT+h/60/l0+VL5R/lA+TL5JPkK+fT46Pii+HX4WPg9+CP4D/jw99T3jvdk9zb3
-MPcp9yD3B/f99rX2rval9p/2jPZx9m32afZh9lL2HPb69e31v/Wx9aX1oPWc9ZL1evV29W31SfVD
-9S/1J/UC9fv05fTe9NP0yPS69LL0p/Sd9IP0fvRo9FT0AACzC7QBAAAAAAAAAAAAAAAAAQAJAAsA
-DgAQABIAFAAWABgAGgAeACAAIgAkACYAKAAqAC4AMgA3AEsAUABWAFwAXQBmAG4AgACLAJYAoACp
-ALIAuwDFAM4A2QDkAO4A+AABAQsBFAEXAR0BKgE7AVYBYQFiAWMBawF8AZMBnAGpAasBrAGvAbYB
-xAHdAeQB9gEBAgwCFAIoAikCKgIwAkgCSQJJAlQCXAJlAm0CeQKFAo4ClwKeAqcCqgKwAsIC2ALg
-AvACAwMOAw8DEAMXAyIDPgNHA1QDVgNXA1oDYQNvA4gDjwOhA7ADwgPKA+ID4wPkA+YD5gPmA/cD
-+AMDBAwEKAQxBDMENAQ9BD4EQQRBBEEEQQREBEkEXARcBHQEeQSaBKcErATGBNEE1ATcBN0E3QTk
-BOQE6gTzBAAFDQU+BUYFSwVMBU0FTwVZBWkFdQWABYsFmQWtBbwFywUYBi0GTgZOBk4GWAZfBl8G
-XwZfBl8GXwZfBl8GXwZfBl8GXwZfBl8GXwZfBmoGbAZuBnAGcgZ0Bn0GhwaNBpcGoQarBr8GwAbI
-Bs8G1gbaBtwG4AbpBvUGAQcGBxAHFgcWByEHLQc5B0EHUgdSB3UHkgeWB5YHoAenB6wHsAewB7wH
-0gfaB98H6gf0Bw8IJwguCDMIOQg+CEMISAhNCFMIWAhbCFsIYQhmCHYIfgiBCIgIlAiaCKIIqQiv
-CL8IzwjPCNYI2wjfCN8I7AgcCSEJJQklCS8JOQk+CUIJQglNCVMJXAmkCaQJsQm2CbgJuAnCCdYJ
-2wneCfkJCgoOChMKFQoVCiYKNQpKCkoKSgpUClYKVgplCmYKcwp6Cn8KgwqECoQKigqSCpkKoAqh
-CqEKpwqvCrYKuQrRCt4K3gryCvIK8go7CzsLOws9C0ULRgtGC0oLTQtcC2oLdQuRC5YLsgvGC8sL
-/wsZDCQMJQwmDCgMLAw1DGkMdwx9DIIMggyCDKEMwAzLDN0M3gzeDPQMDg0cDSUNJg0mDSgNLw01
-DUENYQ16DX8NhA2KDZYN8A0vDjQONQ42DjgOOA5ADkkOZQ5yDn4OkA6iDrgOuA64DrgOyg7gDv4O
-EA8WDyEPJA8lDygPKA8tDy8PWg9iD2UPZg9pD2kPbA98D4QPlQ/AD8wP0A/RD9MP6Q/0DxEQEhA7
-APH/Iv0f/Rz9Fv0Q/Qn9Af2++bb5r/mj+Z35m/mZ+Zf5hvmD+Yn4Mvgp+CD4G/gZ+NL3zfe497T3
-sPes96j3pfeh9533hPeC93/3efd193D3a/db91T3SfdF9wP3+fbR9kL2UfU39Zv0l/SR9I70i/R3
-9HH0bfQEAOn/Bfht9WH0AAADABYHOwcAAFsIeAgAAOwI/wgAAAEAMfYAAAAABgAS9vT16PXa9dP1
-uPUBAAAALPYHAEz9Q/2n+cP3PPfi9U30CABB9xn38Pbn9t32SvaZ9Zf1BgAAAOT/AAA9/QIAZvUC
-ABT1AgAP9QMAW/RQAFgAWABYAGAAaAB4AIAAkACYAKAAqACoAKgAsAC4AMAA2ADoAOgA6AAQARgB
-GAEgASgBMAEwATABMAEwATABp0oj+JgAAACWCrL8OgAAAGYQ/P8IAAAADGJd9W0BAAAbWVT1egEA
-APsLL/VrAQAA+uiJ9VYBAABoUxf1dAEAAGrCvPejAAAAtosZ+WUAAAChkcP5TQAAAB8WFfiwAQAA
-rYg79WUBAADggYP0rgEAAHKfHvWJAQAAUEqG97EAAACxkPT0pgEAALFW+/SHAQAAsv8m/SAAAADg
-s2T3UQEAAK0qj/lRAAAAaJ+U954BAACDCj39hQAAAMsDi/h9AAAA/7CO+HgAAAC+esr5QQAAAHTC
-5P+aAAAAw1VJ9WIBAABqQJn4bAAAANteNfiDAAAA
-</DataBase64>
-<Node><Sub>INT</Sub>
-<Data>64621,53982.668195</Data>
-</Node>
-<Node><Sub>MAC</Sub>
-<Data>64600,37306</Data>
-</Node>
-</OBJ>
+
+  if isHTML=1 {
+	 r d#255:rto  
+	 s d=tmp_d
+	 w "OK",! ztrap  ; invalid input	   
+     q
+  }
+ 
+ 
+  if isSMWrap=1 {
+      r d#255:rto 
+      s d=tmp_d
+      d ParseInp
+      i (d<3)!($G(d(1))'=$$$APPTYPE) w $$$errINVALTYPE,$$$cTRM,! ztrap  ; invalid input
+      i d(2)=$$$cmdBRKFLW d BrkFlw^$$$SMGR(d(3)) ; set flag to break group read
+      ; start application server
+      i d(2)=$$$cmdCREATE d CreatePP  d Log(key)   d StartASD
+      ;   i d(2)=$$$cmdOPEN   d OpenPP   d StartASD
+      ; start audit
+      i ($$$TM-at)>ato s at=$$$TM j Audit^$$$SMGR:():jto
+  } 
+endcmd 
+   s $ZT=""
+   w:'csok *-2
+   q  ; reset connection and continue to listen
+   ;
+ParseInp n ix,lp
+ s $ZT="ParsEnd"
+ i $P(d,$$$cIDDLM,1,2)=($$$cIDDLM_$$$APPTYPEOLD) d  ; old format
+ . s d=$TR(d,$$$cIDDLM_$$$cCMDDLM,$$$cTRM_$$$cTRM)
+ . s d(1)=$$$APPTYPE,ix=1,oasd=1
+ . f ix=2:1:$L(d,$$$cTRM) s d(ix)=$P(d,$$$cTRM,ix+1)
+ e   d  ; new format
+ . f ix=1:1:$l(d,":") s d(ix)=$P(d,":",ix)
+ . d:(d(2)=$$$cmdCREATE)&($G(d(4))>0)
+ . . s d="" ; read remained d(4) bytes from TCP ($LB(name,pass,appl))
+ . . f  s lp=d(4)-$L(d) q:lp'>0  r ix#lp:rto s ix=ix_$S($A($K)>127:$K,1:$$$cTRM),d=d_$E(ix,1,lp)
+ . . f ix=1:1:$LL(d) s d(ix+3)=$LG(d,ix)
+ParsEnd s $ZT="",d=+$O(d(""),-1)
+ q
+ ;
+ValidNS(d) 
+ n ix,oio
+ s $ZT="autherr",oio=$IO,ix=1
+ x:authprog'="" "s ix=$$"_authprog_"("""_$G(d(4))_""","""_$G(d(5))_""","""_d(3)_""","""_$G(d(6))_""")"
+ s:ix ix=$ZU(90,10,d(3))
+ u oio q ix
+autherr u oio q 0
+ ;
+CreatePP
+ s ix=$R(52),key=$S(ix<26:$C(65+ix),1:$C(71+ix))
+ s ix=$R(52),key=key_$S(ix<26:$C(65+ix),1:$C(71+ix))
+ s d(3)=$ZCVT(d(3),"U"),sesid=""
+ s:$$ValidNS(.d) ap=$$GetFreeP(p)
+ q
+ ;
+OpenPP s sesid=d(3),d(3)=$$NS^$$$SMGR(d(3)),ix=$$UINF^$$$SMGR(sesid)
+ s d(4)=$LG(ix,1),key=$ZWCHAR($LG(ix,2,-1)+8192)
+ i d(3)'=0 s ap=$$GetFreeP(p)
+ e  w $$$errNOSESSION,$$$cTRM,!
+ q
+ ;
+StartASD n ix 
+ i oasd d
+ . s $ZT="errASD"
+ . i $$DenySU() w $$$errNOLIC_$$$cCMDDLM_$$$cTRM,! q
+ . i ap>0 j Daemon^$$$OLDASD(ap,ijc):(d(3)):jto
+ . i  u ijc r ix:jto u tio w $$$msgCONNECT_$$$cCMDDLM_ap_$$$cTRM,!   q
+ . w $$$errNOJOB_$$$cCMDDLM_$$$cTRM,!
+ e  d
+ . s $ZT="errASD"
+ . i $$DenySU() w $$$errNOLIC_$$$cTRM,! q
+ . i ap>0 j:ap>1 Daemon^$$$ASD(ap,ijc,key,$G(d(4)),sesid):(d(3)):jto j:ap=1 Daemon^$$$ASD(ap,0,key,$G(d(4)),sesid):(d(3):4:tio:tio):jto
+ . i  s:ap=1 csok=1 q:ap=1  u ijc r ix:jto u tio w $$$msgCONNECT_":"_ap_":"_key_$$$cTRM,!    d Log($$$msgCONNECT_":"_ap_":"_key_$$$cTRM)  q
+ . w $$$errNOJOB_$$$cTRM,!
+errASD q
+ ;
+GetFreeP(p) 
+ ; Get free TCP port for ASD
+ n j,port,t,maxp,res,tcpto
+ q:csm&'oasd 1 ; Concurrent mode does not need new port
+ s j="",t=$$$TM,res=0
+ s maxp=$G($$$Ini($$$ieMaxAppPort),$$$dfMaxAppPort)
+ s tcpto=$G($$$Ini($$$ieTCPWaitTO),$$$dfTCPWaitTO)
+ f  s j=$O(^$J(j)) q:j=""  d
+ . s port=+$P($P($V(-1,j),"^",3),"|",3)
+ . s:(port'<p)&(port'>maxp) $$$PORTS(port)=j
+ ; $$$PORTS(port)>0 - port marked as listened by process j
+ ; $$$PORTS(port)<0 - port marked as unused since time=-j
+ ; please mark port listened every time you open it, and unused - when closed
+ f port=p:1:maxp q:res  d
+ . i $D($$$PORTS(port)) s j=$$$PORTS(port) d
+ . . i j>0 s:'$D(^$J(j)) $$$PORTS(port)=-t ; process died - mark port as unused since now
+ . . e  s:t>(tcpto+5-j) res=port ; TIME-WAIT state expired - consider port as free
+ . e  s res=port ; port never was in $$$PORTS - free
+ s $$$PORTS(res)=tcpto-t ; lock offered port for 5 seconds
+ q res
+ ;
+GetFreeJ() 
+ ; Get free pair of interjob communication devices
+ n id,od,res
+ s res=0
+ f id=254:-2:228 o id::0 i  s od=id+1 o od::0 s:$T res=id q:res  c id
+ c:res od
+ q res
+ ;
+DenySU() 
+ ; returns 1 if license is Single User and client is remote, otherwise - 0
+ s $ZT="dnSUerr"
+ q:$E($ZU(111,0),1,4)=$C(127,0,0,1) 0
+ n ix,values,names,res,ons,oio
+ s res=1,ons=$ZU(5),oio=$IO d $ZU(5,"%SYS")
+ f ix=1:1:$$avail^LMFCLI(.values,.names) i $P(values,";",ix)&($P(names,";",ix)'["Single") s res=0 q
+ d $ZU(5,ons) u oio q res
+dnSUerr s $ZT="" q 0
+ ;
+ 
+Log(val)
+  if $d(^%debug) k:^%debug>10000 ^%debug
+  s:'$d(^%debug) ^%debug=1
+  s ^%debug=^%debug+1,^%debug(^%debug)="("_$j_")"_val
+  q 
+]]></Routine>
 
 
 <Routine name="%ZMRProgramAuthor" type="MAC" languagemode="0"><![CDATA[
@@ -87784,23 +88517,6 @@ Log(val)
   q 
 
 ]]></Routine>
-
-
-<OBJ name="%ZMRProgramAuthor">
-<DataBase64>icQFbW4AJVo+AAoIACCSAOAABCAhIiMBubjhJM9bAADxEM8+AAA+DBAnQ+4Fz0IAAKzPWwAA7wUB
-zz8AAM8+AAA+SM8/AADPPgAAISgxP08hKU+KJE/PPwEAuLgALxDecfwGJWRlYnVnA3ZhbANMb2cE
-YXBwbAZuc3BhY2UEcGFzcwR1c2VyCkF1dGhvclRlc3QAAAAAMAAfAAcABwAHAAcABwAHAAcABwAH
-AAcABwAHAAcABwAHAAcABwAHAAcABwAHAAcABwAHAAcACgAMACIALQBKAEsABQDw/+v/5P/f/9f/
-AAAAAAAAAAAAAAAAAAAAAAEA0P8AAAAASABIAEgASABIAEgASABIAEgASABQAFAAUABQAFAAUABQ
-AFAAUABQAFAAUABQAFAAUABQAFAAUABQAFAAUABQALzg9f8BAAAAHxbb/xsAAAA=
-</DataBase64>
-<Node><Sub>INT</Sub>
-<Data>64621,53982.655614</Data>
-</Node>
-<Node><Sub>MAC</Sub>
-<Data>64596,34773</Data>
-</Node>
-</OBJ>
 
 
 <Routine name="%ZMRProgramCosta" type="MAC" languagemode="0"><![CDATA[
@@ -87880,92 +88596,109 @@ Log(val)
 ]]></Routine>
 
 
-<OBJ name="%ZMRProgramCosta">
-<DataBase64>2ziJZW4AJVo/AAoIACBuBbjiICGBIEBsgSFAbE+5iiEREv46mSGKIRMU/jqZIYohFRb+OpkhiiEX
-Fv46mSGKIRgZ/jqZIRqZIhuZI4ohiiL/WwFH8gqKIYoiiiP+OpkhiiAhd0b4wYohHP9bAkf4uIoh
-WQAOX5ckiiFZAA4hAU+ZJYohCw+KIV9YmSaKJoomZSBfSD2KJl9YmSahJ7MKegEBiiYiDQr/W7Yx
-z0IBAKyKJiINCognY5koiigdHv46mSiaKaEqswUFAQELH7aIKlKRKbyhKrMGBQt/AQuQtogqUpEp
-vKEqswYFC5gBC7+2iCpSkSm8iim+iiiKKSBomSihKrMGDgEBiihftjGKKIgqiCpYzz8BAB/ovC4A
-6DHPQgEArLybISWBIEBsgSFAbE+5uOEhiiEuAf9bAkfxBC4CmSGBIbm44SvPWwAB8RDPPgABPgwQ
-J0PuBc9CAAGsz1sAAe8FAc8/AAHPPgABPkjPPwABzz4AASEoMT9PISlPiitPzz8BAbi40eI85uKX
-30sbwmH8ByVkZWJ1ZzEDdmFsA0xvZyBDYWNoZSBPYmplY3RzIFZlcnNpb24gNS4wLjY0MDguMBZD
-YWNoZSBPYmplY3RzIFZlcnNpb24gFkNvbW1kRnJvbVNlcnZlclRvQ2xpZW4rZCBNT1JFRlRFTVAu
-SW1wbGVtZW50YXRpb24uV3JpdGUoJGMoMTMsMTApKTZkIE1PUkVGVEVNUC5JbXBsZW1lbnRhdGlv
-bi5Xcml0ZSheJVpNUkFTREtvc3RpbCgkSm9iKSkBaQNyZXMGICAgICAgBiNlbmRpZgNTdWINJVpN
-UkFTREtvc3RpbANpbmQGdmFyVG1wBnZhckVuZAVzdGFydA4OAVRtcE1ldGhvZFZhct4gcyAlU01X
-T3JlZnMoKyMjdGhpcyk9IyN0aGlzDQogZCAjI3RoaXMuSW5pdGlhbGl6YXRpb24oaW5pdHZhbHVl
-KQ0KIHMgcmVzdWx0PSMjdGhpcy5PbkNyZWF0ZShpbml0dmFsdWUpDQogaSByZXN1bHQnPSQkJE9L
-IGQgIyN0aGlzLkZvcm0uJUNsb3NlKCkgayAlU01XT3JlZnMoKyMjdGhpcykgcSAkJCRPSw0KIGUg
-IGQgIyN0aGlzLkZvcm0uU2V0Q29udGFpbmVyKCsjI3RoaXMpIHEgJCQkT0sHRnJhZ0RzdOYgcyAl
-U01XT3JlZnMoKyMjdGhpcyk9IyN0aGlzDQogZCAjI3RoaXMuSW5pdGlhbGl6YXRpb24oaW5pdHZh
-bHVlKQ0KIHMgcmVzdWx0PSMjdGhpcy5PbkNyZWF0ZShpbml0dmFsdWUpDQogaSByZXN1bHQnPSQk
-JE9LICBkDQogLiBkICMjdGhpcy5Gb3JtLiVDbG9zZSgpDQogLiBrICVTTVdPcmVmcygrIyN0aGlz
-KQ0KIGUgIGQgIyN0aGlzLkZvcm0uU2V0Q29udGFpbmVyKCsjI3RoaXMpDQogcSByZXN1bHQNCgdG
-cmFnU3JjG0QgR2V0R2xvYmFsc14lWk1SQVNEKCwubHZuKRRkIEZldGNoXiVHRCgiKiIsMCwwKRAQ
-AWQgJHp1KDY4LDU2LDEpPQFkIFN1YnNNc2dzXiVaTVJBU0QoIkRFQlVHRVZFTlQiLDEsMCwiT25N
-c2dDYWxsQmFja14lWk1SQVNEIikREQFEbyAkWlUoNjgsNTYsMSkGIyN0aGlzBSV0aGlzG3MgJVNN
-V09yZWZzKCsjI3RoaXMpPSMjdGhpcxlzICVTTVdPcmVmcygrJXRoaXMpPSV0aGlzA3ZhcgNjbWQW
-Q29tbWRGcm9tQ2xpZW5Ub1NlcnZlchIAx/+r/6X/nv+M/07/Pf8o/wz/Hf42/Sf99vzv/LL8hvxY
-/Df8AADZAz8AAAABAAQADgAOAA4AFgAeACYALgAuAC4ANgA2ADYANgA5ADwAUABQAFAAUABQAFAA
-YABgAGgAcgB8AIsAmgCaAKAAqgCyALIA6QDxAPEA/AAIAQoBCwEOARQBFQEYARgBIgEjASUBJQEl
-ASUBJQElATMBNwE5AU8BWgF3AXgBDADl/+H/BP8V/iH9Gv0T/Q/9/fzr/On8L/wAAAAAAAAAAAAA
-AAAAAAAAAgAB/Sf8AAAAAEAAQABAAEAAQABAAEAASABIAEgAUABQAFAAUABQAFAAUABQAFAAWABY
-AFgAWABYAFgAWABYAFgAWABYAFgAWADuW+n/AwAAAB8WM/w7AAAAFlZv/DMAAAA=
-</DataBase64>
-<Node><Sub>INT</Sub>
-<Data>64621,53982.66377</Data>
-</Node>
-<Node><Sub>MAC</Sub>
-<Data>64600,37306</Data>
-</Node>
-</OBJ>
-
-
-<OBJ name="%ZMRSMGR">
-<DataBase64>DS6l4G4AJVpBAAoIACAQBrjhIBHqsh6BIM9EAQCQIIUgusEFgSAOAs8+AgBAEH+qA/+nVbq3gSC5
-IOogubjhIIUg7w6BIM9CAQCsgSDPQgEBrLi44SCFIO8LgSAPzz4CAEAQf7kQubjhIIUg7wqBIA8E
-zz4DAAC5ILm44SGuAiIjlCKhI7MEEQEBBLaJIgwAAUyKIYgj/2AuPkqYIrcMXAiLJBASgSLPPwMA
-uLjhIK4DIyEigSBADFwIiyQAfxASzz4DAACQIoci7wIguZohoSOzBB4BAQS2iSIMAAFOP4Uh9gch
-LoohT/QCIE+ZIYkiDAABTZgit4EhubjhIIUgAO4BuIEgz1oBAAsLQe8BuIEgDgMBzz8CALi44SCF
-IADuAhC5gSAOA89aAgC5uOEghSDuAhC5gSAOBM9aAgC5uOEghSDvCYEgDgPPQgIArLi44AAArgcl
-IyAmJyEiwRMQqgMB/+QQzz4BAACQJ4onXwsMR+8DFJknoSWzBCYBAQa2iieIJVdQCP9jSpgmiSYh
-WlBD7geJJgsaS5gmpieIJf9OiCZS/9S3picHCwyKJ1kGBj5IP//UiidZBgY+DTZCDwBD7g+KJ1kA
-BiYxMDAwMDFPmScQgSfPPwEAiicLbgF+P2Uu/9FP/gU+Df/fAABLDYBRAQBM/gVmLAI+Sj9PmSDB
-ExCqAwH/5oEgDgIxPs8/AgCBIP4FPg3/3wAASw2AUQEATP4FZiwCPkrPPwEAlCILbxACfpAhoSOz
-BA8BAQS2iSIMAAFMiiGII1dQSpgit4EgEBLPQgMAgSAQEhDPQgQAgSKgAoEgubjhIIEgFf4Hzz8C
-ABbqrgQjKCkqF5kqmiOUKIEgEBIQzz4EAJApsh7ngSPZEQCQI4UjuoEjEBIQzz4EAIEpQe4FiShI
-mCi3EP+B/nULGEPxIYkoCwxD7gchLoooT5Epiir/ZBgZaIopTyMsMSlP6AHxAPMJiSgLDEPvAtwA
-IOq4uOEgrgUrJSwoI4Ug7gIguYEgz1oBAAsLQe8CILmBIA4CMT7PPwIAgSAQzz8BAIEgEBDPPgMA
-QBB/kCihI7MFGAEBiSi2gSAQgSMQzz4EAD+igSAQgSMBz0IEAP/Yt4EgEBrPPgMAAD/+hIEgDgXP
-QgIAgSAPDgXPQgMA/9iBIA/PQgIArIEgEM9CAgCsgSC5uOEgrgQjLS4vhSDuAbgLKQF+PgNLmC2U
-I6Yupi8goAKyOgsqgS2BLgN+kC6FLrqKLmUoii9G8iSKLmUomS+BIBCmIwH/VhCBL88/BACBIBCB
-IwHPQgQAii+j/9i3gSAQEIEjzz8DAIEg/gU+Df/fAABLDYBRAQBM/gVmLAI+Ss8/AQCBIBAa/gTP
-PwMAgSAPG/4ozz8CAIEgDwQMYgiLJABsDGEIiyQAP/5SDAAgS2xPzz8DAIEgDw4Fz0IDAIEgDgXP
-QgIA/9iBIA4Cz0ICAKyBIA4Dz0ICAKyBIA4Ez0ICAKyBIA4Fz0ICAKy4rgMjMDEDAc8+AgJAAX8+
-DYBRAQBMmDGaI/4FPg3/3wAASw2AUQEATP4FZiwCPkqYMLIwgSPPRAEAkCOFI7qBI88+AQA8iTCB
-I88+AQA+S4kxQzjuDoEjz0IBAKyBI89CAQGst7i49bvls1lhawfZ/9Vi0Hd+Xe//ByVaTVJJTkkC
-YXQCY3QFQXVkaXQHWk5TUEFDRQJ2bgF2AnNsBVN0b3JlBUVUUkFQA2h0bwFqB1Jlc3RvcmUIR2V0
-Q1NMaWMIJUxJQ0VOU0UKaWVTWU0kTG9nLgp2YTEyN1IzODBQGChudjA4M1Bhc25hY3YzUDdFVDEy
-MVIgZANzbGwEbXlpcANjbnQGR0NTZXJyA1RJTwdJT1N0b3JlDE1BS09WQTEyMzQ1NgdeJVpNUkFT
-A2N1cgFjAWkDU2VzBUNsQnJrBUlzVHJtBUlzQnJrBkJya0ZsdwtHZXRDbGllbnRJUANDSVAGJVpv
-TVJpAml4A2NpcAJpcAtTZXRDbGllbnRJUARVSU5GAk5TCCVaTVJNc2dzA0RlbAYlWk1SQVMESkVy
-cgNzaWQHTmV4dFNJRAsA7/+y/3n/bP9g/1n/M/8o/x3/9/7h/gAAMwFjAAEAAwADAAUAJgApAC0A
-LgBDAEQAVwBYAFoAWgBqAGsAbQBtAHEAjgCbAJwAnQCfAJ8ApAC9AOcA6gDrAO0A8wD/AAkBCgEM
-ARwBHQEfAS4BLwE/AUABTAFcAWcBlwGmAcMB8AH4AR4CHgJAAlUCWAJZAlsCZAJkAmYCbwJ+Ap8C
-ygLVAtgC2QLbAuIC6AL1AgYDEwM2A0IDVQNlA2gDaQNrA3EDdgOIA8UD6wP1A/8DHQQwBFQEVQRV
-BFoEbASGBLkEugS6BBIA9P/E/8D/vf+2/4f/hf+B/1X/UP9M/wH//f7u/uz+6f7Y/tX+AQAU/wAA
-AAAAAAAAAAAAAAAAAwDo/9v/zf4AAAEAAAAL/0AAQABAAFgAWABgAGgAcABwAHgAeAB4AIAAiACQ
-AJAAkACQAJAAmACgAKgAsACwALgAuADIAMgAyADIAMgAyAA6YNv+XgAAADJA8f5RAAAARBTk/wkA
-AAD74JP/JwAAACH/+P8CAAAAosbv/wcAAAD+hqb/GAAAAPuGx/8RAAAA00Fk/zoAAAB95Zn/JAAA
-AJsRif8sAAAAqeSf/x8AAACoQQP/RQAAAKMC2P8LAAAAfXuN/yoAAACdDFn/QwAAAHb60/8NAAAA
-</DataBase64>
-<Node><Sub>INT</Sub>
-<Data>64621,53982.672346</Data>
-</Node>
-<Node><Sub>MAC</Sub>
-<Data>64596,34773</Data>
-</Node>
-</OBJ>
+<Routine name="%ZMRSMGR" type="MAC" languagemode="0"><![CDATA[
+ ; ZMRPMD session management procedures
+#include ZMRDEF
+  
+NextSID(sid) 
+ ; returns ID of next active session
+ s $ZT="JErr"
+ f  s sid=$O($$$AS(sid)) q:sid=""  q:$D(^$J($G($$$AS(sid,-2),0)))
+ q sid
+JErr s $ZT="" q ""
+ ;
+Del(sid) k:sid'="" $$$AS(sid),$$$MSGS(sid) q
+ ;
+NS(sid) q:sid'="" $G($$$AS(sid,-1),0) q 0
+ ;
+UINF(sid) 
+ ; returns $LB(UserLN,$ZWASCII(SessionKey))
+ q:sid'="" $G($$$AS(sid,-1,4)) q ""
+ ;
+SetClientIP(ip) 
+ ; stores client IP-address submitted by client (overrides autodetected)
+ n cip,ix
+ s cip=0 f ix=1:1:4 s cip=cip*256+$P(ip,".",ix)
+ s $$$AS($$$SES,0,"CIP")=cip
+ q
+ ;
+GetClientIP(sid) 
+ ; returns stored client IP-address
+ n ix,ip,cip
+ s cip=$G($$$AS($G(sid,$G($$$SES)),0,"CIP")) q:'cip ""
+ s ip="" f ix=1:1:4 s ip=cip#256_$S(ip'="":"."_ip,1:""),cip=cip\256
+ q ip
+ ;
+BrkFlw(sid) 
+ q:$G(sid)=""
+ q:$D($$$AS(sid))'=11
+ s $$$AS(sid,-3)=1 q
+ ;
+IsBrk(sid) 
+ q:$G(sid)="" 0 q $D($$$AS(sid,-3))
+ ;
+IsTrm(sid) 
+ q:sid="" 0 q $D($$$AS(sid,-4))
+ ;
+ClBrk(sid) k:sid'="" $$$AS(sid,-3) q
+ ;
+Ses() n i,ix,sid,c,cur,ip,cip
+ l +$$$AS(0) s cur=$G($$$AS(0))
+ s:$L(cur)'=12 cur="MAKOVA123456"
+ f i=1:1:6 s c=$A($E(cur,i))+$R(8) s:c>$A("Z") c=c-26 s $E(cur,i)=$C(c)
+ s $E(cur,7,12)=$E(cur,7,12)+1
+ s:$E(cur,7,12)>999990 cur=$E(cur,1,6)_100001
+ s $$$AS(0)=cur,sid=cur_$ZCVT($P($ZU(110),"."),"U")_$$$TM
+ l -$$$AS(0)
+ s $$$AS(sid,-2)=+$J,$$$AS(sid)=$$$TM
+ ; determine and store client's IP-address
+ s cip=0,ip=$ZU(111,0) f ix=1:1:4 s cip=cip*256+$A($E(ip,ix))
+ s ($$$AS(sid,0,"CIP"),$$$AS(sid,0,"CIP",0))=cip
+ q sid
+ ;
+IOStore(sid) 
+ s $$$AS(sid,"TIO")=$IO
+ ; Share license between processes from the same client computer
+ s $ZT="GCSerr"
+ n ix,cnt,myip,sll s sll="(nv083Pasnacv3P7ET121R d"
+ s ix="",cnt=0,myip=$$$AS(sid,0,"CIP",0)
+ f  s ix=$$NextSID(ix) q:ix=""  s:$$$AS(ix,0,"CIP",0)=myip cnt=cnt+1
+ i $$$IsCache5 s:cnt>12 myip=myip_"."_cnt x $TR($RE(sll),"va127R380P","ieSYM$Log.")_myip_",1)" i 1
+ e  d:cnt'>12 GetCSLic^%LICENSE()
+GCSerr s $ZT="" q
+ ;
+Restore(sid) 
+ n j,i,hto,cnt,ix
+ q:sid="" ""
+ q:$D($$$AS(sid))'=11 ""
+ s $$$AS(sid,-2)=+$J,$$$AS(sid)=0
+ s cnt=$G($$$AS(sid,0,0),0)
+ f ix=1:1:cnt m @$$$AS(sid,0,ix,0)=$$$AS(sid,0,ix,1)
+ s $ET=$G($$$AS(sid,0,"ETRAP"))
+ m $$$AS(sid,-5)=$$$AS(sid,-1,-5) ; restore license mark
+ k $$$AS(sid,-1),$$$AS(sid,0)
+ q sid
+ ;
+Store(sid) 
+ n ix,sl,v,vn
+ q:sid=""
+ s sl=$ZU(41)-3,ix=0,(v,vn)=""
+ f  s v=$ZU(42,sl,v) q:v=""  i $P(v,"(")'=vn s vn=$P(v,"("),$$$AS(sid,0,$I(ix),0)=vn m $$$AS(sid,0,ix,1)=@vn
+ s $$$AS(sid,0,0)=ix,$$$AS(sid)=$$$TM
+ s $$$AS(sid,0,"ETRAP")=$ET
+ s $$$AS(sid,-1)=$ZNSPACE
+ s $$$AS(sid,-1,4)=$LB($G($$$USERLN),$ZWASCII($G($$$KEY))-8192)
+ m $$$AS(sid,-1,-5)=$$$AS(sid,-5) ; move license mark
+ k $$$AS(sid,-2),$$$AS(sid,-3),$$$AS(sid,-4),$$$AS(sid,-5)
+ q
+ ;
+Audit n ix,ct,at
+ s at=$G($$$Ini($$$ieSesAuditTO),$$$dfSesAuditTO)*86400
+ s ix="",ct=$$$TM
+ f  s ix=$O($$$AS(ix)) q:ix=""  k:$$$AS(ix)&((ct-$$$AS(ix))>at) $$$AS(ix),$$$MSGS(ix)
+ q
+ ;
+]]></Routine>
 
 
 <Class name="%ZSMWrap.Class">
@@ -87993,7 +88726,6 @@ AJsRif8sAAAAqeSf/x8AAACoQQP/RQAAAKMC2P8LAAAAfXuN/yoAAACdDFn/QwAAAHb60/8NAAAA
 <IncludeCode/>
 <Language>cache</Language>
 <TimeCreated>64621,58241.120574</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
 
 <Parameter name="Super">
 <Default> </Default>
@@ -88014,7 +88746,6 @@ AJsRif8sAAAAqeSf/x8AAACoQQP/RQAAAKMC2P8LAAAAfXuN/yoAAACdDFn/QwAAAHb60/8NAAAA
 <Language>cache</Language>
 <Super>%CSP.Page</Super>
 <TimeCreated>64621,58280.14959</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
 
 <Parameter name="Super">
 <Default>%CSP.Page</Default>
@@ -88062,11 +88793,9 @@ AJsRif8sAAAAqeSf/x8AAACoQQP/RQAAAKMC2P8LAAAAfXuN/yoAAACdDFn/QwAAAHb60/8NAAAA
 
 
 <Class name="%ZSMWrap.Template.Form">
-<IncludeCode/>
 <Language>cache</Language>
 <Super>%Library.TMFormClass</Super>
 <TimeCreated>64621,58197.868059</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
 
 <Parameter name="Super">
 <Default>%Library.TMFormClass</Default>
@@ -88092,6 +88821,7 @@ AJsRif8sAAAAqeSf/x8AAACoQQP/RQAAAKMC2P8LAAAAfXuN/yoAAACdDFn/QwAAAHb60/8NAAAA
 <Method name="%OnNew">
 <FormalSpec>initvalue:%String=""</FormalSpec>
 <Language>cache</Language>
+<ProcedureBlock>0</ProcedureBlock>
 <ReturnType>%Status</ReturnType>
 <SoapBindingStyle>document</SoapBindingStyle>
 <SoapBodyUse>literal</SoapBodyUse>
@@ -88188,7 +88918,6 @@ AJsRif8sAAAAqeSf/x8AAACoQQP/RQAAAKMC2P8LAAAAfXuN/yoAAACdDFn/QwAAAHb60/8NAAAA
 <Language>cache</Language>
 <Super>%Library.Persistent</Super>
 <TimeCreated>64621,58318.363962</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
 
 <Parameter name="Super">
 <Default>%Library.Persistent</Default>
@@ -88201,6 +88930,22 @@ AJsRif8sAAAAqeSf/x8AAACoQQP/RQAAAKMC2P8LAAAAfXuN/yoAAACdDFn/QwAAAHb60/8NAAAA
 <Parameter name="Descript">
 <Default>может храниться в базе данных</Default>
 </Parameter>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^%ZSMWrap.Template.PersistentD</DataLocation>
+<DefaultData>PersistentDefaultData</DefaultData>
+<IdLocation>^%ZSMWrap.Template.PersistentD</IdLocation>
+<IndexLocation>^%ZSMWrap.Template.PersistentI</IndexLocation>
+<StreamLocation>^%ZSMWrap.Template.PersistentS</StreamLocation>
+<Data name="PersistentDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+</Data>
+</Storage>
 </Class>
 
 
@@ -88209,7 +88954,6 @@ AJsRif8sAAAAqeSf/x8AAACoQQP/RQAAAKMC2P8LAAAAfXuN/yoAAACdDFn/QwAAAHb60/8NAAAA
 <Language>cache</Language>
 <Super>%Library.RegisteredObject</Super>
 <TimeCreated>64621,58340.428537</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
 
 <Parameter name="Super">
 <Default>%Library.Registered </Default>
@@ -88230,7 +88974,6 @@ AJsRif8sAAAAqeSf/x8AAACoQQP/RQAAAKMC2P8LAAAAfXuN/yoAAACdDFn/QwAAAHb60/8NAAAA
 <Language>cache</Language>
 <Super>%Library.SerialObject</Super>
 <TimeCreated>64621,58447.772797</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
 
 <Storage name="Default">
 <Type>%Library.CacheSerialState</Type>
@@ -88244,7 +88987,6 @@ AJsRif8sAAAAqeSf/x8AAACoQQP/RQAAAKMC2P8LAAAAfXuN/yoAAACdDFn/QwAAAHb60/8NAAAA
 <Language>cache</Language>
 <Super>%SYS.Task.Definition</Super>
 <TimeCreated>64621,58405.513933</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
 
 <Method name="OnTask">
 <ReturnType>%Status</ReturnType>
@@ -88259,7 +89001,6 @@ AJsRif8sAAAAqeSf/x8AAACoQQP/RQAAAKMC2P8LAAAAfXuN/yoAAACdDFn/QwAAAHb60/8NAAAA
 <Language>cache</Language>
 <Super>%CSP.WebSocket</Super>
 <TimeCreated>64621,58523.142602</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
 
 <Method name="OnPreServer">
 <ReturnType>%Library.Status</ReturnType>
@@ -88469,6 +89210,278 @@ Error // Error
 ]]></Implementation>
 </Method>
 </Class>
+
+
+<Routine name="Convert2012" type="MAC" languagemode="0"><![CDATA[
+Convert2012
+ q
+#; Конвертация классов
+#; d ConvertClasses^Convert2012()
+ConvertClasses() public {
+ d $system.OBJ.Upgrade()
+ s ClassName="" f  s ClassName=$o(^oddDEF(ClassName)) q:ClassName=""  i $e(ClassName)'="%" d  k Class w !,ClassName,Text
+  . s Text=""
+  . s Class=##class(%Dictionary.ClassDefinition).%OpenId(ClassName)
+  . s needSave=$$RepairMethods(Class)
+  . i needSave s Text=" replace"
+  . i Class.ClassType="serial",$$RepairSerial(Class) s needSave=1,Text=Text_" storage"
+  . i needSave d Class.%Save(1) 
+ d CompileAll^%apiOBJ("brd")
+ q 1
+}
+#; Исправляем Storage.Data.Structure - тут теперь не list а nodelist (или пусто)
+#; list подставляет Makova Developer при редактировании класса.
+RepairSerial(Class) public {
+ s needSave=0
+ f i=1:1:Class.Storages.Count() s Storage=Class.Storages.GetAt(i) d
+  . f j=1:1:Storage.Data.Count()  s Data=Storage.Data.GetAt(j) d
+   .. i Data.Structure="list" s Data.Structure="",needSave=1
+ q needSave
+}
+RepairMethods(Class) public {
+ s needSave=0
+ s PackName=$p(Class.Name,".",1,$l(Class.Name,".")-1)
+ f i=1:1:Class.Methods.Count() i $$RepairOneMethod(Class.Methods.GetAt(i),PackName) s needSave=1
+ q needSave
+}
+RepairOneMethod(Method,PackName) public {
+ s needSave=0
+ i $zcvt(Method.CodeMode,"L")["generator" q needSave
+ s Stream=##class(%GlobalCharacterStream).%New()
+ f  q:Method.Implementation.AtEnd  s Text=Method.Implementation.Read(30000) d  d Stream.Write(Text)
+  . i $$ReplaceText(.Text,PackName) s needSave=1
+ i needSave d Method.Implementation.Clear() d
+  . d Stream.Rewind()
+  . f  q:Stream.AtEnd  d Method.Implementation.Write(Stream.Read(30000))
+ d Stream.Clear()
+ q needSave
+}
+ReplaceText(Text,PackName) public {
+ s (needSave,Pos)=0
+ f  s Pos=$find(Text,"##class(",Pos) q:'Pos  d
+  . s className=$p($e(Text,Pos,$l(Text)),")")
+  . i className["." q  ; тут пакет указан
+  . i className["_" q  ; это скорее всего экзекутив типа x "d ##class("_Type_").%New()"
+  . i className["=" q  ; это скорее всего конструкция типа d ##class(=eOrderString)####this...
+  . i $e(className)="%" q
+  . i ##class(%ClassDefinition).%ExistsId(PackName_"."_className) q  ; Этот класс присутствует в текущем пакете
+  . s $e(Text,Pos,Pos+$l(className)-1)="User."_className
+  . s needSave=1
+ q needSave
+}
+]]></Routine>
+
+
+<Routine name="MAKOVA" type="MAC" languagemode="0"><![CDATA[
+    /*
+    zn "%SYS"
+    d export^MAKOVA("C:\InterSystems\Cache2016.2\bin\SMWrap.xml")
+    */
+export(path)
+ ;  d RUN^%ZMRPMD("E:\!5autoexport\myasnikovia\MakovaBackUp\")
+ ;  d RUN^%ZMRPMD("C:\BackUp\")
+ ;  d HALT^%ZMRPMD 
+ ;  d HALT^%ZMRPMD    ; Остановить сервер
+ ;  d CONFIG^%ZMRPMD
+     k all
+     s all("MAKOVA.MAC")=""
+     s all("MAKOVABIN.MAC")=""
+     s all("Convert2012.MAC")=""
+    ; 
+    ; Сервер 
+     s all("%Const.mac")=""
+     s all("%ZConst.INC")=""
+     s all("%ZMRAUTH.INT")=""
+     s all("ZMRDEF.INC")=""
+     s all("%ZMRASD.MAC")=""
+     s all("%ZMRAUTH.MAC")=""
+     s all("%ZMREVENT.MAC")=""
+     s all("%ZMRINS.MAC")=""
+     s all("%ZMRPMD.MAC")=""
+     s all("%ZMRSMGR.MAC")=""
+     s all("%ZGLEXIM.MAC")=""
+     s all("%ZMRProgramCosta.MAC")=""
+     s all("%ZMRProgramAuthor.MAC")=""
+     s all("%ZMRMStudioHooks.mac")=""
+     
+  ; классы для Cache2017        
+     s all("%ZSMWrap.Class.CLS")=""
+     ;  s all("%ZSMWrap.Utility.CLS")=""
+     ;  s all("%ZSMWrap.Client.CLS")=""       ; Клиент  
+     s all("%ZSMWrap.Server.CLS")=""       ; Автозапуск сервера
+   
+     s all("%ZSMWrap.Template.Castum.CLS")=""
+     s all("%ZSMWrap.Template.Csp.CLS")=""
+     s all("%ZSMWrap.Template.Form.CLS")=""
+     s all("%ZSMWrap.Template.Persistent.CLS")=""
+     s all("%ZSMWrap.Template.Registered.CLS")=""
+     s all("%ZSMWrap.Template.SerialObject.CLS")=""
+     s all("%ZSMWrap.Template.ShadowControl.CLS")=""
+     s all("%ZSMWrap.Template.WebSocketServer.CLS")=""
+     s all("%ZSMWrap.Template.XDataHTML.CLS")=""
+   
+     s all("^%ZSMTemplate.GBL")=""   ; Глобаль в которой хранится описание шаблонов классов
+     
+   ;
+   ; проект
+   ;   s all("SMProject.GBL")=""     ; Глобаль в которой хранится  описание проектов
+   ;   s all("User.zRunTest.CLS")="" ; Стартовый класс
+   ;
+   ; классы МАКОВА
+     s all("%Library.SMProject.cls")=""
+     s all("%Library.TMWebFormClass.CLS")=""
+     s all("%Library.TMApplication.cls")=""
+     s all("%Library.TMAreaSeries.cls")=""
+     s all("%Library.TMArrowSeries.cls")=""
+     s all("%Library.TMAsync.cls")=""
+     s all("%Library.TMBarSeries.cls")=""
+     s all("%Library.TMBevel.cls")=""
+     s all("%Library.TMBitmap.cls")=""
+     s all("%Library.TMBrush.cls")=""
+     s all("%Library.TMBubbleSeries.cls")=""
+     s all("%Library.TMButton.cls")=""
+     s all("%Library.TMButtonGrid.cls")=""
+     s all("%Library.TMCanvas.cls")=""
+     s all("%Library.TMChart.cls")=""
+     s all("%Library.TMChartAxis.cls")=""
+     s all("%Library.TMChartAxisTitle.cls")=""
+     s all("%Library.TMChartGradient.cls")=""
+     s all("%Library.TMChartLegend.cls")=""
+     s all("%Library.TMChartPen.cls")=""
+     s all("%Library.TMChartSeries.cls")=""
+     s all("%Library.TMChartShape.cls")=""
+     s all("%Library.TMChartTitle.cls")=""
+     s all("%Library.TMChartValueList.cls")=""
+     s all("%Library.TMChartWall.cls")=""
+     s all("%Library.TMCheckBox.cls")=""
+     s all("%Library.TMCheckListBox.cls")=""
+     s all("%Library.TMClientDataSet.cls")=""
+     s all("%Library.TMColorDialog.cls")=""
+     s all("%Library.TMComboBox.cls")=""
+     s all("%Library.TMComBuffer.cls")=""
+     s all("%Library.TMComFlowControl.cls")=""
+     s all("%Library.TMComParity.cls")=""
+     s all("%Library.TMComPort.cls")=""
+     s all("%Library.TMCompositeReport.cls")=""
+     s all("%Library.TMComTimeouts.cls")=""
+     s all("%Library.TMControl.cls")=""
+     s all("%Library.TMControlScrollBar.cls")=""
+     s all("%Library.TMConverter.cls")=""
+     s all("%Library.TMCustomBarSeries.cls")=""
+     s all("%Library.TMCustomSeries.cls")=""
+     s all("%Library.TMDataSet.cls")=""
+     s all("%Library.TMDataSource.cls")=""
+     s all("%Library.TMDateEdit.cls")=""
+     s all("%Library.TMDBCheckBox.cls")=""
+     s all("%Library.TMDBComboBox.cls")=""
+     s all("%Library.TMDBDateEdit.cls")=""
+     s all("%Library.TMDBEdit.cls")=""
+     s all("%Library.TMDBGrid.cls")=""
+     s all("%Library.TMDBImage.cls")=""
+     s all("%Library.TMDBLabel.cls")=""
+     s all("%Library.TMDBListBox.cls")=""
+     s all("%Library.TMDBLookupComboBox.cls")=""
+     s all("%Library.TMDBLookupListBox.cls")=""
+     s all("%Library.TMDBMemo.cls")=""
+     s all("%Library.TMDBNumberEdit.cls")=""
+     s all("%Library.TMDBRadioGroup.cls")=""
+     s all("%Library.TMDock.cls")=""
+     s all("%Library.TMEdit.cls")=""
+     s all("%Library.TMFastLineSeries.cls")=""
+     s all("%Library.TMFDesigner.cls")=""
+     s all("%Library.TMFieldDef.cls")=""
+     s all("%Library.TMFieldDefs.cls")=""
+     s all("%Library.TMFileStream.cls")=""
+     s all("%Library.TMFont.cls")=""
+     s all("%Library.TMFontDialog.cls")=""
+     s all("%Library.TMForm.cls")=""
+     s all("%Library.TMFormClass.cls")=""
+     s all("%Library.TMFReport.cls")=""
+     s all("%Library.TMGanttSeries.cls")=""
+     s all("%Library.TMGaugeAttrs.cls")=""
+     s all("%Library.TMGraphic.cls")=""
+     s all("%Library.TMGridColumn.cls")=""
+     s all("%Library.TMGridColumns.cls")=""
+     s all("%Library.TMGroupBox.cls")=""
+     s all("%Library.TMHorizBarSeries.cls")=""
+     s all("%Library.TMIcon.cls")=""
+     s all("%Library.TMIconOptions.cls")=""
+     s all("%Library.TMImage.cls")=""
+     s all("%Library.TMImageList.cls")=""
+     s all("%Library.TMLabel.cls")=""
+     s all("%Library.TMLineSeries.cls")=""
+     s all("%Library.TMListBox.cls")=""
+     s all("%Library.TMListColumn.cls")=""
+     s all("%Library.TMListColumns.cls")=""
+     s all("%Library.TMListItem.cls")=""
+     s all("%Library.TMListItems.cls")=""
+     s all("%Library.TMListView.cls")=""
+     s all("%Library.TMLocator.cls")=""
+     s all("%Library.TMMainMenu.cls")=""
+     s all("%Library.TMMemo.cls")=""
+     s all("%Library.TMMenuItem.cls")=""
+     s all("%Library.TMNotebook.cls")=""
+     s all("%Library.TMNumberEdit.cls")=""
+     s all("%Library.TMOleContainer.cls")=""
+     s all("%Library.TMOleObject.cls")=""
+     s all("%Library.TMOpenDialog.cls")=""
+     s all("%Library.TMPage.cls")=""
+     s all("%Library.TMPageControl.cls")=""
+     s all("%Library.TMPaintBox.cls")=""
+     s all("%Library.TMPanel.cls")=""
+     s all("%Library.TMParaAttributes.cls")=""
+     s all("%Library.TMPen.cls")=""
+     s all("%Library.TMPersistent.cls")=""
+     s all("%Library.TMPieOtherSlice.cls")=""
+     s all("%Library.TMPieSeries.cls")=""
+     s all("%Library.TMPointSeries.cls")=""
+     s all("%Library.TMPopupMenu.cls")=""
+     s all("%Library.TMPrintDialog.cls")=""
+     s all("%Library.TMPrinter.cls")=""
+     s all("%Library.TMPrinterSetupDialog.cls")=""
+     s all("%Library.TMProgressBar.cls")=""
+     s all("%Library.TMQuery.cls")=""
+     s all("%Library.TMRadioButton.cls")=""
+     s all("%Library.TMRadioGroup.cls")=""
+     s all("%Library.TMRichEdit.cls")=""
+     s all("%Library.TMRxDrawGrid.cls")=""
+     s all("%Library.TMSaveDialog.cls")=""
+     s all("%Library.TMScrollBar.cls")=""
+     s all("%Library.TMScrollBox.cls")=""
+     s all("%Library.TMSeriesMarks.cls")=""
+     s all("%Library.TMSeriesPointer.cls")=""
+     s all("%Library.TMShape.cls")=""
+     s all("%Library.TMSizeConstraints.cls")=""
+     s all("%Library.TMSpeedButton.cls")=""
+     s all("%Library.TMSplitter.cls")=""
+     s all("%Library.TMStatusBar.cls")=""
+     s all("%Library.TMStatusPanel.cls")=""
+     s all("%Library.TMStatusPanels.cls")=""
+     s all("%Library.TMStringGrid.cls")=""
+     s all("%Library.TMStringList.cls")=""
+     s all("%Library.TMStrings.cls")=""
+     s all("%Library.TMTabControl.cls")=""
+     s all("%Library.TMTabSet.cls")=""
+     s all("%Library.TMTabSheet.cls")=""
+     s all("%Library.TMTextAttributes.cls")=""
+     s all("%Library.TMTimer.cls")=""
+     s all("%Library.TMToolbar.cls")=""
+     s all("%Library.TMToolbarSep.cls")=""
+     s all("%Library.TMTrackBar.cls")=""
+     s all("%Library.TMTreeNode.cls")=""
+     s all("%Library.TMTreeNodes.cls")=""
+     s all("%Library.TMTreeView.cls")=""
+     s all("%Library.TMView3DOptions.cls")=""
+     s all("%Library.TMWinControl.cls")=""
+     if $l(path)=0     d $system.OBJ.Export(.all,"C:\TEMP\SMWRap\ProjectSMWrap2017("_$REPLACE($zd(+$h,4),"/","-")_").xml")
+     e  d $system.OBJ.Export(.all,path)
+     k all
+     q
+delete(path)
+      
+     q 
+
+]]></Routine>
 
 
 <Routine name="MAKOVABIN" type="MAC" languagemode="0"><![CDATA[
