@@ -20,6 +20,4 @@
 <br>  по умолчанию порт соединения 7200
 <br>  для изменения настроек в терминале запустите команду d CONFIG^%ZMRPMD 
 <pre>
- Старая версия SMWrap Makova v2.1 выложена на YandexDisc:
-   https://yadi.sk/d/Ph3O1BB0woWw3
-</pre>
+ 
