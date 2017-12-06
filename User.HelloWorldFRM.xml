@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792)" ts="2017-12-06 09:17:31">
+<Class name="User.HelloWorldFRM">
+<IncludeCode/>
+<Language>cache</Language>
+<Super>%Library.TMFormClass</Super>
+<TimeChanged>64623,33393.996854</TimeChanged>
+<TimeCreated>64623,33393.576699</TimeCreated>
+<ClassDefinitionError>0</ClassDefinitionError>
+
+<Property name="Form">
+<Type>%Library.TMForm</Type>
+</Property>
+
+<Property name="StaticControl">
+<Type>%Library.String</Type>
+<MultiDimensional>1</MultiDimensional>
+</Property>
+
+<Method name="%OnNew">
+<FormalSpec>initvalue:%String=""</FormalSpec>
+<Language>cache</Language>
+<ReturnType>%Status</ReturnType>
+<SoapBindingStyle>document</SoapBindingStyle>
+<SoapBodyUse>literal</SoapBodyUse>
+<Implementation><![CDATA[
+ ; n result
+ i $d(initvalue)=0 q $$$OK
+ i initvalue="" q $$$OK
+ d ..Initialization(initvalue)
+ s result=..OnCreate(initvalue)
+ i result'=$$$OK  d
+ e  d ..Form.SetContainer(+##this)
+ q result
+]]></Implementation>
+</Method>
+
+<Method name="DesignDefinition">
+<Language>cache</Language>
+<SoapBindingStyle>document</SoapBindingStyle>
+<SoapBodyUse>literal</SoapBodyUse>
+<Implementation><![CDATA[
+#if 0
+ ;object DesignForm: TDesignForm
+ ;  Left = 256
+ ;  Top = 117
+ ;  Width = 440
+ ;  Height = 418
+ ;  Caption = 'DesignForm'
+ ;  Color = clBtnFace
+ ;  Font.Charset = DEFAULT_CHARSET
+ ;  Font.Color = clWindowText
+ ;  Font.Height = -11
+ ;  Font.Name = 'MS Sans Serif'
+ ;  Font.Style = []
+ ;  OldCreateOrder = False
+ ;  Visible = True
+ ;  PixelsPerInch = 96
+ ;  TextHeight = 13
+ ;  object Label1: CLabel
+ ;    Left = 104
+ ;    Top = 8
+ ;    Width = 166
+ ;    Height = 37
+ ;    Caption = 'Hello World'
+ ;    Font.Charset = DEFAULT_CHARSET
+ ;    Font.Color = clWindowText
+ ;    Font.Height = -32
+ ;    Font.Name = 'MS Sans Serif'
+ ;    Font.Style = []
+ ;    ParentFont = False
+ ;  end
+ ;  object Memo1: CMemo
+ ;    Left = 24
+ ;    Top = 96
+ ;    Width = 384
+ ;    Height = 256
+ ;    Lines.Strings = (
+ ;      'Memo1')
+ ;    TabOrder = 0
+ ;  end
+ ;  object Button2: CButton
+ ;    Left = 168
+ ;    Top = 64
+ ;    Width = 75
+ ;    Height = 25
+ ;    Caption = #1053#1072#1078#1084#1080' '#1084#1077#1085#1103
+ ;    TabOrder = 1
+ ;    OnClick = Button2Click
+ ;  end
+ ;end
+#endif
+]]></Implementation>
+</Method>
+
+<Method name="Destroy">
+<Language>cache</Language>
+<SoapBindingStyle>document</SoapBindingStyle>
+<SoapBodyUse>literal</SoapBodyUse>
+<Implementation><![CDATA[ q
+]]></Implementation>
+</Method>
+
+<Method name="Initialization">
+<FormalSpec>initvalue:%String=""</FormalSpec>
+<Language>cache</Language>
+<PublicList>MApplication</PublicList>
+<SoapBindingStyle>document</SoapBindingStyle>
+<SoapBodyUse>literal</SoapBodyUse>
+<Implementation><![CDATA[
+ s MApplication.ClientState="Loading", %MApplication=MApplication 
+ d ..LoadResources()
+ s ..Form=##class(%Library.TMForm).%New(initvalue)
+ s ..Label1=##class(%TMLabel).%New($lb(..Form.Address,0))
+ s ..Memo1=##class(%TMMemo).%New($lb(..Form.Address,0))
+ s ..Button2=##class(%TMButton).%New($lb(..Form.Address,0))
+ s MApplication.ClientState="NoWait"
+ ;s ..Form.Visible="False"
+ d ..Form.SetMultiProperty($lb("Left","Top","Width","Height","Caption","Color","OldCreateOrder","PixelsPerInch"),$lb(256,117,440,418,"DesignForm",$$$clBtnFace,"False",96),$lb(0,0,0,0,0,0,0,0))
+ d ..Form.Font.SetMultiProperty($lb("Charset","Color","Height","Name","Style"),$lb($$$DEFAULTCHARSET,$$$clWindowText,-11,"MS Sans Serif",$lb()))
+ d ..Label1.SetMultiProperty($lb("Left","Top","Width","Height","Caption","ParentFont"),$lb(104,8,166,37,"Hello World","False"),$lb(0,0,0,0,0,0))
+ d ..Label1.Font.SetMultiProperty($lb("Charset","Color","Height","Name","Style"),$lb($$$DEFAULTCHARSET,$$$clWindowText,-32,"MS Sans Serif",$lb()))
+ d ..Memo1.SetMultiProperty($lb("Left","Top","Width","Height"),$lb(24,96,384,256),$lb(0,0,0,0))
+ d ..Memo1.Lines.SetMultiProperty($lb("Strings"),$lb("Memo1"))
+ d ..Memo1.SetMultiProperty($lb("TabOrder"),$lb(0),$lb(0))
+ d ..Button2.SetMultiProperty($lb("Left","Top","Width","Height","Caption","TabOrder","OnClick"),$lb(168,64,75,25,"Нажми меня",1,$lb(##this,"Button2Click")),$lb(0,0,0,0,0,0,0))
+ s MApplication.ClientState="Wait"
+ q
+]]></Implementation>
+</Method>
+
+<Method name="LoadResources">
+<Language>cache</Language>
+<SoapBindingStyle>document</SoapBindingStyle>
+<SoapBodyUse>literal</SoapBodyUse>
+<Implementation><![CDATA[ q
+]]></Implementation>
+</Method>
+
+<Method name="OnCreate">
+<FormalSpec>initvalue:%String=""</FormalSpec>
+<Language>cache</Language>
+<ReturnType>%Status</ReturnType>
+<SoapBindingStyle>document</SoapBindingStyle>
+<SoapBodyUse>literal</SoapBodyUse>
+<Implementation><![CDATA[ q $$$OK
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheSerialState</Type>
+<Data name="TMFormClassState">
+<Subscript>"%Library.TMFormClass"</Subscript>
+<Value name="1">
+<Value>Address</Value>
+</Value>
+<Value name="2">
+<Value>Form</Value>
+</Value>
+<Value name="3">
+<Value>Resources</Value>
+</Value>
+<Value name="4">
+<Value>SMWrapDesignVersion</Value>
+</Value>
+<Value name="5">
+<Value>MStudioDesignVersion</Value>
+</Value>
+<Value name="6">
+<Value>Button2</Value>
+</Value>
+<Value name="7">
+<Value>Label1</Value>
+</Value>
+<Value name="8">
+<Value>Memo1</Value>
+</Value>
+</Data>
+</Storage>
+
+<Property name="Button2">
+<Type>%TMButton</Type>
+</Property>
+
+<Property name="Label1">
+<Type>%TMLabel</Type>
+</Property>
+
+<Property name="MStudioDesignVersion">
+<Type>%Library.String</Type>
+<InitialExpression>3</InitialExpression>
+</Property>
+
+<Property name="Memo1">
+<Type>%TMMemo</Type>
+</Property>
+
+<Method name="Button2Click">
+<FormalSpec>Args:%String</FormalSpec>
+<Implementation><![CDATA[
+ ; Args format: $lb(Sender)
+ ; n Sender
+ s Sender=##class(%TMPersistent).GetObjOref($lg(Args,1))
+ ;Beginning of user code
+    d ..Memo1.Lines.Add("Время: "_$ZDT($h))
+ ;End of user code
+ s Args=$lb(Sender)
+ q
+]]></Implementation>
+</Method>
+</Class>
+</Export>
