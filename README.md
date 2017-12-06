@@ -3,6 +3,8 @@
 <br>Для запуска необходимо установить классы из пакета SMWrap.xml 
 <br> 1) Перед инсталяцией переключите базу данных "CACHELIB" в режим записи:
 <br> http://localhost:57773/csp/sys/mgr/%25CSP.UI.Portal.Databases.zen  зайти в "CACHELIB" и убрать галочку "Переключитьтолько чтения"
+ <img src="https://github.com/MyasnikovIA/SMWrap2017/blob/master/CacheLib(ReadOnly).png?raw=true"/>
+ 
 <br> 
 <br> 2) В терминале написать команду   do $system.OBJ.Load("c:\XML\SMWrap.xml","c")
 <br>  "c:\XML\SMWrap.xml" -  путь к файлу на сервере
