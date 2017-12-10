@@ -87880,7 +87880,7 @@ GarbColl
  s l=$L("ZMRINS"),host=$ZCVT($ZU(110),"U")
  s host=$TR(host,$TR(host,"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"))
  s ns=$ZU(5),nethard=$ZU(68,27)
- f i=1:1:$ZU(90,0) s ns($ZU(90,2,0,i))=""
+ f i=1:1:$ZU(90,0) s:$ZU(90,2,0,i)'="" ns($ZU(90,2,0,i))=""
  s i="" f  s i=$O(ns(i)) q:i=""  d
  . s $ZT="GColErr"
  . d $ZU(68,27,0) zn i s ix="ZMRINS"
