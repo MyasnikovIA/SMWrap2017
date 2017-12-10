@@ -88701,6 +88701,9 @@ Audit n ix,ct,at
 ]]></Routine>
 
 
+<Class name="%ZSMWrap.Class">
+<TimeCreated>64491,59164.075381</TimeCreated>
+</Class>
 
 
 <Class name="%ZSMWrap.Server">
@@ -88722,8 +88725,19 @@ Audit n ix,ct,at
 <Class name="%ZSMWrap.Template.Castum">
 <IncludeCode/>
 <Language>cache</Language>
-<TimeCreated>64622,30302.04924</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
+<TimeCreated>64621,58241.120574</TimeCreated>
+
+<Parameter name="Super">
+<Default> </Default>
+</Parameter>
+
+<Parameter name="Name">
+<Default>Castum</Default>
+</Parameter>
+
+<Parameter name="Descript">
+<Default>Пустой класс с любым набором наследование.</Default>
+</Parameter>
 </Class>
 
 
@@ -88731,8 +88745,19 @@ Audit n ix,ct,at
 <IncludeCode/>
 <Language>cache</Language>
 <Super>%CSP.Page</Super>
-<TimeCreated>64622,29843.744117</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
+<TimeCreated>64621,58280.14959</TimeCreated>
+
+<Parameter name="Super">
+<Default>%CSP.Page</Default>
+</Parameter>
+
+<Parameter name="Name">
+<Default>CSP страница</Default>
+</Parameter>
+
+<Parameter name="Descript">
+<Default>Применяется для обработки HTTP событий</Default>
+</Parameter>
 
 <Method name="OnPage">
 <ClassMethod>1</ClassMethod>
@@ -88768,11 +88793,21 @@ Audit n ix,ct,at
 
 
 <Class name="%ZSMWrap.Template.Form">
-<IncludeCode/>
 <Language>cache</Language>
 <Super>%Library.TMFormClass</Super>
-<TimeCreated>64622,30276.049287</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
+<TimeCreated>64621,58197.868059</TimeCreated>
+
+<Parameter name="Super">
+<Default>%Library.TMFormClass</Default>
+</Parameter>
+
+<Parameter name="Name">
+<Default>SMWrap форма (дизайнер)</Default>
+</Parameter>
+
+<Parameter name="Descript">
+<Default>Класс форма для SMWrap поинрывателя</Default>
+</Parameter>
 
 <Property name="Form">
 <Type>%Library.TMForm</Type>
@@ -88791,7 +88826,7 @@ Audit n ix,ct,at
 <SoapBindingStyle>document</SoapBindingStyle>
 <SoapBodyUse>literal</SoapBodyUse>
 <Implementation><![CDATA[
- ; n result
+ n result
  i $d(initvalue)=0 q $$$OK
  i initvalue="" q $$$OK
  d ..Initialization(initvalue)
@@ -88807,12 +88842,11 @@ Audit n ix,ct,at
 <SoapBindingStyle>document</SoapBindingStyle>
 <SoapBodyUse>literal</SoapBodyUse>
 <Implementation><![CDATA[
-#if 0
  ;object DesignForm: TDesignForm
- ;  Left = 355
- ;  Top = 119
- ;  Width = 766
- ;  Height = 463
+ ;  Left = 0
+ ;  Top = 0
+ ;  Width = 327
+ ;  Height = 302
  ;  Caption = 'DesignForm'
  ;  Color = clBtnFace
  ;  Font.Charset = DEFAULT_CHARSET
@@ -88825,7 +88859,6 @@ Audit n ix,ct,at
  ;  PixelsPerInch = 96
  ;  TextHeight = 13
  ;end
-#endif
 ]]></Implementation>
 </Method>
 
@@ -88844,7 +88877,7 @@ Audit n ix,ct,at
 <SoapBindingStyle>document</SoapBindingStyle>
 <SoapBodyUse>literal</SoapBodyUse>
 <Implementation><![CDATA[
- s MApplication.ClientState="Loading", %MApplication=MApplication 
+ s MApplication.ClientState="Loading"
  d ..LoadResources()
  s ..Form=##class(%Library.TMForm).%New(initvalue)
  s MApplication.ClientState="NoWait"
@@ -88876,30 +88909,7 @@ Audit n ix,ct,at
 
 <Storage name="Default">
 <Type>%Library.CacheSerialState</Type>
-<Data name="TMFormClassState">
-<Subscript>"%Library.TMFormClass"</Subscript>
-<Value name="1">
-<Value>Address</Value>
-</Value>
-<Value name="2">
-<Value>Form</Value>
-</Value>
-<Value name="3">
-<Value>Resources</Value>
-</Value>
-<Value name="4">
-<Value>SMWrapDesignVersion</Value>
-</Value>
-<Value name="5">
-<Value>MStudioDesignVersion</Value>
-</Value>
-</Data>
 </Storage>
-
-<Property name="MStudioDesignVersion">
-<Type>%Library.String</Type>
-<InitialExpression>3</InitialExpression>
-</Property>
 </Class>
 
 
@@ -88907,8 +88917,19 @@ Audit n ix,ct,at
 <IncludeCode/>
 <Language>cache</Language>
 <Super>%Library.Persistent</Super>
-<TimeCreated>64622,30254.696553</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
+<TimeCreated>64621,58318.363962</TimeCreated>
+
+<Parameter name="Super">
+<Default>%Library.Persistent</Default>
+</Parameter>
+
+<Parameter name="Name">
+<Default>%Persistent-Хранимый класс</Default>
+</Parameter>
+
+<Parameter name="Descript">
+<Default>может храниться в базе данных</Default>
+</Parameter>
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
@@ -88932,8 +88953,19 @@ Audit n ix,ct,at
 <IncludeCode/>
 <Language>cache</Language>
 <Super>%Library.RegisteredObject</Super>
-<TimeCreated>64622,30168.742564</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
+<TimeCreated>64621,58340.428537</TimeCreated>
+
+<Parameter name="Super">
+<Default>%Library.Registered </Default>
+</Parameter>
+
+<Parameter name="Name">
+<Default>%Library.Registered</Default>
+</Parameter>
+
+<Parameter name="Descript">
+<Default>не могут храниться в базе данных</Default>
+</Parameter>
 </Class>
 
 
@@ -88942,7 +88974,6 @@ Audit n ix,ct,at
 <Language>cache</Language>
 <Super>%Library.SerialObject</Super>
 <TimeCreated>64621,58447.772797</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
 
 <Storage name="Default">
 <Type>%Library.CacheSerialState</Type>
@@ -88956,7 +88987,6 @@ Audit n ix,ct,at
 <Language>cache</Language>
 <Super>%SYS.Task.Definition</Super>
 <TimeCreated>64621,58405.513933</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
 
 <Method name="OnTask">
 <ReturnType>%Status</ReturnType>
@@ -88971,7 +89001,6 @@ Audit n ix,ct,at
 <Language>cache</Language>
 <Super>%CSP.WebSocket</Super>
 <TimeCreated>64621,58523.142602</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
 
 <Method name="OnPreServer">
 <ReturnType>%Library.Status</ReturnType>
@@ -89246,7 +89275,7 @@ ReplaceText(Text,PackName) public {
 <Routine name="MAKOVA" type="MAC" languagemode="0"><![CDATA[
     /*
     zn "%SYS"
-    d export^MAKOVA("")
+    d export^MAKOVA("C:\XML\SMWrap.xml")
     */
 export(path)
  ;  d RUN^%ZMRPMD("E:\!5autoexport\myasnikovia\MakovaBackUp\")
