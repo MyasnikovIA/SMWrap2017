@@ -87456,7 +87456,32 @@ Daemon(p,ijc,key,UserLN,SESID)
  . d IOStore^$$$SMGR($$$SES)
  . s $$$AS($$$SES,"InsRut")=$$$InsRut
  s $$$CRT=$$$TM,$$$C=""
- f  d ReadCmd q:$$$C=$$$cmdQUIT  d:$D($$$MSGS($$$SES)) GetMsgs
+   ; Параметры авторизации
+      s I=$ZU(111,0), ip=$p($A(I,1)_"."_$A(I,2)_"."_$A(I,3)_"."_$A(I,4)_"_"_($A(I,5)*256+$A(I,6)),":",1)
+      if $d(^%ZSysUser(ip)) s %sysuser=^%ZSysUser(ip)  k ^%ZSysUser(ip)
+   ; ---------------------  
+   ; создать сесию
+      s ^||ipKey($job)="SMWrap@"_$p(ip,":",1)
+      if ##class(%CSP.Session).%ExistsId(^||ipKey($job))=1   s %session=##class(%CSP.Session).%OpenId(^||ipKey($job))
+      else                                                   s %session=##class(%CSP.Session).%New(^||ipKey($job))
+      s %session.ProcessId=$job
+      S %session.AppTimeout =24*3600
+      ; d %session.Login("_SYSTEM")
+      S %session.Namespace=$ZU(5)
+      d %session.%Save()
+      s $LI(^%cspSession(^||ipKey($job)),15)="SMWrap:"_$job ;  Приложение 
+      s $LI(^%cspSession(^||ipKey($job)),18)=$job        ;  ID процесса
+      d %session.%Save()
+      k ^||ipKey($job)
+   ; ---------------------  
+   ; Чтение команд от клиента
+      f  d ReadCmd q:$$$C=$$$cmdQUIT  d:$D($$$MSGS($$$SES)) GetMsgs
+   ; ---------------------  
+   ; Удаление сесии
+      s I=$ZU(111,0), ip=$p($A(I,1)_"."_$A(I,2)_"."_$A(I,3)_"."_$A(I,4)_"_"_($A(I,5)*256+$A(I,6)),":",1)
+      s ^||ipKey($job)="SMWrap@"_$p(ip,":",1)
+      k ^%cspSession(^||ipKey($job)),^||ipKey($job)
+   ; ---------------------  
 mQuit s $ZT="tBreak"
 DelSes s $$$InsRut=$$$AS($$$SES,"InsRut")
  d Del^$$$SMGR($$$SES)
@@ -87485,15 +87510,6 @@ ReadCmd s $ZT="tBase"
  } 
 ExecCmd 
    s $ZT="tSftFn",$$$ERR=$$$msgOK_":"
-   ; Параметры авторизации
-     s I=$ZU(111,0)
-     s ip=$p($A(I,1)_"."_$A(I,2)_"."_$A(I,3)_"."_$A(I,4)_"_"_($A(I,5)*256+$A(I,6)),":",1)
-     if $d(^%ZSysUser(ip))
-     {
-        s %sysuser=^%ZSysUser(ip)
-        k ^%ZSysUser(ip)
-     }
-   ; ---------------------  
   s tmpRep=$$ReplaceCmd($$$C,$$$P)
   s $$$C=$lg(tmpRep,1)
   s $$$P=$lg(tmpRep,2)
@@ -87604,8 +87620,9 @@ CallBack($$$CBARGCOMMAND,$$$CBARGNOWAIT)
  s:$$$CBNW $$$CBID=-$$$CBID
  w:$D($$$CBARGCOMMAND) $$$msgCALLBACK_$$$CBID_":"_$L($$$CBARGCOMMAND)_$$$cTRM_$$$CBARGCOMMAND
  i $$$CBNW u:$$$CBOIO'=$$$TIO $$$CBOIO k $$$CBID q ""
- ; Flush TCP buffer and wait for reply or ASD command
- w ! f  r $$$RD:$$$RTO d  q:'$$$CBID  d:$D($$$MSGS($$$SES)) GetMsgs
+  ; Flush TCP buffer and wait for reply or ASD command
+ w !
+ f  r $$$RD:$$$RTO d  q:'$$$CBID  d:$D($$$MSGS($$$SES)) GetMsgs
  . q:$$$RD=""
  . s $$$C=$P($$$RD,":"),$$$RL=$P($$$RD,":",2),$$$P=""
  . f  s $$$RLP=$$$RL-$L($$$P) q:$$$RLP'>0  r $$$RD#$$$RLP:$$$RTO s $$$RD=$$$RD_$S($A($K)>127:$K,1:$$$cTRM),$$$P=$$$P_$E($$$RD,1,$$$RLP)
@@ -87733,8 +87750,9 @@ ReplaceCmd(cmd,var)
    ; BackUp file
     if $d(^%ZMRBackUp)
     { 
-       if $l(var,$c(1)_"s CClasswora")=2,$l($p(var,$c(1)_"s CClasswora",2),"=##class(%Dictionary.ClassDefinition).%New(")=2
+       if $l($lg(var,1),"=##class(%Dictionary.ClassDefinition).%New(")=2
        {
+           s ^%deb2=var
            s className=$p(var,"=##class(%Dictionary.ClassDefinition).%New(""",2) 
            s className=$p(className,""")",1) 
            s UserName=$lg(%sysuser,1)
@@ -87748,8 +87766,9 @@ ReplaceCmd(cmd,var)
            x ^%ZMRBackUp($job)
            ; d Save^%ZMRBackUp(className,%sysuser)
        }
-        ; ^%debug(152)="(756) Запрос=cmd:x###var===4"_$c(1)_"s CacheConnectClosing=CClassworanskSqlRow.%Close()"
-       if $l(var,$c(1)_"s CacheConnectClosing=CClas")=2,$l(var,".%Close()")=2
+       ; ^%debug(152)="(756) Запрос=cmd:x###var===4"_$c(1)_"s CacheConnectClosing=CClassworanskSqlRow.%Close()"
+       ; if $l(var,$c(1)_"s CacheConnectClosing=CClas")=2,$l(var,".%Close()")=2
+       if $lg(var,1)="s CacheConnectClosing=CClassAceEditoraace.%Close()"
        {
             if $d(^%ZMRBackUp($job))
             {
@@ -88055,9 +88074,9 @@ RUN(BackUpFile="")
  w $c(13,10)
  w $c(13,10)
     k ^%ZMRBackUp
-    s:BackUpFile="" BackUpFile= $ZUTIL(168)_"BackUp\"
+    ; s:BackUpFile="" BackUpFile= $ZUTIL(168)_"BackUp\"
+    if BackUpFile'=""  s ^%ZMRBackUp=BackUpFile
     k ^%SysUser 
-    s ^%ZMRBackUp=BackUpFile
     d START^%ZMRPMD(60,"CHKUSR^%ZMRAUTH") q
     q
  
@@ -88523,11 +88542,10 @@ Log(val)
   ; Список костылей для MAKOVA применяются в связи с изменением стандарта в Cache`
   ; функция перехватывает чтения входящих команд от клиента
 CommdFromClienToServer(cmd,var) 
-  q $lb(cmd,var)
-  
+  ; q $lb(cmd,var)
   // костыль необходим для MAKOVA 2.1
-  ; d Log("Запрос:cmd:"_cmd_"|val:"_var)
-  s var=$replace(var,"s %SMWOrefs(+%this)=%this","s %SMWOrefs(+##this)=##this")
+  ;  d Log("Запрос:cmd:"_cmd_"|val:"_var)
+  ; s var=$replace(var,"s %SMWOrefs(+%this)=%this","s %SMWOrefs(+##this)=##this")
   s var=$replace(var,"%this","##this")
   s var=$replace(var,$c(17,1)_"Do $ZU(68,56,1)",$c(1)_"d SubsMsgs^%ZMRASD(""DEBUGEVENT"",1,0,""OnMsgCallBack^%ZMRASD"")")
   s var=$replace(var,$c(16,1)_"d $zu(68,56,1)",$c(1)_"d SubsMsgs^%ZMRASD(""DEBUGEVENT"",1,0,""OnMsgCallBack^%ZMRASD"")")
@@ -88556,9 +88574,10 @@ CommdFromClienToServer(cmd,var)
      {
         k ^%ZMRASDKostil($Job)
         s Sub=$p(varTmp,$c(13,10),ind)
-        
-        s Sub=$REPLACE(Sub,"#endif","      ")
-        
+         if $e(Sub,1,2)=" 0" {
+            s Sub=" ;"
+         }
+         s Sub=$REPLACE(Sub,"#endif","      ")
         ; Убираем в строке не читаемые символы
            s res="" for i=1:1:31{s res=res_$c(i)} for i=127:1:144{s res=res_$c(i)}  for i=152:1:191{s res=res_$c(i)} w res   
            s Sub=$tr(Sub,res,"") 
@@ -88570,6 +88589,7 @@ CommdFromClienToServer(cmd,var)
         x "d MOREFTEMP.Implementation.Write($c(13,10))"
         k ^%ZMRASDKostil($Job)
      }
+     
      s var=varEnd
    }
    
@@ -89275,7 +89295,7 @@ ReplaceText(Text,PackName) public {
 <Routine name="MAKOVA" type="MAC" languagemode="0"><![CDATA[
     /*
     zn "%SYS"
-    d export^MAKOVA("C:\XML\SMWrap.xml")
+    d export^MAKOVA("C:\Distrib\SMWrap(4.0 alpha)\SMWrap.xml")
     */
 export(path)
  ;  d RUN^%ZMRPMD("E:\!5autoexport\myasnikovia\MakovaBackUp\")
