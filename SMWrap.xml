@@ -89295,7 +89295,7 @@ ReplaceText(Text,PackName) public {
 <Routine name="MAKOVA" type="MAC" languagemode="0"><![CDATA[
     /*
     zn "%SYS"
-    d export^MAKOVA("C:\Distrib\SMWrap(4.0 alpha)\SMWrap.xml")
+    d export^MAKOVA("C:\Distrib\SMWrap(3.4)\SMWrap.xml")
     */
 export(path)
  ;  d RUN^%ZMRPMD("E:\!5autoexport\myasnikovia\MakovaBackUp\")
