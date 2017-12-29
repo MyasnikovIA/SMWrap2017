@@ -1686,6 +1686,8 @@ s isForm=##class(%%ZSMWrap.Class).IsSMWrapForm("%s")</Description>
 <FormalSpec>ClassName=""</FormalSpec>
 <ReturnType>%Boolean</ReturnType>
 <Implementation><![CDATA[
+   if ClassName="%TMFormClass"          q 1
+   if ClassName="%Library.TMFormClass"  q 1
    q:'$d(^oddDEF(ClassName,60)) 0
    if $l(^oddDEF(ClassName,60),"%TMFormClass")>1          q 1
    if $l(^oddDEF(ClassName,60),"%Library.TMFormClass")>1  q 1
@@ -1712,6 +1714,8 @@ s isForm=##class(%%ZSMWrap.Class).IsWebForm("%s")</Description>
 <FormalSpec>ClassName=""</FormalSpec>
 <ReturnType>%Boolean</ReturnType>
 <Implementation><![CDATA[
+   if ClassName="%TMWebFormClass"          q 1
+   if ClassName="%Library.TMWebFormClass"  q 1
    q:'$d(^oddDEF(ClassName,60)) 0
    if $l(^oddDEF(ClassName,60),"%TMWebFormClass")>1          q 1
    if $l(^oddDEF(ClassName,60),"%Library.TMWebFormClass")>1  q 1
@@ -88203,6 +88207,7 @@ START(to,authprog)
 stErr s $ZT="" w "Unknown error while startup",! q
  ;
 HALT n j,port,p,maxp
+ 
  s j=0,$$$PORTS(-1)=+$J
  s p=$G($$$Ini($$$ieSrvPort),$$$dfSrvPort)
  s maxp=$G($$$Ini($$$ieMaxAppPort),$$$dfMaxAppPort)
@@ -88817,18 +88822,6 @@ Audit n ix,ct,at
 <Super>%Library.TMFormClass</Super>
 <TimeCreated>64621,58197.868059</TimeCreated>
 
-<Parameter name="Super">
-<Default>%Library.TMFormClass</Default>
-</Parameter>
-
-<Parameter name="Name">
-<Default>SMWrap форма (дизайнер)</Default>
-</Parameter>
-
-<Parameter name="Descript">
-<Default>Класс форма для SMWrap поинрывателя</Default>
-</Parameter>
-
 <Property name="Form">
 <Type>%Library.TMForm</Type>
 </Property>
@@ -89013,6 +89006,13 @@ Audit n ix,ct,at
 <Implementation><![CDATA[   quit $$$OK
 ]]></Implementation>
 </Method>
+</Class>
+
+
+<Class name="%ZSMWrap.Template.WebForm">
+<Language>cache</Language>
+<Super>%Library.TMWebFormClass</Super>
+<TimeCreated>64646,42146.553754</TimeCreated>
 </Class>
 
 
@@ -89339,6 +89339,7 @@ export(path)
      s all("%ZSMWrap.Template.ShadowControl.CLS")=""
      s all("%ZSMWrap.Template.WebSocketServer.CLS")=""
      s all("%ZSMWrap.Template.XDataHTML.CLS")=""
+     s all("%ZSMWrap.Template.WebForm.CLS")=""
    
      s all("^%ZSMTemplate.GBL")=""   ; Глобаль в которой хранится описание шаблонов классов
      
@@ -89554,11 +89555,10 @@ export(path)
      s all("%ZSMWrap.Template.ShadowControl.CLS")=""
      s all("%ZSMWrap.Template.WebSocketServer.CLS")=""
      s all("%ZSMWrap.Template.XDataHTML.CLS")=""
-  
+     s all("%ZSMWrap.Template.WebForm.CLS")=""
+
      s all("^%ZSMTemplate.GBL")=""   ; Глобаль в которой хранится описание шаблонов классов
  
-
-
      
    ;
    ; проект
@@ -89958,6 +89958,17 @@ export(path)
 </Node>
 <Node><Sub>Description</Sub>
 <Data>Может храниться в базе данных</Data>
+</Node>
+<Node><Sub>NameSpace</Sub>
+<Data>USER</Data>
+</Node>
+</Node>
+<Node><Sub>SMWrap Web Form  (дизайнер)</Sub>
+<Node><Sub>ClassName</Sub>
+<Data>%ZSMWrap.Template.WebForm</Data>
+</Node>
+<Node><Sub>Description</Sub>
+<Data>Класс для дизайнера Вэб форм</Data>
 </Node>
 <Node><Sub>NameSpace</Sub>
 <Data>USER</Data>
