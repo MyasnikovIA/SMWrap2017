@@ -21,9 +21,6 @@
       do $zu(5,OldNs)
       do RUN^%ZMRPMD()
  </pre>
- 
-
-<br>  "c:\XML\SMWrap.xml" -  путь к файлу на сервере
 <br> 
 <br> 3) Запустить сервер из Cache' терминала
 <pre>
