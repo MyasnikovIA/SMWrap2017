@@ -7,7 +7,22 @@
  <img src="https://github.com/MyasnikovIA/SMWrap2017/blob/master/CacheLib(ReadOnly).png?raw=true"/>
  
 <br> 
-<br> 2) В терминале написать команду   do $system.OBJ.Load("c:\XML\SMWrap.xml","c")
+ <br> 2) В терминале написать команду   do $system.OBJ.Load("c:\XML\SMWrap.xml","c")
+ <h3> Скрипт для инсталляции:</h3>
+ <pre>
+      s OldNs=$zu(5)
+      d $zu(5,"%SYS")
+      set db=##class(SYS.Database).%OpenId("CACHELIB")
+      set db.ReadOnly=0 
+      w db.%Save()
+      do $system.OBJ.Load("c:\XML\SMWrap.xml","c")    ; "c:\XML\SMWrap.xml" - путь к файлу на сервере   
+      set db.ReadOnly=1
+      w db.%Save()
+      do $zu(5,OldNs)
+      do RUN^%ZMRPMD()
+ </pre>
+ 
+
 <br>  "c:\XML\SMWrap.xml" -  путь к файлу на сервере
 <br> 
 <br> 3) Запустить сервер из Cache' терминала
