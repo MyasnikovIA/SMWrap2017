@@ -2439,6 +2439,178 @@ s isForm=##class(%%Library.SMProject).IsParentClass("%s","%s")</Description>
 ]]></Implementation>
 </Method>
 
+<Method name="CreateRelationshipMethod">
+<Description>
+Создать связь между таблицами </Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>ClassName="",SelectRelationshipName="",RelationshipTable="",RelationshipTablePole="",RelationshipSvyazDst="",RelationshipSvyazSrc="",RelationshipTypeHron="",Internal="",RelationshipDescript=""</FormalSpec>
+<Implementation><![CDATA[
+       s tt=##class(%Dictionary.ClassDefinition).%OpenId(ClassName)
+       for i=1:1:tt.Properties.Count() d
+       .  q:tt.Properties.GetAt(i).Name'=SelectRelationshipName
+       .  s tt.Properties.GetAt(i).Description=RelationshipDescript
+       .  if RelationshipTypeHron="single" {
+       .    s tt.Properties.GetAt(i).Collection=""
+       .  }else{
+       .    s tt.Properties.GetAt(i).Collection=RelationshipTypeHron
+       .  }
+       .  if Internal="Internal" { 
+       .      s tt.Properties.GetAt(i).Internal=1
+       .  } else {
+       .      s tt.Properties.GetAt(i).Internal=0
+       .  } 
+       .
+       .  s tt.Properties.GetAt(i).Cardinality = RelationshipSvyazSrc
+       .  s tt.Properties.GetAt(i).Inverse = RelationshipTablePole
+       .  s tt.Properties.GetAt(i).Type=RelationshipTable
+       .
+       .  s ttSub=##class(%Dictionary.ClassDefinition).%OpenId(RelationshipTable)
+       .  if ttSub {
+       .     for i=1:1:ttSub.Properties.Count()  d
+       .      .  q:ttSub.Properties.GetAt(i).Name'=RelationshipTablePole
+       .      .  s ttSub.Properties.GetAt(i).Cardinality=RelationshipSvyazDst
+       .      .  s ttSub.Properties.GetAt(i).Inverse = SelectRelationshipName
+       .      .  s msg=$c(10)_"///"_"Uses in class """_ClassName_""",  relationship:"""_SelectRelationshipName_""""
+       .      .  if $l(ttSub.Properties.GetAt(i).Description,msg)=1 s ttSub.Properties.GetAt(i).Description=ttSub.Properties.GetAt(i).Description_msg  k msg
+       .      .  s ttSub.Properties.GetAt(i).Relationship=1
+       .      .  d ttSub.Properties.GetAt(i).%Save()
+       .      .  ;  s obj=ttSub.Properties.GetAt(i)
+       .      .  ;  zw obj
+       .  }
+       .  ;  w " Save "_ClassName_" "_SelectRelationshipName_" :"_tt.Properties.GetAt(i).%Save(),!
+       .  ;  d tt.Properties.GetAt(i).%Delete(tt.Methods.GetAt(i).%Oid())
+       .  ;  s prop=tt.Properties.GetAt(i)
+       .  ;  zw prop
+       q
+]]></Implementation>
+</Method>
+
+<Method name="DestroyRelationship">
+<Description>
+разрыв связи  </Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>SelectClassName="",RelationshipName=""</FormalSpec>
+<Implementation><![CDATA[
+   s tt=##class(%Dictionary.ClassDefinition).%OpenId(ClassName)
+   for i=1:1:tt.Properties.Count() d
+    .  q:tt.Properties.GetAt(i).Name'=RelationshipName
+    .  s type=tt.Properties.GetAt(i).Type
+    .  s Pole=tt.Properties.GetAt(i).Inverse
+    .  s tt.Properties.GetAt(i).Cardinality = ""
+    .  s tt.Properties.GetAt(i).Inverse = ""
+    .  s tt.Properties.GetAt(i).Relationship=0
+    .  ; w " Save "_ClassName_" "_RelationshipName_" :"_tt.Properties.GetAt(i).%Save(),!
+    .
+    .  s ttSub=##class(%Dictionary.ClassDefinition).%OpenId(type)
+    .  if ttSub {
+    .     for i=1:1:ttSub.Properties.Count() d
+    .      .  q:ttSub.Properties.GetAt(i).Name'=Pole
+    .      .  s msg=$c(10)_"///"_"Uses in class """_ClassName_""",  relationship:"""_RelationshipName_""""
+    .      .  s ttSub.Properties.GetAt(i).Description=$replace(ttSub.Properties.GetAt(i).Description,msg,"")
+    .      .  s ttSub.Properties.GetAt(i).Relationship=0
+    .      .  s ttSub.Properties.GetAt(i).Cardinality = ""
+    .      .  s ttSub.Properties.GetAt(i).Inverse = ""
+    .      .  s ttSub.Properties.GetAt(i).Type=type
+    .      .  d ttSub.Properties.GetAt(i).%Save()
+    .  }
+    q
+]]></Implementation>
+</Method>
+
+<Method name="GetRelationshipInfo">
+<Description>
+получить информацию о связи
+
+ s info=##class(%Library.SMProject).GetRelationshipInfo(ClassName,PropertyName)
+ if info="" { w "Связь отсутствует" }
+
+result:
+$lb(
+  "1)Название таблицы к которой делаем связь"
+ ,"2) Название поля в таблице к которой делаем связь"
+ ,"3) Вид связи Src"
+ ,"4) Вид связи Dst" 
+ ,"5) Вид хранения" 
+ ,"6) Internal"
+ ,"7) описание связи"
+)</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>ClassName="",SelectRelationshipName=""</FormalSpec>
+<ReturnType>%List</ReturnType>
+<Implementation><![CDATA[
+        s res= $lb() 
+        // если связи GetRelationshipInfo нет, тогда возвращаем пустоту
+        if '$d(^oddDEF(ClassName,"a",SelectRelationshipName,36)) {
+	       q ""   
+        }
+        ; 0)название связи
+        // w SelectRelationshipName,!
+        s $li(res,$ll(res)+1)=""
+        ; 1)Название таблицы к которой делаем связь
+        if $d(^oddDEF(ClassName,"a",SelectRelationshipName,5)) {
+            ; w ^oddDEF(ClassName,"a",SelectRelationshipName,5)    
+            s $li(res,$ll(res))=^oddDEF(ClassName,"a",SelectRelationshipName,5)
+        }
+
+        s $li(res,$ll(res)+1)=""
+        ;  2) Название поля в таблице к которой делаем связь
+        if $d(^oddDEF(ClassName,"a",SelectRelationshipName,32)) {
+            ; w ^oddDEF(ClassName,"a",SelectRelationshipName,32)    
+            s $li(res,$ll(res))=^oddDEF(ClassName,"a",SelectRelationshipName,32)
+        }
+        
+        s $li(res,$ll(res)+1)=""
+        ; 3) Вид связи Src
+        if $d(^oddDEF(ClassName,"a",SelectRelationshipName,24)) {
+            ; w ^oddDEF(ClassName,"a",SelectRelationshipName,24)    
+            s $li(res,$ll(res))=^oddDEF(ClassName,"a",SelectRelationshipName,24)
+        }
+        
+        s $li(res,$ll(res)+1)=""
+        ; 4) Вид связи Dst
+        if $d(^oddDEF(ClassName,"a",SelectRelationshipName,24)) {
+	        // открываем целевую таблицу:  ^oddDEF(ClassName,"a",SelectRelationshipName,5)
+	        // находим свойство поля    :  ^oddDEF(ClassName,"a",SelectRelationshipName,32) 
+	        // Получаем значение  Cardinality = many, Inverse = NewProperty1
+            // w ^oddDEF(ClassName,"a",SelectRelationshipName,24)    
+           if $d(^oddDEF(ClassName,"a",SelectRelationshipName,32)),$d(^oddDEF(ClassName,"a",SelectRelationshipName,5)) { 	      
+                  s DstPoleName=^oddDEF(ClassName,"a",SelectRelationshipName,32)
+                  s DstClassName=^oddDEF(ClassName,"a",SelectRelationshipName,5)
+                  if $d(^oddDEF(DstClassName,"a",DstPoleName,24)){
+	                 // если  src.Inverse ==dst.Inverse
+                     // if ^oddDEF(DstClassName,"a",DstPoleName,32)=^oddDEF(ClassName,"a",SelectRelationshipName,32) {
+                        ; w ^oddDEF(DstClassName,"a",DstPoleName,24)
+                        s $li(res,$ll(res))=^oddDEF(DstClassName,"a",DstPoleName,24)
+	                 // }
+                  }
+           }
+        }
+        
+        
+        s $li(res,$ll(res)+1)=""
+        ; 5) Вид хранения
+        if $d(^oddDEF(ClassName,"a",SelectRelationshipName,27)) {
+           ; w ^oddDEF(ClassName,"a",SelectRelationshipName,27)    
+           s $li(res,$ll(res))=^oddDEF(ClassName,"a",SelectRelationshipName,27)    
+        }
+
+        s $li(res,$ll(res)+1)=""
+        ; 6)Internal
+        if $d(^oddDEF(ClassName,"a",SelectRelationshipName,14)){
+           ; w "Internal"
+           s $li(res,$ll(res))="Internal"
+        }
+       
+        s $li(res,$ll(res)+1)=""
+        ; 7) описание связи
+        if $d(^oddDEF(ClassName,"a",SelectRelationshipName,4)) {
+           ; w $replace(^oddDEF(ClassName,"a",SelectRelationshipName,4),$c(13,10),"=#=")    
+           s $li(res,$ll(res))=$replace(^oddDEF(ClassName,"a",SelectRelationshipName,4),$c(13,10),"=#=")
+        }
+        Quit res
+]]></Implementation>
+</Method>
+
 <Storage name="Default">
 <Type>%Library.CacheSerialState</Type>
 <State>SMProjectState</State>
@@ -87830,26 +88002,6 @@ GetClassInfo(ClassName)
 ]]></Routine>
 
 
-<Routine name="%ZMRAUTH" type="INT" languagemode="0" generated="1"><![CDATA[
- ; ZMRPMD simple (or sample) user authentification routines
- ; Write your own if you wish!
- ; Use the following command to start ZMRPMD with this package:
- ; d START^%ZMRPMD(60,"CHKUSR^%ZMRAUTH")
- ;
- ;   
- ; -----------------------------------
-   ; q 1 - Авторизация успешна
-   ; q 0 - Авторизация НЕ успешна
- ; -----------------------------------
-CHKUSR(user,pass,nspace,appl) 
-   s I=$ZU(111,0)
-   s ip=$p($A(I,1)_"."_$A(I,2)_"."_$A(I,3)_"."_$A(I,4)_"_"_($A(I,5)*256+$A(I,6)),":",1)
-   s HashPwd=""
-   if pass'="" F ix489=1:1:7  S HashPwd=HashPwd_$ZCRC(pass,ix489)
-   s ^%ZSysUser(ip)=$LB(user,HashPwd,nspace,appl,ip,$p($h,",",1),$p($h,",",2))
-   q 1
-   q $$AuthorTest^%ZMRProgramAuthor(user,pass,nspace,appl)
-]]></Routine>
 
 
 <Routine name="%ZMRAUTH" type="MAC" languagemode="0"><![CDATA[
@@ -89295,7 +89447,7 @@ ReplaceText(Text,PackName) public {
 <Routine name="MAKOVA" type="MAC" languagemode="0"><![CDATA[
     /*
     zn "%SYS"
-    d export^MAKOVA("C:\Distrib\SMWrap(3.4)\SMWrap.xml")
+    d export^MAKOVA("C:\TEMP\SMWRap\smwrap\SMWServerInstall\CreateFileXML\SMWrap.xml")
     */
 export(path)
  ;  d RUN^%ZMRPMD("E:\!5autoexport\myasnikovia\MakovaBackUp\")
