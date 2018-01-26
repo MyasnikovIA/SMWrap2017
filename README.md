@@ -1,4 +1,5 @@
-# SMWrap2017 Makova  (SMWrap V4.0)
+# SMWrap2017 Makova  (SMWrap V4.0)  
+# Code UTF8
 <br><h3>www.smwrap.ru</h3>
 <h4>Среда разработки приложений на Cache` Intersystems</h4>
 <br>Для запуска необходимо установить классы из пакета SMWrap.xml 
