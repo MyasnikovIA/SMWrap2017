@@ -1082,7 +1082,7 @@ provide notification that a new instance of an object is being created.
  . i 'recurse,isdir q
  . i isdir,$e($tr(f,"\","/"),$l(f)-2,32767)="/.."!($e($tr(f,"\","/"),$l(f)-1,32767)="/.") Quit
  . s ext=$zcvt($p(f,".",$l(f,".")),"l")
- . i (ext="csp") ! (ext="csr") ! isdir    s count=count+1   s @gl@(count)=f
+ . i (ext="csp") ! (ext="csr") ! isdir     s count=count+1   s @gl@(count)=f
  q gl
 ]]></Implementation>
 </Method>
@@ -88659,7 +88659,6 @@ export(path)
      s all("^%ZSMTemplate.GBL")=""   
      
    ;
-   ; РїСЂРѕРµРєС‚
    ;   s all("SMProject.GBL")=""     ; Р“Р»РѕР±Р°Р»СЊ РІ РєРѕС‚РѕСЂРѕР№ С…СЂР°РЅРёС‚СЃСЏ  РѕРїРёСЃР°РЅРёРµ РїСЂРѕРµРєС‚РѕРІ
    ;   s all("User.zRunTest.CLS")="" ; РЎС‚Р°СЂС‚РѕРІС‹Р№ РєР»Р°СЃСЃ
    ;
