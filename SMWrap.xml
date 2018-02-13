@@ -1855,6 +1855,58 @@ w ##class(%Library.SMProject).DrawMethodInfo()</Description>
 ]]></Implementation>
 </Method>
 
+<Method name="IsSMWrapForm">
+<Description>
+Проверка Является ли класс SMWrap формой
+s isForm=##class(%%ZSMWrap.Class).IsSMWrapForm("%s")</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>ClassName=""</FormalSpec>
+<ReturnType>%Boolean</ReturnType>
+<Implementation><![CDATA[
+   q:'$d(^oddDEF(ClassName,60)) 0
+   if $l(^oddDEF(ClassName,60),"%TMFormClass")>1          q 1
+   if $l(^oddDEF(ClassName,60),"%Library.TMFormClass")>1  q 1
+   s res=0
+   for i=1:1:$l(^oddDEF(ClassName,60),",") {
+         s SubClass=$p(^oddDEF(ClassName,60),",",i)
+         if $l(SubClass,".")=1,$l(SubClass,"%")=2 s SubClass="%Library."_SubClass
+         if $l(SubClass,".")=1                    s SubClass="User."_SubClass
+         if $d(^oddDEF(SubClass)) {
+             if $d(^oddDEF(SubClass,60)) { 
+               if $l(^oddDEF(SubClass,60),"%Library.TMFormClass")>1   s res=1  q
+             }   
+         }
+   }
+   q res
+]]></Implementation>
+</Method>
+
+<Method name="IsWebForm">
+<Description>
+Проверка Является ли класс Web формой
+s isForm=##class(%%ZSMWrap.Class).IsWebForm("%s")</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>ClassName=""</FormalSpec>
+<ReturnType>%Boolean</ReturnType>
+<Implementation><![CDATA[
+   q:'$d(^oddDEF(ClassName,60)) 0
+   if $l(^oddDEF(ClassName,60),"%TMWebFormClass")>1          q 1
+   if $l(^oddDEF(ClassName,60),"%Library.TMWebFormClass")>1  q 1
+   s res=0
+   for i=1:1:$l(^oddDEF(ClassName,60),",") {
+         s SubClass=$p(^oddDEF(ClassName,60),",",i)
+         if $l(SubClass,".")=1,$l(SubClass,"%")=2 s SubClass="%Library."_SubClass
+         if $l(SubClass,".")=1                    s SubClass="User."_SubClass
+         if $d(^oddDEF(SubClass)) {
+             if $d(^oddDEF(SubClass,60)) { 
+               if $l(^oddDEF(SubClass,60),"%Library.TMWebFormClass")>1   s res=1  q
+             }   
+         }
+   }
+   q res
+]]></Implementation>
+</Method>
+
 <Storage name="Default">
 <Type>%Library.CacheSerialState</Type>
 <State>SMProjectState</State>
@@ -87931,19 +87983,8 @@ Audit n ix,ct,at
 <Class name="%ZSMWrap.Template.Castum">
 <IncludeCode/>
 <Language>cache</Language>
-<TimeCreated>64621,58241.120574</TimeCreated>
-
-<Parameter name="Super">
-<Default> </Default>
-</Parameter>
-
-<Parameter name="Name">
-<Default>Castum</Default>
-</Parameter>
-
-<Parameter name="Descript">
-<Default>РџСѓСЃС‚РѕР№ РєР»Р°СЃСЃ СЃ Р»СЋР±С‹Рј РЅР°Р±РѕСЂРѕРј РЅР°СЃР»РµРґРѕРІР°РЅРёРµ.</Default>
-</Parameter>
+<TimeCreated>64692,59336.581057</TimeCreated>
+<ClassDefinitionError>0</ClassDefinitionError>
 </Class>
 
 
@@ -87951,19 +87992,8 @@ Audit n ix,ct,at
 <IncludeCode/>
 <Language>cache</Language>
 <Super>%CSP.Page</Super>
-<TimeCreated>64621,58280.14959</TimeCreated>
-
-<Parameter name="Super">
-<Default>%CSP.Page</Default>
-</Parameter>
-
-<Parameter name="Name">
-<Default>CSP СЃС‚СЂР°РЅРёС†Р°</Default>
-</Parameter>
-
-<Parameter name="Descript">
-<Default>РџСЂРёРјРµРЅСЏРµС‚СЃСЏ РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё HTTP СЃРѕР±С‹С‚РёР№</Default>
-</Parameter>
+<TimeCreated>64692,59378.693919</TimeCreated>
+<ClassDefinitionError>0</ClassDefinitionError>
 
 <Method name="OnPage">
 <ClassMethod>1</ClassMethod>
@@ -88111,19 +88141,8 @@ Audit n ix,ct,at
 <IncludeCode/>
 <Language>cache</Language>
 <Super>%Library.Persistent</Super>
-<TimeCreated>64621,58318.363962</TimeCreated>
-
-<Parameter name="Super">
-<Default>%Library.Persistent</Default>
-</Parameter>
-
-<Parameter name="Name">
-<Default>%Persistent-РҐСЂР°РЅРёРјС‹Р№ РєР»Р°СЃСЃ</Default>
-</Parameter>
-
-<Parameter name="Descript">
-<Default>РјРѕР¶РµС‚ С…СЂР°РЅРёС‚СЊСЃСЏ РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С…</Default>
-</Parameter>
+<TimeCreated>64692,59419.22201</TimeCreated>
+<ClassDefinitionError>0</ClassDefinitionError>
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
@@ -88132,10 +88151,7 @@ Audit n ix,ct,at
 <IdLocation>^%ZSMWrap.Template.PersistentD</IdLocation>
 <IndexLocation>^%ZSMWrap.Template.PersistentI</IndexLocation>
 <StreamLocation>^%ZSMWrap.Template.PersistentS</StreamLocation>
-<ExtentSize>100000</ExtentSize>
 <Data name="PersistentDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>
@@ -88148,19 +88164,8 @@ Audit n ix,ct,at
 <IncludeCode/>
 <Language>cache</Language>
 <Super>%Library.RegisteredObject</Super>
-<TimeCreated>64621,58340.428537</TimeCreated>
-
-<Parameter name="Super">
-<Default>%Library.Registered </Default>
-</Parameter>
-
-<Parameter name="Name">
-<Default>%Library.Registered</Default>
-</Parameter>
-
-<Parameter name="Descript">
-<Default>РЅРµ РјРѕРіСѓС‚ С…СЂР°РЅРёС‚СЊСЃСЏ РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С…</Default>
-</Parameter>
+<TimeCreated>64692,59437.91115</TimeCreated>
+<ClassDefinitionError>0</ClassDefinitionError>
 </Class>
 
 
@@ -88245,22 +88250,22 @@ Error // Error
 
 
 <Class name="%ZSMWrap.Template.XDataHTML">
+<IncludeCode/>
+<Language>cache</Language>
 <Super>%CSP.Page</Super>
-<TimeCreated>64540,47462.033772</TimeCreated>
+<TimeCreated>64692,59308.609528</TimeCreated>
+<ClassDefinitionError>0</ClassDefinitionError>
 
 <Parameter name="Typ">
 <Default>html</Default>
 </Parameter>
 
 <Method name="OnPage">
-<Description>
-РѕР±СЂР°Р±РѕС‚РєР° </Description>
 <ClassMethod>1</ClassMethod>
-<ReturnType>%Status</ReturnType>
+<ReturnType>%Library.Status</ReturnType>
 <Implementation><![CDATA[
      Set xdataID=##this_"||"_%request.Get("content")
      Set compiledXdata=##class(%Dictionary.CompiledXData).%OpenId(xdataID)
-     ; Р•СЃР»Рё С‚РёРї СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РЅРµРѕРїСЂРµРґРµР»РµРЅРѕ, С‚РѕРіРґР°  РѕС‚РїСЂР°РІР»СЏРµРј РєР»РёРµРЅС‚Сѓ РєР°Рє РµСЃС‚СЊ
      for  {
        q:compiledXdata.Data.AtEnd
        d ..ExecFrag(compiledXdata.Data.Read(32000) ,"#(", ")#" )
@@ -88269,39 +88274,7 @@ Error // Error
 ]]></Implementation>
 </Method>
 
-<XData name="ContentHTML">
-<Description>
-РЎРѕРґРµСЂР¶РёРјРѕРµ HTML СЃС‚СЂР°РЅРёС†С‹</Description>
-<Data><![CDATA[
-<html>
-<head>
-<!-- Put your page Title here -->
-<title>	Cache Server Page </title>
-</head>
-<body>
-   <!-- Put your page code here -->
-   <br/> РўРµР»Рѕ СЃС‚СЂР°РЅРёС†С‹
-   <br/>Р’С‹РїРѕР»РЅРёС‚СЊ РѕРґРЅРѕСЃС‚СЂРѕС‡РЅСѓСЋ С‚РµСЂРјРёРЅР°Р»СЊРЅСѓСЋ РєРѕРјР°РЅРґСѓ  Cache` 
-   <pre>
-    <br/> ----------------------------
-    <br/> Р’СЂРµРјСЏ  #( W $ZDt($h) )#
-    <br/> РЎРµСЂРІРµСЂ #( W $ZU(110) )#
-    <br/> РљР»РёРµРЅС‚ #( s I=$ZU(111,0),ip=$A(I,1)_"."_$A(I,2)_"."_$A(I,3)_"."_$A(I,4)_":"_($A(I,5)*256+$A(I,6))  w ip    )#
-    <br/> ----------------------------
-   </pre>
-    <server>
-       for a=1:1:100 {
-          w a,!,"<br/>"
-       }
-    </server>
-</body>
-</html>
-]]></Data>
-</XData>
-
 <Method name="ExecFrag">
-<Description>
-РњРµС‚РѕРґ СЂР°Р·Р±РёРєРё РёСЃС…РѕРґРЅРѕРіРѕ С‚РµРєСЃС‚Р° РЅР° Cache` РєРѕРґ Рё HTML С‚РµРєСЃС‚</Description>
 <ClassMethod>1</ClassMethod>
 <FormalSpec>SrcCode="",Beg="",End=""</FormalSpec>
 <Implementation><![CDATA[
@@ -88323,8 +88296,6 @@ Error // Error
 </Method>
 
 <Method name="ExecBigFrag">
-<Description>
-РњРµС‚РѕРґ СЂР°Р·Р±РёРєРё РёСЃС…РѕРґРЅРѕРіРѕ С‚РµРєСЃС‚Р° РЅР° Cache` РєРѕРґ Рё HTML С‚РµРєСЃС‚</Description>
 <ClassMethod>1</ClassMethod>
 <FormalSpec><![CDATA[SrcCode="",Beg="<server>",End="</server>"]]></FormalSpec>
 <Implementation><![CDATA[
@@ -88366,14 +88337,12 @@ Error // Error
 <ClassMethod>1</ClassMethod>
 <ReturnType>%Library.Boolean</ReturnType>
 <Implementation><![CDATA[
-  /// РўРёРї СЃРѕРґРµСЂР¶РёРјРѕРіРѕ (РљР°Рє РёРЅС‚РµСЂРїСЂРёС‚РёСЂРѕРІР°С‚СЊ СЃРѕРґРµСЂР¶РёРјРѕРµ Р±СЂР°СѓР·РµСЂРѕРј)
     s typ=..#Typ
     if $d(%request.Data("typ",1))
     {
       s typ=%request.Data("typ",1)  
     }
     Do %response.SetHeader("Content-Type",..ContentType(typ))     
-   /// РџРѕР»СѓС‡Р°РµРј РЅР°Р·РІР°РЅРёРµ РєРѕРЅС‚РµР№РЅРµСЂР° РІ РєРѕС‚РѕСЂРѕРј С…СЂРѕРЅРёС‚СЃСЏ СЃРѕРґРµСЂР¶РёРјРѕРµ РґР»СЏ РєР»РёРµРЅС‚Р°
     s content="ContentHTML"
     if $d(%request.Data("content",1))
     {
@@ -88411,6 +88380,36 @@ Error // Error
   q "application/octet-stream"
 ]]></Implementation>
 </Method>
+
+<XData name="ContentHTML">
+<Description>
+???????µ???¶???????µ HTML ???????°????????</Description>
+<Data><![CDATA[
+<html>
+<head>
+<!-- Put your page Title here -->
+<title>	Cache Server Page </title>
+</head>
+<body>
+   <!-- Put your page code here -->
+   <br/> ???µ?»?? ???????°????????
+   <br/>?????????»???????? ???????????????????????? ???µ?????????°?»???????? ???????°??????  Cache` 
+   <pre>
+    <br/> ----------------------------
+    <br/> ?????µ????  #( W $ZDt($h) )#
+    <br/> ???µ?????µ?? #( W $ZU(110) )#
+    <br/> ???»???µ???? #( s I=$ZU(111,0),ip=$A(I,1)_"."_$A(I,2)_"."_$A(I,3)_"."_$A(I,4)_":"_($A(I,5)*256+$A(I,6))  w ip    )#
+    <br/> ----------------------------
+   </pre>
+    <server>
+       for a=1:1:100 {
+          w a,!,"<br/>"
+       }
+    </server>
+</body>
+</html>
+]]></Data>
+</XData>
 </Class>
 
 
@@ -88521,12 +88520,34 @@ Example of use:
 <Data>USER</Data>
 </Node>
 </Node>
+<Node><Sub>Persistent Class</Sub>
+<Node><Sub>ClassName</Sub>
+<Data>%ZSMWrap.Template.Persistent</Data>
+</Node>
+<Node><Sub>Description</Sub>
+<Data>A persistent class (Cache &apos;Table)</Data>
+</Node>
+<Node><Sub>NameSpace</Sub>
+<Data>USER</Data>
+</Node>
+</Node>
 <Node><Sub>SMWrap form (Designer)</Sub>
 <Node><Sub>ClassName</Sub>
 <Data>%ZSMWrap.Template.Form</Data>
 </Node>
 <Node><Sub>Description</Sub>
 <Data>Class form for SMWrap player</Data>
+</Node>
+<Node><Sub>NameSpace</Sub>
+<Data>USER</Data>
+</Node>
+</Node>
+<Node><Sub>Shadow Controll</Sub>
+<Node><Sub>ClassName</Sub>
+<Data>%ZSMWrap.Template.ShadowControl</Data>
+</Node>
+<Node><Sub>Description</Sub>
+<Data>Process Shadow Processor Controller</Data>
 </Node>
 <Node><Sub>NameSpace</Sub>
 <Data>USER</Data>
