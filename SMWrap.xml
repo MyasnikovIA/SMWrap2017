@@ -87782,7 +87782,7 @@ Log(val)
 CommdFromClienToServer(cmd,var) 
   ; q $lb(cmd,var)
   // РєРѕСЃС‚С‹Р»СЊ РЅРµРѕР±С…РѕРґРёРј РґР»СЏ MAKOVA 2.1
-  ;  d Log("Р—Р°РїСЂРѕСЃ:cmd:"_cmd_"|val:"_var)
+  ; d Log("Р—Р°РїСЂРѕСЃ:cmd:"_cmd_"|val:"_$LTS(var))
   ; s var=$replace(var,"s %SMWOrefs(+%this)=%this","s %SMWOrefs(+##this)=##this")
   s var=$replace(var,"%this","##this")
   s var=$replace(var,$c(17,1)_"Do $ZU(68,56,1)",$c(1)_"d SubsMsgs^%ZMRASD(""DEBUGEVENT"",1,0,""OnMsgCallBack^%ZMRASD"")")
@@ -87797,9 +87797,9 @@ CommdFromClienToServer(cmd,var)
     s FragDst=" s %SMWOrefs(+##this)=##this"_$c(13,10)_" d ##this.Initialization(initvalue)"_$c(13,10)_" s result=##this.OnCreate(initvalue)"_$c(13,10)_" i result'=$$$OK d ##this.Form.%Close() k %SMWOrefs(+##this) q $$$OK"_$c(13,10)_" e  d ##this.Form.SetContainer(+##this) q $$$OK"
     if $l(var,FragSrc)'=1 s var=$replace(var,FragSrc,FragDst)
 
-    ; s t1=",MOREFTEMP.FormalSpec=""initvalue:%String,MOREFTEMP.ReturnType="
-    ; s t2=",MOREFTEMP.FormalSpec=""initvalue:%String="""",MOREFTEMP.ReturnType="
-    ; if $l(var,t1)'=1 s var=$replace(var,t1,t2)
+    s t1=",MOREFTEMP.FormalSpec=""initvalue:%String,MOREFTEMP.ReturnType="
+    s t2=",MOREFTEMP.FormalSpec=""initvalue:%String="""",MOREFTEMP.ReturnType="
+    if $l(var,t1)'=1 s var=$replace(var,t1,t2)
     ;
     ; Р”Р»РёРЅРЅС‹Рµ СЃС‚СЂРѕРєРё РЅРµ РїРѕРјРµС‰Р°СЋС‚СЃСЏ РІ MOREFTEMP.Implementation.WriteLine, РїРѕ СЌС‚РѕРјСѓ СЂР°Р·Р±РёРІР°РµРј РЅР° $СЃ(13,10) Рё Р·Р°РїРёСЃС‹РІР°РµРј РїРѕСЃС‚СЂРѕС‡РЅРѕ
     if cmd="w",$l(var,$c(14,1)_"TmpMethodVar")=2
@@ -87851,6 +87851,7 @@ Log(val)
   s ^%debug1=^%debug1+1,^%debug1(^%debug1)="("_$j_")"_val
   q 
     
+
 ]]></Routine>
 
 
@@ -87984,7 +87985,6 @@ Audit n ix,ct,at
 <IncludeCode/>
 <Language>cache</Language>
 <TimeCreated>64692,59336.581057</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
 </Class>
 
 
@@ -87993,7 +87993,6 @@ Audit n ix,ct,at
 <Language>cache</Language>
 <Super>%CSP.Page</Super>
 <TimeCreated>64692,59378.693919</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
 
 <Method name="OnPage">
 <ClassMethod>1</ClassMethod>
@@ -88142,7 +88141,6 @@ Audit n ix,ct,at
 <Language>cache</Language>
 <Super>%Library.Persistent</Super>
 <TimeCreated>64692,59419.22201</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
@@ -88165,7 +88163,6 @@ Audit n ix,ct,at
 <Language>cache</Language>
 <Super>%Library.RegisteredObject</Super>
 <TimeCreated>64692,59437.91115</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
 </Class>
 
 
@@ -88254,7 +88251,6 @@ Error // Error
 <Language>cache</Language>
 <Super>%CSP.Page</Super>
 <TimeCreated>64692,59308.609528</TimeCreated>
-<ClassDefinitionError>0</ClassDefinitionError>
 
 <Parameter name="Typ">
 <Default>html</Default>
