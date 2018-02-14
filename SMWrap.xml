@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-<Routine name="%Const" type="MAC" languagemode="0"><![CDATA[
+<Routine name="%Const" type="INC"><![CDATA[
  ; Color constants (Some duplications)  using RGB color scheme.  Three byte constant, each byte value range 0-FF.  First byte is Blue value, second is Green value third is Red value.
  ; These bytes are swapped by the $ZH function to give RGB.  The total number of available colors is 16777216. (Depending on display settings)
 #define clBlack $ZH("000000")
@@ -57,7 +57,7 @@
 #define clHighlight -2147483635
 #define clHighlightText -2147483634
 #define clBtnFace -2147483633
-#define clBtnShadow -2147483632 
+#define clBtnShadow -2147483632
 #define clGrayText -2147483631
 #define clBtnText -2147483630
 #define clInactiveCaptionText -2147483629
@@ -87316,7 +87316,7 @@ GarbColl
  s l=$L("ZMRINS"),host=$ZCVT($ZU(110),"U")
  s host=$TR(host,$TR(host,"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"))
  s ns=$ZU(5),nethard=$ZU(68,27)
- f i=1:1:$ZU(90,0) s ns($ZU(90,2,0,i))=""
+ f i=1:1:$ZU(90,0)  s:$ZU(90,2,0,i)'="" ns($ZU(90,2,0,i))=""
  s i="" f  s i=$O(ns(i)) q:i=""  d
  . s $ZT="GColErr"
  . d $ZU(68,27,0) zn i s ix="ZMRINS"
@@ -87802,7 +87802,8 @@ CommdFromClienToServer(cmd,var)
     if $l(var,t1)'=1 s var=$replace(var,t1,t2)
     ;
     ; Р”Р»РёРЅРЅС‹Рµ СЃС‚СЂРѕРєРё РЅРµ РїРѕРјРµС‰Р°СЋС‚СЃСЏ РІ MOREFTEMP.Implementation.WriteLine, РїРѕ СЌС‚РѕРјСѓ СЂР°Р·Р±РёРІР°РµРј РЅР° $СЃ(13,10) Рё Р·Р°РїРёСЃС‹РІР°РµРј РїРѕСЃС‚СЂРѕС‡РЅРѕ
-    if cmd="w",$l(var,$c(14,1)_"TmpMethodVar")=2
+    ; if cmd="w",$l(var,$c(14,1)_"TmpMethodVar")=2
+    if cmd="w",$LG(var,1)="TmpMethodVar"
     {
      s start=$l($e(var,1,$l($c(14,1)_"TmpMethodVar")))
      s varEnd=$e(var,1,$l($c(14,1)_"TmpMethodVar"))_$c(1)_""
@@ -88631,9 +88632,7 @@ ReplaceText(Text,PackName) public {
     */
 export(path)
  ;  d RUN^%ZMRPMD("E:\!5autoexport\myasnikovia\MakovaBackUp\")
- ;  d RUN^%ZMRPMD("C:\BackUp\")
  ;  d HALT^%ZMRPMD 
- ;  d HALT^%ZMRPMD    ; РћСЃС‚Р°РЅРѕРІРёС‚СЊ СЃРµСЂРІРµСЂ
  ;  d CONFIG^%ZMRPMD
      k all
      s all("MAKOVA.MAC")=""
@@ -88641,7 +88640,7 @@ export(path)
      s all("Convert2012.MAC")=""
     ; 
     ; РЎРµСЂРІРµСЂ 
-     s all("%Const.mac")=""
+     s all("%Const.INC")=""
      s all("%ZConst.INC")=""
      s all("%ZMRAUTH.INT")=""
      s all("ZMRDEF.INC")=""
