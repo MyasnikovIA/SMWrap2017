@@ -57,7 +57,7 @@
 #define clHighlight -2147483635
 #define clHighlightText -2147483634
 #define clBtnFace -2147483633
-#define clBtnShadow -2147483632
+#define clBtnShadow -2147483632 
 #define clGrayText -2147483631
 #define clBtnText -2147483630
 #define clInactiveCaptionText -2147483629
@@ -1718,7 +1718,7 @@ w ##class(%Library.SMProject).DrawClassInfo()</Description>
    ; |     (ColIndex(1)) = "Name"
    w "Name="_ClassName_""
    ; |     (ColIndex(2)) = "Super"
-   if $d(^oddDEF(ClassName,60)) w ",Super="_^oddDEF(ClassName,60)_""
+   if $d(^oddDEF(ClassName,60)) w ",Super="_$tr(^oddDEF(ClassName,60),",","|")_""
    e                            w ",Super="_""
    ; |     (ColIndex(3)) = "Hidden"
    if $d(^oddDEF(ClassName,32)),^oddDEF(ClassName,32)="1"  w " ,Hidden=Hidden"
@@ -1768,7 +1768,7 @@ w ##class(%Library.SMProject).DrawClassInfo()</Description>
    w ",CodeInc="_Classobj.IncludeCode
    w ",IsClassDataType="
    w ",GeneratorInc="_Classobj.IncludeGenerator
-   w ",CompileAfter="_Classobj.CompileAfter 
+   w ",CompileAfter="_$tr(Classobj.CompileAfter ,",","|")
    w ",FStorageStrategy="_Classobj.StorageStrategy 
    ; | "System" 
    if $d(^oddDEF(ClassName,61)),^oddDEF(ClassName,61)="1"  w " ,IsSystem=System"
@@ -1806,6 +1806,14 @@ w ##class(%Library.SMProject).DrawClassInfo()</Description>
    w ",IsClassDynamic="_Classobj.Dynamic
    w ",SoapBindingStyle="_Classobj.SoapBindingStyle
    w ",SoapBodyUse="_Classobj.SoapBodyUse
+   
+   w ",IncludeCode="_$tr(Classobj.IncludeCode,",","|")
+   w ",IncludeGenerator="_$tr(Classobj.IncludeGenerator,",","|")
+   w ",Import="_$tr(Classobj.Import,",","|")
+   w ",CompileAfter="_$tr(Classobj.CompileAfter,",","|")
+   
+   
+   
    q Classobj
 ]]></Implementation>
 </Method>
@@ -1858,7 +1866,7 @@ w ##class(%Library.SMProject).DrawMethodInfo()</Description>
 <Method name="IsSMWrapForm">
 <Description>
 Проверка Является ли класс SMWrap формой
-s isForm=##class(%%ZSMWrap.Class).IsSMWrapForm("%s")</Description>
+s isForm=##class(%Library.SMProject).IsSMWrapForm("%s")</Description>
 <ClassMethod>1</ClassMethod>
 <FormalSpec>ClassName=""</FormalSpec>
 <ReturnType>%Boolean</ReturnType>
@@ -1884,7 +1892,7 @@ s isForm=##class(%%ZSMWrap.Class).IsSMWrapForm("%s")</Description>
 <Method name="IsWebForm">
 <Description>
 Проверка Является ли класс Web формой
-s isForm=##class(%%ZSMWrap.Class).IsWebForm("%s")</Description>
+s isForm=##class(%Library.SMProject).IsWebForm("%s")</Description>
 <ClassMethod>1</ClassMethod>
 <FormalSpec>ClassName=""</FormalSpec>
 <ReturnType>%Boolean</ReturnType>
@@ -1904,6 +1912,195 @@ s isForm=##class(%%ZSMWrap.Class).IsWebForm("%s")</Description>
          }
    }
    q res
+]]></Implementation>
+</Method>
+
+<Method name="DrawHierarchy">
+<Description>
+Выводит список классов в котором используется  указанный класс
+d ##class(%Library.SMProject).DrawHierarchy("%s")</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>ClassName=""</FormalSpec>
+<ProcedureBlock>1</ProcedureBlock>
+<Implementation><![CDATA[
+   q:'$d(^oddDEF(ClassName))
+   s ClassNameTmp="",CountRaw=0
+   for {
+	   s ClassNameTmp=$o(^oddDEF(ClassNameTmp))
+	   q:ClassNameTmp=""
+	   continue:'$d(^oddDEF(ClassNameTmp,60))
+	   s Super=^oddDEF(ClassNameTmp,60)
+	   if $l(","_Super,","_ClassName)>1 {
+		   s CountRaw=CountRaw+1
+		   w:CountRaw'=1 $c(13,10)
+		   w ClassNameTmp
+	   }
+   } 
+   q
+]]></Implementation>
+</Method>
+
+<Method name="IsClassPersistent">
+<Description>
+Проверка Является ли хронимым классом 
+s IsClassPersistent=##class(%Library.SMProject).IsClassPersistent("User.Tab")</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>ClassName=""</FormalSpec>
+<ReturnType>%Boolean</ReturnType>
+<Implementation><![CDATA[
+   q:'$d(^oddDEF(ClassName,60)) 0
+   if $l(^oddDEF(ClassName,60),"%Persistent")>1          q 1
+   if $l(^oddDEF(ClassName,60),"%Library.Persistent")>1  q 1
+   s res=0
+   for i=1:1:$l(^oddDEF(ClassName,60),",") {
+         s SubClass=$p(^oddDEF(ClassName,60),",",i)
+         s SubClass=$TR(SubClass," ","")
+         if $l(SubClass,".")=1,$l(SubClass,"%")=2 s SubClass="%Library."_SubClass
+         if $l(SubClass,".")=1                    s SubClass="User."_SubClass
+         if $d(^oddDEF(SubClass)) {
+             if $d(^oddDEF(SubClass,60)) { 
+               if $l(^oddDEF(SubClass,60),"%Library.Persistent")>1   s res=1  q
+             }   
+         }
+   }
+   q res
+]]></Implementation>
+</Method>
+
+<Method name="SaveRelationshipMethod">
+<Description>
+Сохранить информации о связи поля
+d ##class(%Library.SMProject).SaveRelationshipMethod("User.Tab","SrcProperty","User.DstTabName","DSTPropertyName","CardinalitySrc","CardinalityDst")</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>ClassName="",SelectRelationshipName="",RelationshipTable="",RelationshipTablePole="",RelationshipSvyazSrc="",RelationshipSvyazDst=""</FormalSpec>
+<ProcedureBlock>1</ProcedureBlock>
+<Implementation><![CDATA[
+ 
+       ; s RelationshipTypeHron =$zcvt(%request.Get("RelationshipTypeHron",""),"I","URL")
+       ; s Internal =$zcvt(%request.Get("Internal",""),"I","URL")
+       ; проверяем наличие поля на удаленной таблице
+       s ttSub=##class(%Dictionary.ClassDefinition).%OpenId(RelationshipTable)
+       if 'ttSub {  w "Table "_RelationshipTable_" not found" q}
+       s isFoundPole=0
+       for i=1:1:ttSub.Properties.Count()   q:isFoundPole=1  d
+       . q:ttSub.Properties.GetAt(i).Name'=RelationshipTablePole
+       . s isFoundPole=1
+       if isFoundPole=0 {
+	      w "Property "_RelationshipTablePole_" not found in table "_RelationshipTable_" " q
+       }
+       s tt=##class(%Dictionary.ClassDefinition).%OpenId(ClassName)
+       if 'tt {  w "Table "_RelationshipTable_" not found" q}
+       for i=1:1:tt.Properties.Count() d
+       .  q:tt.Properties.GetAt(i).Name'=SelectRelationshipName
+       .  s tt.Properties.GetAt(i).Collection=""
+       .  s tt.Properties.GetAt(i).Cardinality = RelationshipSvyazSrc
+       .  s tt.Properties.GetAt(i).Inverse = RelationshipTablePole
+       .  s tt.Properties.GetAt(i).Type=RelationshipTable
+       .
+       .  for j=1:1:ttSub.Properties.Count() d
+       .  .  q:ttSub.Properties.GetAt(j).Name'=RelationshipTablePole
+       .  .  s ttSub.Properties.GetAt(j).Collection=""
+       .  .  s ttSub.Properties.GetAt(j).Cardinality=RelationshipSvyazDst
+       .  .  s ttSub.Properties.GetAt(j).Inverse = SelectRelationshipName
+       .  .  s ttSub.Properties.GetAt(j).Relationship=1
+       .  .  s ttSub.Properties.GetAt(j).Type=ClassName
+       .  .  w ttSub.Properties.GetAt(j).%Save()
+       .  
+       .  w tt.Properties.GetAt(i).%Save(),!
+       Quit
+]]></Implementation>
+</Method>
+
+<Method name="ClearRelationshipMethod">
+<Description>
+d ##class(%Library.SMProject).ClearRelationshipMethod("User.Tab","SrcProperty")</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>RelationshipTable="",RelationshipTablePole=""</FormalSpec>
+<ProcedureBlock>1</ProcedureBlock>
+<Implementation><![CDATA[
+   s ttSub=##class(%Dictionary.ClassDefinition).%OpenId(RelationshipTable)
+   if 'ttSub {  w "Table "_RelationshipTable_" not found" q}
+   s ClassDst=""
+   s PropertyDST=""
+   for j=1:1:ttSub.Properties.Count() d
+   .  q:ttSub.Properties.GetAt(j).Name'=RelationshipTablePole
+   .  s PropertyDST=ttSub.Properties.GetAt(j).Inverse
+   .  s ClassDst=ttSub.Properties.GetAt(j).Type
+   .  s ttSub.Properties.GetAt(j).Collection=""
+   .  s ttSub.Properties.GetAt(j).Cardinality=""
+   .  s ttSub.Properties.GetAt(j).Inverse = ""
+   .  s ttSub.Properties.GetAt(j).Relationship=0
+   .  ; s ttSub.Properties.GetAt(j).Type=ClassName
+   .  s ttSub.Properties.GetAt(j).SqlComputeOnChange=""
+   .  k ^oddDEF(RelationshipTable,"a",RelationshipTablePole,46)
+   .  w ttSub.Properties.GetAt(j).%Save()
+   
+   if PropertyDST'="",ClassDst'="" {
+      s ttSub=##class(%Dictionary.ClassDefinition).%OpenId(ClassDst)	   
+      if ttSub { 
+        for j=1:1:ttSub.Properties.Count() d
+        .  q:ttSub.Properties.GetAt(j).Name'=PropertyDST
+        .  if ttSub.Properties.GetAt(j).Relationship=1{
+	    .    s ttSub.Properties.GetAt(j).Collection=""
+        .    s ttSub.Properties.GetAt(j).Cardinality=""
+        .    s ttSub.Properties.GetAt(j).Inverse = ""
+        .    s ttSub.Properties.GetAt(j).Relationship=0
+        .    s ttSub.Properties.GetAt(j).SqlComputeOnChange=""
+        .    k ^oddDEF(ClassDst,"a",PropertyDST,46)
+	    .  }      
+        w ttSub.Properties.GetAt(j).%Save()
+      }
+      
+   }
+   
+   q
+]]></Implementation>
+</Method>
+
+<Method name="SaveSelectivity">
+<Description>
+d ##class(%Library.SMProject).SaveSelectivity("User.Tab","Default","fsdfsdfsd")</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>ClassName="",StorageName="",Text="",ObjectClass=""</FormalSpec>
+<ProcedureBlock>1</ProcedureBlock>
+<Implementation><![CDATA[
+   for indLine=1:1:$l(Text,$c(13,10)) {
+	  s line=$p(Text,$c(13,10),indLine)
+	  continue:$L(line)=0
+	  continue:$L(line,"=")=1
+	  s nam=$p(line,"=",1)
+	  continue:$L(nam)=0
+	  s val=$p(line,"=",2)
+	  continue:$L(val)=0
+	  s ^oddDEF(ClassName,"s",StorageName,"M",nam)=""   
+	  s ^oddDEF(ClassName,"s",StorageName,"M",nam,21)=val
+   }	
+ ;  if $isObject(ObjectClass){
+ ;	  w ObjectClass.%Save() 
+ ;  }
+]]></Implementation>
+</Method>
+
+<Method name="DrawSelectivity">
+<Description>
+d ##class(%Library.SMProject).DrawSelectivity("User.Tab","Default")</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>ClassName="",StorageName=""</FormalSpec>
+<ProcedureBlock>1</ProcedureBlock>
+<Implementation><![CDATA[
+	q:'$d(^oddDEF(ClassName,"s",StorageName,"M"))
+	s count=0
+	s SelName=""
+	for {
+       s SelName=$o(^oddDEF(ClassName,"s",StorageName,"M",SelName))
+       q:SelName=""
+       continue:'$d(^oddDEF(ClassName,"s",StorageName,"M",SelName,21))
+       s count=count+1
+       w:count'=1 $c(13,10)
+       s val=^oddDEF(ClassName,"s",StorageName,"M",SelName,21)
+       w SelName_"="_val
+	}
+	q
 ]]></Implementation>
 </Method>
 
@@ -87081,109 +87278,6 @@ OtvetClientu(var)
 ]]></Routine>
 
 
-<Routine name="%ZMRAUTH" type="INT" languagemode="0" generated="1"><![CDATA[
- ; ZMRPMD simple (or sample) user authentification routines
- ; Write your own if you wish!
- ; Use the following command to start ZMRPMD with this package:
- ; d START^%ZMRPMD(60,"CHKUSR^%ZMRAUTH")
- ;
-CHKUSR(user,pass,nspace,appl) 
- ; --------------------------
-   s I=$ZU(111,0)
-   s ip=$p($A(I,1)_"."_$A(I,2)_"."_$A(I,3)_"."_$A(I,4)_"_"_($A(I,5)*256+$A(I,6)),":",1)
-   s HashPwd=""
-   if pass'="" F ix489=1:1:7  S HashPwd=HashPwd_$ZCRC(pass,ix489)
-   s ^%ZMRSysUser(ip)=$LB(user,HashPwd,nspace,appl,ip,$p($h,",",1),$p($h,",",2))
- ; --------------------------
- n str,u,p,c,n,a,res,passfile
- s passfile=$$GetPassF() o passfile:("R"):5
- e  q 0 ; can not open password file
- s $ZT="eof",res=-1 u passfile:0
- f  d  q:res'<0
- . r str s u=$P(str,":"),p=$P(str,":",2),n=$P(str,":",3),a=$P(str,":",4)
- . i u=user s res=0 d:p=$$crypt(pass,+p)  q
- . . i n="" s res=1
- . . e  f c=1:1:$L(n,";") i $P(n,";",c)=nspace s res=1 q
- . . q:(a="")!'res
- . . s res=0 f c=1:1:$L(a,";") i $P(a,";",c)=appl s res=1 q
-eof c passfile q res>0
- ;
- ; Use this routine to create and update password file
- ;
-ADDUSR n bakf,str,fr,user,pass,nspace,apps,passfile
- r "Username: ",user
- f  d  q:pass=str
- . w !,"Password: " s pass="",str=""
- . f  r *fr q:(fr=10)!(fr=13)  w *8,"*" s pass=pass_$C(fr)
- . w !,"Repeat password: "
- . f  r *fr q:(fr=10)!(fr=13)  w *8,"*" s str=str_$C(fr)
- . w:pass'=str !,"Sorry, passwords do not match...",!
- w !,"Enter Namespace (or Namespaces delimited by semicolons)"
- w !," or just press ""Enter"" to allow any namespace: " r nspace
- w !,"Enter Application (or Applications delimited by semicolons)"
- w !," or just press ""Enter"" to allow any application: " r apps
- s passfile=$$GetPassF(),bakf=passfile_"-b"
- o passfile:("R"):2
- e  o passfile:("WN"):2 g:$T eof2
- e  w "Can not create password file",! q
- o bakf:("WN"):2
- e  w "Can not create backup file",! q
- s $ZT="eof1",fr=1
- f  d
- . i fr u passfile:0 ; first read from 0 position
- . e  u passfile ; subsequent reads from current position
- . r str i fr u bakf:0 s fr=0
- . e  u bakf
- . w str,!
-eof1 u 0 c passfile,bakf
- o passfile:("WN"):5
- e  w "Can not write in password file",! q
- o bakf:("R"):5
- e  w "Backup file lost",! q
- s $ZT="eof2",fr=1
- f  d
- . i fr u bakf:0
- . e  u bakf
- . r str i fr u passfile:0 s fr=0
- . e  u passfile
- . w:user'=$P(str,":") str,!
-eof2 u passfile w user,":",$$crypt(pass),":",$ZCVT(nspace,"U"),":",apps,!
- u 0 c passfile,bakf q
- ;
-GetPassF(fname) 
- ; Not write-protected, but portable default place for password file
- q $G(fname,$ZU(12)_"passwd")
- ;
-crypt(pass,salt) 
- ; It is not DES crypt, it is much worse :-(
- n URANDm,URANDm2,URANDia,URANDic,URANDmc,k,ss,pp,str,i,j,lp,ls,rc
- s URANDm=0,URANDm2=0,URANDia=0,URANDic=0,URANDmc=0
- s:$G(pass,"")="" pass=$C(255)
- s salt=$G(salt,$R(4096)+1024),ss=2048+salt,pp=ss+128,lp=$L(pass)
- f i=1:1:lp s pp=pp*96+$A($E(pass,i,i))-31 
- f i=1:1:ss s pp=$$urand(pp,31)
- s str="MAKOVACONSUL",k=salt_"$",ls=$L(str) f i=1:1:ls d
- . s rc=pp\256+$A($E(str,i,i))#62
- . i rc<10 s ss=48+rc
- . e  i rc<36 s ss=55+rc
- . e  s ss=61+rc
- . s k=k_$C(ss)
- . f j=1:1:rc+$A($E(pass,ss#lp+1,ss#lp+1)) s pp=$$urand(pp,31)
- q k
- ;
-urand(y,p) 
- ; Random numbers from 0 to 2**p-1 generator
- ; For proper work define URANDm,URANDm2,URANDia,URANDic,URANDmc
- ; in the calling routine and initialize URANDm with 0.
- d:+URANDm=0
- . s URANDm=2**p,URANDm2=URANDm/2
- . s URANDia=8*(URANDm2*$ZPI\32)+5,URANDic=2*(URANDm2*(1-($ZSQR(3)/3))\2)+1
- . s URANDmc=URANDm-URANDic
- s y=y*URANDia+URANDic s:y'<URANDm y=y#URANDm
- q y
-]]></Routine>
-
-
 <Routine name="%ZMRAUTH" type="MAC" languagemode="0"><![CDATA[
  ; ZMRPMD simple (or sample) user authentification routines
  ; Write your own if you wish!
@@ -87316,7 +87410,7 @@ GarbColl
  s l=$L("ZMRINS"),host=$ZCVT($ZU(110),"U")
  s host=$TR(host,$TR(host,"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"))
  s ns=$ZU(5),nethard=$ZU(68,27)
- f i=1:1:$ZU(90,0)  s:$ZU(90,2,0,i)'="" ns($ZU(90,2,0,i))=""
+ f i=1:1:$ZU(90,0) s:$l($ZU(90,2,0,i))>0 ns($ZU(90,2,0,i))=""
  s i="" f  s i=$O(ns(i)) q:i=""  d
  . s $ZT="GColErr"
  . d $ZU(68,27,0) zn i s ix="ZMRINS"
@@ -87569,7 +87663,7 @@ gs(w) q:w=$$$JOBOK "Server ZMRPMD is running."
  q:w=$$$HALTPROC "All ZMRPMD routines have been halted!"
  q ""
  ;
-Version() q 2008101401
+Version() q 2018101401
  ;
 RUNDEV(BackUpFile="")
   k ^%ZMRBackUp
@@ -87583,7 +87677,7 @@ RUNDEV(BackUpFile="")
 RUN
   k ^%ZMRBackUp
   d HALT^%ZMRPMD
-  h 3
+  h 5
   d START(60) q
  ;
 START(to,authprog) 
@@ -87599,7 +87693,7 @@ START(to,authprog)
  d ^$$$EVENT(1) ; Perform startup actions
  j Daemon($G(authprog)):():$G(to,10) ; start server
  e  w $$gs($$$JOBFAIL),! q  ; cannot start job
- w "ZMRPMD Copyright (C) 1999-2007 Makova Soft",!,$$gs($$$JOBOK),!
+ w "ZMRPMD Copyright (C) 1999-2018 SMWrap",!,$$gs($$$JOBOK),!
  q
  ;
 stErr s $ZT="" w "Unknown error while startup",! q
@@ -87782,7 +87876,7 @@ Log(val)
 CommdFromClienToServer(cmd,var) 
   ; q $lb(cmd,var)
   // РєРѕСЃС‚С‹Р»СЊ РЅРµРѕР±С…РѕРґРёРј РґР»СЏ MAKOVA 2.1
-  ; d Log("Р—Р°РїСЂРѕСЃ:cmd:"_cmd_"|val:"_$LTS(var))
+  ;  d Log("Р—Р°РїСЂРѕСЃ:cmd:"_cmd_"|val:"_var)
   ; s var=$replace(var,"s %SMWOrefs(+%this)=%this","s %SMWOrefs(+##this)=##this")
   s var=$replace(var,"%this","##this")
   s var=$replace(var,$c(17,1)_"Do $ZU(68,56,1)",$c(1)_"d SubsMsgs^%ZMRASD(""DEBUGEVENT"",1,0,""OnMsgCallBack^%ZMRASD"")")
@@ -87797,13 +87891,12 @@ CommdFromClienToServer(cmd,var)
     s FragDst=" s %SMWOrefs(+##this)=##this"_$c(13,10)_" d ##this.Initialization(initvalue)"_$c(13,10)_" s result=##this.OnCreate(initvalue)"_$c(13,10)_" i result'=$$$OK d ##this.Form.%Close() k %SMWOrefs(+##this) q $$$OK"_$c(13,10)_" e  d ##this.Form.SetContainer(+##this) q $$$OK"
     if $l(var,FragSrc)'=1 s var=$replace(var,FragSrc,FragDst)
 
-    s t1=",MOREFTEMP.FormalSpec=""initvalue:%String,MOREFTEMP.ReturnType="
-    s t2=",MOREFTEMP.FormalSpec=""initvalue:%String="""",MOREFTEMP.ReturnType="
-    if $l(var,t1)'=1 s var=$replace(var,t1,t2)
+    ; s t1=",MOREFTEMP.FormalSpec=""initvalue:%String,MOREFTEMP.ReturnType="
+    ; s t2=",MOREFTEMP.FormalSpec=""initvalue:%String="""",MOREFTEMP.ReturnType="
+    ; if $l(var,t1)'=1 s var=$replace(var,t1,t2)
     ;
     ; Р”Р»РёРЅРЅС‹Рµ СЃС‚СЂРѕРєРё РЅРµ РїРѕРјРµС‰Р°СЋС‚СЃСЏ РІ MOREFTEMP.Implementation.WriteLine, РїРѕ СЌС‚РѕРјСѓ СЂР°Р·Р±РёРІР°РµРј РЅР° $СЃ(13,10) Рё Р·Р°РїРёСЃС‹РІР°РµРј РїРѕСЃС‚СЂРѕС‡РЅРѕ
-    ; if cmd="w",$l(var,$c(14,1)_"TmpMethodVar")=2
-    if cmd="w",$LG(var,1)="TmpMethodVar"
+    if cmd="w",$l(var,$c(14,1)_"TmpMethodVar")=2
     {
      s start=$l($e(var,1,$l($c(14,1)_"TmpMethodVar")))
      s varEnd=$e(var,1,$l($c(14,1)_"TmpMethodVar"))_$c(1)_""
@@ -87852,7 +87945,6 @@ Log(val)
   s ^%debug1=^%debug1+1,^%debug1(^%debug1)="("_$j_")"_val
   q 
     
-
 ]]></Routine>
 
 
@@ -88138,7 +88230,6 @@ Audit n ix,ct,at
 
 
 <Class name="%ZSMWrap.Template.Persistent">
-<IncludeCode/>
 <Language>cache</Language>
 <Super>%Library.Persistent</Super>
 <TimeCreated>64692,59419.22201</TimeCreated>
@@ -88151,6 +88242,8 @@ Audit n ix,ct,at
 <IndexLocation>^%ZSMWrap.Template.PersistentI</IndexLocation>
 <StreamLocation>^%ZSMWrap.Template.PersistentS</StreamLocation>
 <Data name="PersistentDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>
@@ -88168,7 +88261,6 @@ Audit n ix,ct,at
 
 
 <Class name="%ZSMWrap.Template.SerialObject">
-<IncludeCode/>
 <Language>cache</Language>
 <Super>%Library.SerialObject</Super>
 <TimeCreated>64621,58447.772797</TimeCreated>
@@ -88629,20 +88721,24 @@ ReplaceText(Text,PackName) public {
     /*
     zn "%SYS"
     d export^MAKOVA("C:\TEMP\SMWRap\smwrap\SMWServerInstall\CreateFileXML\SMWrap.xml")
+    
+    d ExportUDL^MAKOVA("C:\Temp\SMWRap\smwrap\SMWrapClassesUDL\")
+    
     */
 export(path)
  ;  d RUN^%ZMRPMD("E:\!5autoexport\myasnikovia\MakovaBackUp\")
+ ;  d RUN^%ZMRPMD("C:\BackUp\")
  ;  d HALT^%ZMRPMD 
+ ;  d HALT^%ZMRPMD    ; РћСЃС‚Р°РЅРѕРІРёС‚СЊ СЃРµСЂРІРµСЂ
  ;  d CONFIG^%ZMRPMD
      k all
      s all("MAKOVA.MAC")=""
      s all("MAKOVABIN.MAC")=""
      s all("Convert2012.MAC")=""
-    ; 
-    ; РЎРµСЂРІРµСЂ 
+   ; 
+   ; РЎРµСЂРІРµСЂ 
      s all("%Const.INC")=""
      s all("%ZConst.INC")=""
-     s all("%ZMRAUTH.INT")=""
      s all("ZMRDEF.INC")=""
      s all("%ZMRASD.MAC")=""
      s all("%ZMRAUTH.MAC")=""
@@ -88830,7 +88926,200 @@ export(path)
      q
 delete(path)
       
-     q 
+       ; d ExportUDL^MAKOVA("C:\Temp\SMWRap\smwrap\SMWrapClassesUDL\")
+ExportUDL(path="C:\Temp\SMWRap\smwrap\SMWrapClassesUDL\")      
+   d $system.OBJ.ExportUDL("%ZMSrv.Controller.CLS", path_"%ZMSrv.Controller.CLS","/diffexport")
+   k all
+   d $system.OBJ.ExportUDL("MAKOVA.MAC", path_"MAKOVA.MAC","/diffexport")
+   d $system.OBJ.ExportUDL("MAKOVABIN.MAC", path_"MAKOVABIN.MAC","/diffexport")
+   d $system.OBJ.ExportUDL("Convert2012.MAC", path_"Convert2012.MAC","/diffexport")
+   ; 
+   d $system.OBJ.ExportUDL("%Const.INC", path_"%Const.INC","/diffexport")
+   d $system.OBJ.ExportUDL("%ZConst.INC", path_"%ZConst.INC","/diffexport")
+   d $system.OBJ.ExportUDL("ZMRDEF.INC", path_"ZMRDEF.INC","/diffexport")
+   d $system.OBJ.ExportUDL("%ZMRASD.MAC", path_"%ZMRASD.MAC","/diffexport")
+   d $system.OBJ.ExportUDL("%ZMRAUTH.MAC", path_"%ZMRAUTH.MAC","/diffexport")
+   d $system.OBJ.ExportUDL("%ZMREVENT.MAC", path_"%ZMREVENT.MAC","/diffexport")
+   d $system.OBJ.ExportUDL("%ZMRINS.MAC", path_"%ZMRINS.MAC","/diffexport")
+   d $system.OBJ.ExportUDL("%ZMRPMD.MAC", path_"%ZMRPMD.MAC","/diffexport")
+   d $system.OBJ.ExportUDL("%ZMRSMGR.MAC", path_"%ZMRSMGR.MAC","/diffexport")
+   d $system.OBJ.ExportUDL("%ZGLEXIM.MAC", path_"%ZGLEXIM.MAC","/diffexport")
+   d $system.OBJ.ExportUDL("%ZMRProgramCosta.MAC", path_"%ZMRProgramCosta.MAC","/diffexport")
+   d $system.OBJ.ExportUDL("%ZMRProgramAuthor.MAC", path_"%ZMRProgramAuthor.MAC","/diffexport")
+   d $system.OBJ.ExportUDL("%ZMRMStudioHooks.MAC", path_"%ZMRMStudioHooks.MAC","/diffexport")
+     
+   
+   d $system.OBJ.ExportUDL("%ZSMWrap.Class.CLS", path_"%ZSMWrap.Class.CLS","/diffexport")
+     ;  s all("%ZSMWrap.Utility.CLS", path,"/diffexport")
+     ;  s all("%ZSMWrap.Client.CLS", path,"/diffexport") 
+   d $system.OBJ.ExportUDL("%ZSMWrap.Server.CLS", path_"%ZSMWrap.Server.CLS","/diffexport") 
+   
+   d $system.OBJ.ExportUDL("%ZSMWrap.Template.Castum.CLS", path_"%ZSMWrap.Template.Castum.CLS","/diffexport")
+   d $system.OBJ.ExportUDL("%ZSMWrap.Template.Csp.CLS", path_"%ZSMWrap.Template.Csp.CLS","/diffexport")
+   d $system.OBJ.ExportUDL("%ZSMWrap.Template.Form.CLS", path_"%ZSMWrap.Template.Form.CLS","/diffexport")
+   d $system.OBJ.ExportUDL("%ZSMWrap.Template.Persistent.CLS", path_"%ZSMWrap.Template.Persistent.CLS","/diffexport")
+   d $system.OBJ.ExportUDL("%ZSMWrap.Template.Registered.CLS", path_"%ZSMWrap.Template.Registered.CLS","/diffexport")
+   d $system.OBJ.ExportUDL("%ZSMWrap.Template.SerialObject.CLS", path_"%ZSMWrap.Template.SerialObject.CLS","/diffexport")
+   d $system.OBJ.ExportUDL("%ZSMWrap.Template.ShadowControl.CLS", path_"%ZSMWrap.Template.ShadowControl.CLS","/diffexport")
+   d $system.OBJ.ExportUDL("%ZSMWrap.Template.WebSocketServer.CLS", path_"%ZSMWrap.Template.WebSocketServer.CLS","/diffexport")
+   d $system.OBJ.ExportUDL("%ZSMWrap.Template.XDataHTML.CLS", path_"%ZSMWrap.Template.XDataHTML.CLS","/diffexport")
+   d $system.OBJ.ExportUDL("%ZSMWrap.Template.WebForm.CLS", path_"%ZSMWrap.Template.WebForm.CLS","/diffexport")
+   
+   d $system.OBJ.Export("^%ZSMTemplate.GBL", path_"^%ZSMTemplate.XML","/diffexport")   
+   ;
+   ;   s all("SMProject.GBL", path,"/diffexport")     ; Р“Р»РѕР±Р°Р»СЊ РІ РєРѕС‚РѕСЂРѕР№ С…СЂР°РЅРёС‚СЃСЏ  РѕРїРёСЃР°РЅРёРµ РїСЂРѕРµРєС‚РѕРІ
+   ;   s all("User.zRunTest.CLS", path,"/diffexport") ; РЎС‚Р°СЂС‚РѕРІС‹Р№ РєР»Р°СЃСЃ
+   ;
+   ; РєР»Р°СЃСЃС‹ РњРђРљРћР’Рђ
+   d $system.OBJ.ExportUDL("%Library.SMProject.cls", path_"%Library.SMProject.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMWebFormClass.CLS", path_"%Library.TMWebFormClass.CLS","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMApplication.cls", path_"%Library.TMApplication.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMAreaSeries.cls", path_"%Library.TMAreaSeries.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMArrowSeries.cls", path_"%Library.TMArrowSeries.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMAsync.cls", path_"%Library.TMAsync.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMBarSeries.cls", path_"%Library.TMBarSeries.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMBevel.cls", path_"%Library.TMBevel.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMBitmap.cls", path_"%Library.TMBitmap.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMBrush.cls", path_"%Library.TMBrush.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMBubbleSeries.cls", path_"%Library.TMBubbleSeries.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMButton.cls", path_"%Library.TMButton.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMButtonGrid.cls", path_"%Library.TMButtonGrid.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMCanvas.cls", path_"%Library.TMCanvas.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMChart.cls", path_"%Library.TMChart.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMChartAxis.cls", path_"%Library.TMChartAxis.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMChartAxisTitle.cls", path_"%Library.TMChartAxisTitle.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMChartGradient.cls", path_"%Library.TMChartGradient.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMChartLegend.cls", path_"%Library.TMChartLegend.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMChartPen.cls", path_"%Library.TMChartPen.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMChartSeries.cls", path_"%Library.TMChartSeries.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMChartShape.cls", path_"%Library.TMChartShape.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMChartTitle.cls", path_"%Library.TMChartTitle.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMChartValueList.cls", path_"%Library.TMChartValueList.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMChartWall.cls", path_"%Library.TMChartWall.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMCheckBox.cls", path_"%Library.TMCheckBox.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMCheckListBox.cls", path_"%Library.TMCheckListBox.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMClientDataSet.cls", path_"%Library.TMClientDataSet.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMColorDialog.cls", path_"%Library.TMColorDialog.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMComboBox.cls", path_"%Library.TMComboBox.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMComBuffer.cls", path_"%Library.TMComBuffer.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMComFlowControl.cls", path_"%Library.TMComFlowControl.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMComParity.cls", path_"%Library.TMComParity.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMComPort.cls", path_"%Library.TMComPort.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMCompositeReport.cls", path_"%Library.TMCompositeReport.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMComTimeouts.cls", path_"%Library.TMComTimeouts.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMControl.cls", path_"%Library.TMControl.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMControlScrollBar.cls", path_"%Library.TMControlScrollBar.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMConverter.cls", path_"%Library.TMConverter.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMCustomBarSeries.cls", path_"%Library.TMCustomBarSeries.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMCustomSeries.cls", path_"%Library.TMCustomSeries.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMDataSet.cls", path_"%Library.TMDataSet.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMDataSource.cls", path_"%Library.TMDataSource.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMDateEdit.cls", path_"%Library.TMDateEdit.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMDBCheckBox.cls", path_"%Library.TMDBCheckBox.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMDBComboBox.cls", path_"%Library.TMDBComboBox.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMDBDateEdit.cls", path_"%Library.TMDBDateEdit.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMDBEdit.cls", path_"%Library.TMDBEdit.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMDBGrid.cls", path_"%Library.TMDBGrid.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMDBImage.cls", path_"%Library.TMDBImage.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMDBLabel.cls", path_"%Library.TMDBLabel.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMDBListBox.cls", path_"%Library.TMDBListBox.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMDBLookupComboBox.cls", path_"%Library.TMDBLookupComboBox.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMDBLookupListBox.cls", path_"%Library.TMDBLookupListBox.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMDBMemo.cls", path_"%Library.TMDBMemo.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMDBNumberEdit.cls", path_"%Library.TMDBNumberEdit.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMDBRadioGroup.cls", path_"%Library.TMDBRadioGroup.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMDock.cls", path_"%Library.TMDock.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMEdit.cls", path_"%Library.TMEdit.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMFastLineSeries.cls", path_"%Library.TMFastLineSeries.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMFDesigner.cls", path_"%Library.TMFDesigner.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMFieldDef.cls", path_"%Library.TMFieldDef.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMFieldDefs.cls", path_"%Library.TMFieldDefs.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMFileStream.cls", path_"%Library.TMFileStream.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMFont.cls", path_"%Library.TMFont.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMFontDialog.cls", path_"%Library.TMFontDialog.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMForm.cls", path_"%Library.TMForm.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMFormClass.cls", path_"%Library.TMFormClass.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMFReport.cls", path_"%Library.TMFReport.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMGanttSeries.cls", path_"%Library.TMGanttSeries.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMGaugeAttrs.cls", path_"%Library.TMGaugeAttrs.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMGraphic.cls", path_"%Library.TMGraphic.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMGridColumn.cls", path_"%Library.TMGridColumn.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMGridColumns.cls", path_"%Library.TMGridColumns.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMGroupBox.cls", path_"%Library.TMGroupBox.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMHorizBarSeries.cls", path_"%Library.TMHorizBarSeries.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMIcon.cls", path_"%Library.TMIcon.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMIconOptions.cls", path_"%Library.TMIconOptions.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMImage.cls", path_"%Library.TMImage.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMImageList.cls", path_"%Library.TMImageList.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMLabel.cls", path_"%Library.TMLabel.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMLineSeries.cls", path_"%Library.TMLineSeries.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMListBox.cls", path_"%Library.TMListBox.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMListColumn.cls", path_"%Library.TMListColumn.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMListColumns.cls", path_"%Library.TMListColumns.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMListItem.cls", path_"%Library.TMListItem.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMListItems.cls", path_"%Library.TMListItems.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMListView.cls", path_"%Library.TMListView.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMLocator.cls", path_"%Library.TMLocator.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMMainMenu.cls", path_"%Library.TMMainMenu.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMMemo.cls", path_"%Library.TMMemo.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMMenuItem.cls", path_"%Library.TMMenuItem.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMNotebook.cls", path_"%Library.TMNotebook.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMNumberEdit.cls", path_"%Library.TMNumberEdit.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMOleContainer.cls", path_"%Library.TMOleContainer.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMOleObject.cls", path_"%Library.TMOleObject.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMOpenDialog.cls", path_"%Library.TMOpenDialog.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMPage.cls", path_"%Library.TMPage.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMPageControl.cls", path_"%Library.TMPageControl.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMPaintBox.cls", path_"%Library.TMPaintBox.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMPanel.cls", path_"%Library.TMPanel.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMParaAttributes.cls"_"%Library.TMParaAttributes.cls", path,"/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMPen.cls", path_"%Library.TMPen.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMPersistent.cls", path_"%Library.TMPersistent.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMPieOtherSlice.cls", path_"%Library.TMPieOtherSlice.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMPieSeries.cls", path_"%Library.TMPieSeries.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMPointSeries.cls", path_"%Library.TMPointSeries.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMPopupMenu.cls", path_"%Library.TMPopupMenu.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMPrintDialog.cls", path_"%Library.TMPrintDialog.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMPrinter.cls", path_"%Library.TMPrinter.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMPrinterSetupDialog.cls", path_"%Library.TMPrinterSetupDialog.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMProgressBar.cls", path_"%Library.TMProgressBar.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMQuery.cls", path_"%Library.TMQuery.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMRadioButton.cls", path_"%Library.TMRadioButton.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMRadioGroup.cls", path_"%Library.TMRadioGroup.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMRichEdit.cls", path_"%Library.TMRichEdit.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMRxDrawGrid.cls", path_"%Library.TMRxDrawGrid.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMSaveDialog.cls", path_"%Library.TMSaveDialog.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMScrollBar.cls", path_"%Library.TMScrollBar.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMScrollBox.cls", path_"%Library.TMScrollBox.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMSeriesMarks.cls", path_"%Library.TMSeriesMarks.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMSeriesPointer.cls", path_"%Library.TMSeriesPointer.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMShape.cls", path_"%Library.TMShape.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMSizeConstraints.cls", path_"%Library.TMSizeConstraints.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMSpeedButton.cls", path_"%Library.TMSpeedButton.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMSplitter.cls", path_"%Library.TMSplitter.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMStatusBar.cls", path_"%Library.TMStatusBar.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMStatusPanel.cls", path_"%Library.TMStatusPanel.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMStatusPanels.cls", path_"%Library.TMStatusPanels.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMStringGrid.cls", path_"%Library.TMStringGrid.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMStringList.cls", path_"%Library.TMStringList.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMStrings.cls", path_"%Library.TMStrings.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMTabControl.cls", path_"%Library.TMTabControl.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMTabSet.cls", path_"%Library.TMTabSet.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMTabSheet.cls", path_"%Library.TMTabSheet.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMTextAttributes.cls", path_"%Library.TMTextAttributes.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMTimer.cls", path_"%Library.TMTimer.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMToolbar.cls", path_"%Library.TMToolbar.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMToolbarSep.cls", path_"%Library.TMToolbarSep.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMTrackBar.cls", path_"%Library.TMTrackBar.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMTreeNode.cls", path_"%Library.TMTreeNode.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMTreeNodes.cls", path_"%Library.TMTreeNodes.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMTreeView.cls", path_"%Library.TMTreeView.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMView3DOptions.cls", path_"%Library.TMView3DOptions.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMWinControl.cls", path_"%Library.TMWinControl.cls","/diffexport")
+   d $system.OBJ.ExportUDL("%Library.TMParaAttributes.cls", path_"%Library.TMParaAttributes.cls","/diffexport")
+   
+   
+   q 
 
 ]]></Routine>
 
