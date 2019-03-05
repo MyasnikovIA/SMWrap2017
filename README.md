@@ -56,6 +56,17 @@
 </pre>
 
 
+Video installation instructions: https://youtu.be/WZRcpL2r3rc
+
+[![](http://img.youtube.com/vi/=QrpkW_bTKHI/0.jpg)](https://www.youtube.com/watch?v=QrpkW_bTKHI "")
+
+
+
+
+
+
+
+
 
 
 
