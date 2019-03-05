@@ -56,7 +56,7 @@
 </pre>
 
 
-Video installation instructions: https://youtu.be/QrpkW_bTKHI
+Edit Class in SMWrap studio: https://youtu.be/QrpkW_bTKHI
 [![](http://img.youtube.com/vi/QrpkW_bTKHI/0.jpg)](http://www.youtube.com/watch?v=QrpkW_bTKHI "")
 
 
