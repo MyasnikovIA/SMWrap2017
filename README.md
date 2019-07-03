@@ -1,4 +1,4 @@
-# SMWrap2017 Makova  (SMWrap V3.2.0)  
+# SMWrap2017 Makova  (SMWrap V3.4.20)  
 # CodePage UTF8
 
 <br><h3>www.smwrap.ru</h3>
