@@ -1,8 +1,8 @@
 # SMWrap2017 Makova  (SMWrap V3.4.20)  
 
-<br><h3>www.smwrap.ru</h3>
+<br><!--<h3>www.smwrap.ru</h3>-->
 <h4>Среда разработки приложений на Cache` Intersystems(IRIS)</h4>
-<br> 1) Перед инсталяцией переключите базу данных "CACHELIB" в режим записи:
+<br> 1) Перед ручной инсталяцией переключите базу данных "CACHELIB" в режим записи:
 <br> http://localhost:57773/csp/sys/mgr/%25CSP.UI.Portal.Databases.zen  зайти в "CACHELIB" и убрать галочку "Переключитьтолько чтения"
  <img src="https://github.com/MyasnikovIA/SMWrap2017/blob/master/CacheLib(ReadOnly).png?raw=true"/>
  
