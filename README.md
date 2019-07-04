@@ -1,13 +1,16 @@
-# SMWrap2017 Makova  (SMWrap V3.4.20)  
-
-<br><!--<h3>www.smwrap.ru</h3>-->
+# SMWrap V3.4.20 (MAKOVA)  
+<!--<h3>www.smwrap.ru</h3>-->
 <h4>Среда разработки приложений на Cache` Intersystems(IRIS)</h4>
-<br> 1) Перед ручной инсталяцией переключите базу данных "CACHELIB" в режим записи:
+
+Edit Class in SMWrap studio: https://youtu.be/QykB_8L7DyQ
+[![](http://img.youtube.com/vi/QrpkW_bTKHI/0.jpg)](https://youtu.be/QykB_8L7DyQ "")
+
+<br> 1) Перед ручной инсталяцией классов (smwrap.xml) переключите базу данных "CACHELIB" в режим записи:
 <br> http://localhost:57773/csp/sys/mgr/%25CSP.UI.Portal.Databases.zen  зайти в "CACHELIB" и убрать галочку "Переключитьтолько чтения"
  <img src="https://github.com/MyasnikovIA/SMWrap2017/blob/master/CacheLib(ReadOnly).png?raw=true"/>
  
 <br> 
- <br> 2) В терминале написать команду   do $system.OBJ.Load("c:\XML\SMWrap.xml","c")
+ <br> 2) В терминале написать команду   do $system.OBJ.Load("C:\Program Files (x86)\SMWrap\smwrap.xml","c")
  <h3> Скрипт для инсталляции:</h3>
  <pre>
       s OldNs=$zu(5)
@@ -15,7 +18,7 @@
       set db=##class(SYS.Database).%OpenId("CACHELIB")
       set db.ReadOnly=0 
       w db.%Save()
-      do $system.OBJ.Load("c:\XML\SMWrap.xml","c")    ; "c:\XML\SMWrap.xml" - путь к файлу на сервере   
+      do $system.OBJ.Load("C:\Program Files (x86)\SMWrap\smwrap.xml","c")    ; "C:\Program Files (x86)\SMWrap\smwrap.xml" - путь к файлу на сервере   
       set db.ReadOnly=1
       w db.%Save()
       do $zu(5,OldNs)
@@ -45,11 +48,6 @@
      -nUSER       - Область имен "USER"
      -fUser.HelloWorldFRM - класс который мы запускаем  "User.HelloWorldFRM" 
 </pre>
-
-
-Edit Class in SMWrap studio: https://youtu.be/QykB_8L7DyQ
-[![](http://img.youtube.com/vi/QrpkW_bTKHI/0.jpg)](https://youtu.be/QykB_8L7DyQ "")
-
 
 
 
