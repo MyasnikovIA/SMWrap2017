@@ -1,5 +1,4 @@
 # SMWrap2017 Makova  (SMWrap V3.4.20)  
-# CodePage UTF8
 
 <br><h3>www.smwrap.ru</h3>
 <h4>Среда разработки приложений на Cache` Intersystems(IRIS)</h4>
@@ -33,14 +32,14 @@
 
 <br> <h2>Создать класс для клиента Desktop</h2>
 <br>
-<br> 1) Запуск MStudio.exe
+<br> 1) Запуск smwdev.exe
 <br> 2) Файл->Новый-> Класс..
 <br> 3) Указываем имя нового класса и выбираем шаблон "SMWrap форма(дизайнер)" 
 <br> 4) В правой панели класса , с верху появится закладка "Designer"  вней присутствуют компоненты формы (работать как в Delphi)
 <br> 5) F9 запуск формы на просмотр
 <br>
 <br> для запуска этого класса без MStudio из командной строки:
-<h3>MPlayer.exe -h127.0.0.1 -nUSER -t100 -fUser.HelloWorldFRM -p7200</h3>
+<h3>smwrt.exe -h127.0.0.1 -nUSER -t100 -fUser.HelloWorldFRM -p7200</h3>
 <pre>
      -h127.0.0.1  - хост сервера "127.0.0.1"
      -p7200       - Порт сервера 7200
