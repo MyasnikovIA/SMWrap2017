@@ -2,7 +2,7 @@
 <!--<h3>www.smwrap.ru</h3>-->
 <h4>Среда разработки приложений на Cache` Intersystems(IRIS)</h4>
 
-Edit Class in SMWrap studio: https://youtu.be/QykB_8L7DyQ
+Install SMWrap studio: https://youtu.be/QykB_8L7DyQ
 [![](http://img.youtube.com/vi/QrpkW_bTKHI/0.jpg)](https://youtu.be/QykB_8L7DyQ "")
 
 <br> 1) Перед ручной инсталяцией классов (smwrap.xml) переключите базу данных "CACHELIB" в режим записи:
