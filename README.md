@@ -56,7 +56,7 @@
 
 
 Edit Class in SMWrap studio: https://youtu.be/QykB_8L7DyQ
-[![](http://img.youtube.com/vi/QrpkW_bTKHI/0.jpg)](https://youtu.be/QykB_8L7DyQ"")
+[![](http://img.youtube.com/vi/QrpkW_bTKHI/0.jpg)](https://youtu.be/QykB_8L7DyQ "")
 
 
 
