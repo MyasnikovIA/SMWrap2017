@@ -18,7 +18,8 @@ Edit Class in SMWrap studio: https://youtu.be/QykB_8L7DyQ
       set db=##class(SYS.Database).%OpenId("CACHELIB")
       set db.ReadOnly=0 
       w db.%Save()
-      do $system.OBJ.Load("C:\Program Files (x86)\SMWrap\smwrap.xml","c")    ; "C:\Program Files (x86)\SMWrap\smwrap.xml" - путь к файлу на сервере   
+      ; "C:\Program Files (x86)\SMWrap\smwrap.xml" - путь к файлу на сервере   
+      do $system.OBJ.Load("C:\Program Files (x86)\SMWrap\smwrap.xml","c")  
       set db.ReadOnly=1
       w db.%Save()
       do $zu(5,OldNs)
