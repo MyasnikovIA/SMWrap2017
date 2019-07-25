@@ -1,6 +1,7 @@
 # SMWrap V3.4.20 (MAKOVA)  
 <!--<h3>www.smwrap.ru</h3>-->
 <h4>Среда разработки приложений на Cache` Intersystems(IRIS)</h4>
+ <img src="https://github.com/MyasnikovIA/SMWrap2017/blob/master/logo.png?raw=true"/>
 
 Install SMWrap studio: https://youtu.be/QykB_8L7DyQ <br>
 [![](http://img.youtube.com/vi/QrpkW_bTKHI/0.jpg)](https://youtu.be/QykB_8L7DyQ "")
@@ -23,12 +24,12 @@ Install SMWrap studio: https://youtu.be/QykB_8L7DyQ <br>
       set db.ReadOnly=1
       w db.%Save()
       do $zu(5,OldNs)
-      do RUN^%ZMRPMD()
+      do RUN^%ZMRPMD
  </pre>
 <br> 
 <br> 3) Запустить сервер из Cache' терминала
 <pre>
-   d RUN^%ZMRPMD()              - запустить сервер
+   d RUN^%ZMRPMD              - запустить сервер
    d HALT^%ZMRPMD               - Остановить сервер
    d CONFIG^%ZMRPMD             - настроить сервер в Cache' терминале
 </pre>
