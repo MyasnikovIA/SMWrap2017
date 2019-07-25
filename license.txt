@@ -1,0 +1,39 @@
+      SMWrap license agreement
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      License for use and distribution
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+      This version of SMWrap is FREE.
+      
+      Terms and agreements of using FREE version of SMWrap:
+
+   1. All copyrights to SMWrap are exclusively owned by the author(s).
+
+   2. Anyone may use this software during any period.
+
+   3. SMWrap freeware version may be freely distributed, provided
+      the distribution package is not modified. No person or  company
+      may charge a fee for the distribution of SMWrap without written
+      or PGP signed permission from the copyright holder. 
+
+   4. SMWRAP TOOLS ARE DISTRIBUTED "AS IS".  NO WARRANTY OF ANY
+      KIND IS EXPRESSED OR IMPLIED.  YOU USE AT YOUR OWN RISK.
+      THE AUTHOR WILL NOT BE LIABLE FOR DATA LOSS, DAMAGES, LOSS
+      OF PROFITS OR ANY OTHER KIND OF LOSS WHILE USING OR MISUSING
+      THIS SOFTWARE.
+
+   5. You may not use, copy, emulate, clone, rent, lease, sell, modify,
+      decompile, disassemble, otherwise reverse engineer, or transfer the
+      licensed program, or any subset of the licensed program, except as 
+      provided for in this agreement.  Any such unauthorized use shall 
+      result in immediate and automatic termination of this license and
+      may result in criminal and/or civil prosecution.
+
+      All rights not expressly granted here are reserved by Makova Soft.
+
+   6. Installing and using SMWrap signifies acceptance of these terms
+      and conditions of the license.
+
+   7. If you do not agree with the terms of this license you must remove
+      SMWrap files from your storage devices and cease to use the 
+      product.
